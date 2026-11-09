@@ -163,14 +163,123 @@ export const market = {
     { placeholder: true, title: 'Вывод из сигналов рынка', text: 'Будет заполнено после появления подтвержденного регуляторного или конкурентного сигнала.' }
   ],
   demographics: {
-    intro: 'Демография показывает изменение потенциальной базы, а не число владельцев КЭП, клиентов УЦ или подтвержденный спрос на коммерческие сертификаты.',
-    indicators: [
-      { name: 'Юридические лица', current: '3 103 619', change: '−3,9%', points: [{ date: '01.04.2024', value: '3,230 млн' }, { date: '01.04.2025', value: '3,214 млн' }, { date: '01.07.2026', value: '3 103 619' }], source: { label: 'ФНС России ↗', href: 'https://www.nalog.gov.ru/rn77/related_activities/statistics_and_analytics/regstats/' } },
-      { name: 'ИП и КФХ', current: '4 977 355', change: '+14,9%', points: [{ date: '01.04.2024', value: '4,332 млн' }, { date: '01.04.2025', value: '4,607 млн' }, { date: '01.07.2026', value: '4 977 355' }], source: { label: 'ФНС России ↗', href: 'https://www.nalog.gov.ru/rn77/related_activities/statistics_and_analytics/regstats/' } },
-      { name: 'Самозанятые / НПД', current: '16,188 млн', change: '+61,9%', points: [{ date: '08.04.2024', value: '10,0 млн' }, { date: '01.04.2025', value: '≈13,0 млн' }, { date: '01.04.2026', value: '16,188 млн' }], source: { label: 'ФНС России ↗', href: 'https://geochecki-vpd.nalog.gov.ru/self-employment' } }
+    "intro": "Демография показывает изменение потенциальной базы, а не число владельцев КЭП, клиентов УЦ или подтвержденный спрос на коммерческие сертификаты.",
+    "indicators": [
+      {
+        "name": "Юридические лица",
+        "current": "3 058 737",
+        "currentAsOf": "01.10.2026",
+        "change": "−3,4%",
+        "changeLabel": "г/г · к 01.10.2025",
+        "points": [
+          {
+            "date": "01.10.2025",
+            "value": "3 167 085",
+            "source": {
+              "label": "ФНС России ↗",
+              "href": "https://www.nalog.gov.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/forms/reg/1ur_2025_10.zip"
+            }
+          },
+          {
+            "date": "01.08.2026",
+            "value": "3 080 451",
+            "source": {
+              "label": "ФНС России ↗",
+              "href": "https://www.nalog.gov.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/forms/reg/1ur_2026_08.zip"
+            }
+          },
+          {
+            "date": "01.10.2026",
+            "value": "3 058 737",
+            "source": {
+              "label": "ФНС России ↗",
+              "href": "https://www.nalog.gov.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/forms/reg/1ur10_26.zip"
+            }
+          }
+        ],
+        "source": {
+          "label": "ФНС России — исходный отчёт ↗",
+          "href": "https://www.nalog.gov.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/forms/reg/1ur10_26.zip"
+        }
+      },
+      {
+        "name": "ИП и КФХ",
+        "current": "5 071 884",
+        "currentAsOf": "01.10.2026",
+        "change": "+5,8%",
+        "changeLabel": "г/г · к 01.10.2025",
+        "points": [
+          {
+            "date": "01.10.2025",
+            "value": "4 793 422",
+            "source": {
+              "label": "ФНС России ↗",
+              "href": "https://www.nalog.gov.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/forms/reg/1ip_2025_10.zip"
+            }
+          },
+          {
+            "date": "01.08.2026",
+            "value": "4 993 525",
+            "source": {
+              "label": "ФНС России ↗",
+              "href": "https://www.nalog.gov.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/forms/reg/1ip_2026_08.zip"
+            }
+          },
+          {
+            "date": "01.10.2026",
+            "value": "5 071 884",
+            "source": {
+              "label": "ФНС России ↗",
+              "href": "https://www.nalog.gov.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/forms/reg/1ip10_26.zip"
+            }
+          }
+        ],
+        "source": {
+          "label": "ФНС России — исходный отчёт ↗",
+          "href": "https://www.nalog.gov.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/forms/reg/1ip10_26.zip"
+        }
+      },
+      {
+        "name": "Самозанятые / НПД",
+        "current": "17 678 467",
+        "currentAsOf": "30.09.2026",
+        "change": "+20,8%",
+        "changeLabel": "г/г · к 30.09.2025",
+        "points": [
+          {
+            "date": "30.09.2025",
+            "value": "14 631 814",
+            "source": {
+              "label": "ФНС России ↗",
+              "href": "https://geochecki-vpd.nalog.gov.ru/api/api/v1/self-employers/count-dynamics/2025"
+            }
+          },
+          {
+            "date": "30.06.2026",
+            "value": "16 890 753",
+            "source": {
+              "label": "ФНС России ↗",
+              "href": "https://geochecki-vpd.nalog.gov.ru/api/api/v1/self-employers/count-dynamics/2026"
+            }
+          },
+          {
+            "date": "30.09.2026",
+            "value": "17 678 467",
+            "source": {
+              "label": "ФНС России ↗",
+              "href": "https://geochecki-vpd.nalog.gov.ru/api/api/v1/self-employers/count-dynamics/2026"
+            }
+          }
+        ],
+        "source": {
+          "label": "ФНС России — статистика НПД ↗",
+          "href": "https://geochecki-vpd.nalog.gov.ru/api/api/v1/self-employers/count-dynamics/2026"
+        }
+      }
     ],
-    conclusion: 'Юридических лиц становится меньше, число ИП растет. Это изменение потенциальной клиентской базы, а не подтвержденная динамика спроса на КЭП.',
-    caveat: 'Самозанятых нельзя автоматически суммировать с юридическими лицами и ИП: часть плательщиков НПД одновременно имеет статус ИП.'
+    "conclusion": "Юридических лиц становится меньше, число ИП растет. Это изменение потенциальной клиентской базы, а не подтвержденная динамика спроса на КЭП.",
+    "caveat": "Период анализа — январь–сентябрь 2026. ЮЛ и ИП/КФХ показаны на начало следующего дня после окончания периода, НПД — на конец сентября. Это остаток зарегистрированных субъектов, а не количество регистраций за девять месяцев. Динамика — к сопоставимому срезу годом ранее. Самозанятых нельзя суммировать с ЮЛ и ИП: часть плательщиков НПД имеет статус ИП.",
+    "period": "Январь–сентябрь 2026"
   },
   methodology: {
     reading: [

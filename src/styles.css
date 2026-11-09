@@ -1112,3 +1112,7 @@ footer { background: var(--navy); color: #dce7ed; padding: 28px max(24px, calc((
 .growth-row > .growth-track > i { position: absolute; top: 0; }
 .competitor-growth .growth-row.is-negative i { background: #c84743; }
 .competitor-growth .growth-row.is-negative b { color: #b43734; }
+
+.demographic-as-of { display:block; margin:5px 0; color:var(--muted); font-size:12px; }
+.demographics-v2 li a { color:var(--navy); text-decoration:none; }
+.demographics-v2 li a:hover { text-decoration:underline; }
