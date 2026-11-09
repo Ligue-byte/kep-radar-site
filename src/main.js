@@ -869,6 +869,19 @@ function renderCompetitorLogo(logo) {
   return logo ? `<span class="competitor-logo logo-slot ${esc(logo.variant ? `is-${logo.variant}` : '')}"><img src="${esc(logo.src)}" alt="${esc(logo.alt)}"></span>` : '';
 }
 
+function renderGrowthRows(items) {
+  const values = items.map((item) => item.value);
+  const min = Math.min(0, ...values);
+  const max = Math.max(0, ...values);
+  const span = max - min || 1;
+  const zero = -min / span * 100;
+  return items.map((item) => {
+    const left = (Math.min(0, item.value) - min) / span * 100;
+    const width = Math.abs(item.value) / span * 100;
+    return `<div class="growth-row ${esc(item.id)}${item.value < 0 ? ' is-negative' : ''}"><p>${esc(item.label)}</p><div class="growth-track" style="--growth-zero:${zero}%"><i style="left:${left}%;width:${width}%"></i></div><b>${esc(item.display)}</b></div>`;
+  }).join('');
+}
+
 function renderCompetitorMarketPositionV2(competitor) {
   const data = competitor.marketComparison;
   const scaleMarkup = data.scale.map((item) => `<article><p>${textWithInfo(item.label, item.infoEmbedded ? infoWithEmbeddedSource(item, item.label) : item.info ? item.source ? infoWithSource(item.info, item.source, item.label) : info(item.info, item.label) : '')}</p>${item.values ? `<div class="competitor-scale-values">${item.values.map((value) => `<strong>${esc(value.value)}${value.label ? `<small>${esc(value.label)}</small>` : ''}</strong>`).join('')}</div>` : `<strong>${esc(item.value)}</strong>`}${item.note ? `<small>${esc(item.note)}</small>` : ''}${item.source && !item.info && !item.infoEmbedded ? `<small>${externalLink(item.source)}</small>` : ''}</article>`).join('');
@@ -876,17 +889,15 @@ function renderCompetitorMarketPositionV2(competitor) {
   if (data.mode === 'scale-only') {
     return section('РЫНОЧНАЯ ПОЗИЦИЯ', 'Показатели масштаба', `<div class="competitor-scale-grid competitor-scale-grid-${scaleCount}">${scaleMarkup}</div>`);
   }
-  const maxGrowth = Math.max(...data.growth.map((item) => item.value));
   const kpisMarkup = data.kpis.map((item, index) => `<article class="competitor-kpi ${index === 0 ? 'is-primary' : ''}"><p>${textWithInfo(item.label, item.info ? info(item.info, item.label) : '')}</p><strong>${esc(item.value)}</strong><small>${esc(item.note)}</small></article>`).join('');
-  const growthMarkup = data.growth.map((item) => `<div class="growth-row ${esc(item.id)}"><p>${esc(item.label)}</p><div><i style="width:${item.value / maxGrowth * 100}%"></i></div><b>${esc(item.display)}</b></div>`).join('');
+  const growthMarkup = renderGrowthRows(data.growth);
   return section('РЫНОЧНАЯ ПОЗИЦИЯ', 'Масштаб и динамика', `<div class="competitor-period">Сравнение: ${esc(data.period)}</div><div class="competitor-kpi-grid">${kpisMarkup}</div><div class="competitor-growth"><h3>Темпы роста выпуска</h3><div class="growth-chart">${growthMarkup}</div></div>${renderRadarAnalysis(data.conclusion)}<h3 class="competitor-subheading">Другие показатели масштаба</h3><div class="competitor-scale-grid competitor-scale-grid-${scaleCount}">${scaleMarkup}</div>`);
 }
 
 function renderKonturMarketPosition() {
   const data = kontur.marketComparison;
-  const maxGrowth = Math.max(...data.growth.map((item) => item.value));
   const kpis = data.kpis.map((item, index) => `<article class="competitor-kpi ${index === 0 ? 'is-primary' : ''}"><p>${esc(item.label)}</p><strong>${esc(item.value)}</strong><small>${esc(item.note)}</small></article>`).join('');
-  const growth = data.growth.map((item) => `<div class="growth-row ${esc(item.id)}"><p>${esc(item.label)}</p><div><i style="width:${item.value / maxGrowth * 100}%"></i></div><b>${esc(item.display)}</b></div>`).join('');
+  const growth = renderGrowthRows(data.growth);
   const scale = data.scale.map((item) => `<article><p>${textWithInfo(item.label, item.infoEmbedded ? infoWithEmbeddedSource(item, item.label) : item.info ? item.source ? infoWithSource(item.info, item.source, item.label) : info(item.info, item.label) : '')}</p><strong>${esc(item.value)}</strong>${item.note ? `<small>${esc(item.note)}</small>` : ''}</article>`).join('');
   const scaleCount = Math.max(1, Math.min(data.scale.length, 3));
   return section('РЫНОЧНАЯ ПОЗИЦИЯ', 'Масштаб и динамика', `<div class="competitor-period">Сравнение: ${esc(data.period)}</div><div class="competitor-kpi-grid">${kpis}</div><div class="competitor-growth"><h3>Темпы роста выпуска</h3><div class="growth-chart">${growth}</div></div>${renderRadarAnalysis(data.conclusion)}<h3 class="competitor-subheading">Другие показатели масштаба</h3><div class="competitor-scale-grid competitor-scale-grid-${scaleCount}">${scale}</div>`);
@@ -948,7 +959,7 @@ function competitorEventDetails(event, group) {
     <h3>${renderCompetitorEventTitle(event)}</h3>
     <p>${esc(event.details)}</p>
     ${event.caveat ? `<p><b>Важно учитывать.</b> ${esc(event.caveat)}</p>` : ''}
-    ${event.whyItMatters ? `<p><b>Почему важно.</b> ${esc(event.whyItMatters)}</p>` : ''}
+    ${event.whyItMatters ? renderRadarAnalysis(event.whyItMatters) : ''}
   </div><div class="signal-panel-sources">
     ${primarySource ? `<p>Основной источник</p>${externalLink(primarySource)}` : ''}
     ${additionalSources.length ? `<p>Дополнительные источники</p>${additionalSources.map(externalLink).join('')}` : ''}

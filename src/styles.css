@@ -1105,3 +1105,10 @@ footer { background: var(--navy); color: #dce7ed; padding: 28px max(24px, calc((
   .positioning-segments, .positioning-segments.positioning-segments-balanced, .positioning-scenarios, .positioning-advantages, .positioning-proof-grid { grid-template-columns: 1fr; }
   .competitor-scale-grid article + article { border-top: 1px solid var(--line); border-left: 0; }
 }
+
+/* Signed growth rates share a visible zero baseline. */
+.growth-row > .growth-track { position: relative; }
+.growth-row > .growth-track::after { content: ""; position: absolute; top: -3px; bottom: -3px; left: var(--growth-zero); width: 1px; background: #8799a6; }
+.growth-row > .growth-track > i { position: absolute; top: 0; }
+.competitor-growth .growth-row.is-negative i { background: #c84743; }
+.competitor-growth .growth-row.is-negative b { color: #b43734; }
