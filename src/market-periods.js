@@ -248,7 +248,7 @@ function periodRender() {
 function restorePickerFocus(id) { if(id)document.getElementById(id)?.focus({preventScroll:true}); }
 function onRootToggle(event) {
   const details=event.target;
-  if(!details.matches('.ranking-row-info')||!details.open)return;
+  if(!details.matches('.ranking-coverage-info')||!details.open)return;
   const anchor=details.querySelector('summary').getBoundingClientRect();
   const tooltip=details.querySelector('[role="tooltip"]');
   const bounds=tooltip.getBoundingClientRect();

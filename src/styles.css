@@ -1194,7 +1194,8 @@ footer { background: var(--navy); color: #dce7ed; padding: 28px max(24px, calc((
 .ranking-coverage-info { display: inline-flex; }
 .ranking-coverage-info > summary { display: grid; place-items: center; list-style: none; border: 1px solid currentColor; border-radius: 50%; width: 17px; height: 17px; color: var(--navy); font-size: 10px; font-weight: 600; cursor: pointer; line-height: 1; }
 .ranking-coverage-info > summary::-webkit-details-marker { display: none; }
-.ranking-coverage-info > [role="tooltip"] { position: absolute; z-index: 35; left: 0; top: calc(100% + 9px); width: min(290px,calc(100vw - 40px)); white-space: normal; padding: 11px 13px; background: white; border: 1px solid var(--line); box-shadow: 0 12px 35px #12395524; color: var(--ink); font-size: 12px; line-height: 1.4; }
+.ranking-coverage-info:not([open]) > [role="tooltip"] { display: none; }
+.ranking-coverage-info > [role="tooltip"] { position: fixed; z-index: 35; left: 0; top: calc(100% + 9px); width: min(290px,calc(100vw - 40px)); white-space: normal; padding: 11px 13px; background: white; border: 1px solid var(--line); box-shadow: 0 12px 35px #12395524; color: var(--ink); font-size: 12px; line-height: 1.4; }
 .period-player-info { display: inline-flex; align-items: center; gap: 7px; }
 .ranking-row-info { flex: 0 0 auto; }
 .ranking-row-info > [role="tooltip"] { position: fixed; z-index: 40; max-height: calc(100vh - 24px); overflow-y: auto; }
