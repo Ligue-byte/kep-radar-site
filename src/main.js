@@ -1,12 +1,22 @@
+import { createMarketMchd } from './market-mchd.js';
+import { marketMchdData } from './data/market-mchd.js';
 import { market } from './data/market.js';
+import { marketPeriodsData } from './data/market-periods.js';
+import { createMarketPeriods } from './market-periods.js';
+import { createMarketSignals } from './market-signals.js';
+import { createCompetitorEventArchive } from './competitor-events.js';
+import { marketSignalsData } from './data/market-signals.js';
 import { competitors, competitorList } from './data/competitors.js';
 import { kontur } from './data/kontur.js';
 import { downloadXlsx } from './xlsx.js';
 
+const competitorEventArchivesEnabled = true;
+const competitorEventArchiveControllers = new Map();
 const app = document.querySelector('#app');
+const marketPeriodsController = createMarketPeriods(marketPeriodsData, { download: downloadXlsx });
+const marketSignalsController = createMarketSignals(marketSignalsData);
 const esc = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char]);
 const linkTo = (item, label = item.name) => item.href ? `<a href="${esc(item.href)}">${esc(label)}</a>` : esc(label);
-let activeRankingMode = 'all';
 let activeFinancialMetric = 'revenue';
 
 // The Market navigation is the public entry point for competitor profiles.
@@ -38,7 +48,7 @@ function layout(content, current) {
       <nav><a class="${current === 'market' ? 'active' : ''}" href="#market">Рынок</a><a class="${current === 'kontur' ? 'active' : ''}" href="#kontur">Контур</a>${competitorMenu()}</nav>
     </header>
     <main>${content}</main>
-    <footer>${current === 'market' ? 'Данные за январь–июнь 2026 · методика, ограничения и источники доступны для проверки' : 'MVP · срез 1П 2026 · факты, расчёты и аналитические выводы разделены'}</footer>`;
+    <footer>${current === 'market' ? 'Периоды данных указаны в разделах · методика, ограничения и источники доступны для проверки' : 'Периоды данных указаны в разделах · факты, расчёты и аналитические выводы разделены'}</footer>`;
 }
 
 const section = (eyebrow, title, body, className = '') => `<section class="${className}"><p class="eyebrow">${esc(eyebrow)}</p><h2>${esc(title)}</h2>${body}</section>`;
@@ -94,6 +104,15 @@ const infoWithEmbeddedSource = (item, label) => {
 };
 const infoWithSource = (text, source, label = 'Пояснение') => infoTip(`${esc(text)} ${externalLink(source)}`, label);
 const inlineInfo = (content, tooltip, className = '') => tooltip ? `<span class="info-inline${className ? ` ${className}` : ''}"><span>${content}</span>${tooltip}</span>` : content;
+const marketMchdController = createMarketMchd(marketMchdData, { info, infoTip, inlineInfo, nodes: market.mchd.transferred, download: downloadXlsx });
+function renderPriceInfo(item, label = 'Условия цены') {
+  if (item?.priceInfoEmbedded) return infoWithEmbeddedSource(item.priceInfoEmbedded, label);
+  const value = item?.priceInfo;
+  if (!value) return '';
+  if (typeof value === 'string') return info(value, label);
+  if (value.source?.href) return infoWithSource(value.text, value.source, label);
+  return info([value.text, value.source?.label].filter(Boolean).join(' '), label);
+}
 const textWithInfo = (text, tooltip, className = '') => {
   if (!tooltip) return esc(text);
   const words = String(text).trim().split(/\s+/);
@@ -117,85 +136,6 @@ function formatGrowth(current, previous) {
   const value = (current / previous - 1) * 100;
   const sign = value > 0 ? '+' : value < 0 ? '−' : '';
   return `${sign}${Math.abs(value).toFixed(1).replace('.', ',')}%`;
-}
-
-function getRankingRows(mode = 'all') {
-  const slice = market.ranking.slices[mode];
-  const items = market.ranking.players.filter((item) => {
-    if (mode === 'all') return true;
-    if (mode === 'commercial') return item.type === 'commercial';
-    return item.type === 'state' || item.type === 'iit';
-  });
-  const otherTooltip = 'Состав группы «Другие УЦ» между периодами изменился. В январе–июне 2025 в нее входил АТЛАС-КАРТ с выпуском 505 тыс. сертификатов. К январю–июню 2026 его аккредитация завершилась, а тахографический поток был перенесен в Модум, который теперь показан отдельной строкой. Поэтому динамика «Других УЦ» отражает не только изменение выпуска, но и изменение состава группы.';
-  const rows = items.map((item, index) => {
-    const change = Number.isFinite(item.previous) ? item.volume - item.previous : null;
-    return {
-      rank: index + 1,
-      name: item.name,
-      volume: item.volume,
-      display: item.display,
-      share: item.volume / slice.volume,
-      growth: item.growth,
-      growthValue: Number.isFinite(item.previous) ? item.volume / item.previous - 1 : null,
-      change,
-      item
-    };
-  });
-  if (slice.other) {
-    const { other } = slice;
-    rows.push({
-      rank: other.rank,
-      name: 'Другие УЦ',
-      volume: other.volume,
-      display: other.display,
-      share: other.volume / slice.volume,
-      growth: formatGrowth(other.volume, other.previous),
-      growthValue: other.volume / other.previous - 1,
-      change: other.volume - other.previous,
-      other: true,
-      tooltip: otherTooltip
-    });
-  }
-  rows.push({
-    rank: '',
-    name: 'Итого',
-    volume: slice.volume,
-    display: `${slice.volume.toFixed(3).replace('.', ',')} млн`,
-    share: 1,
-    growth: formatGrowth(slice.volume, slice.previous),
-    growthValue: slice.volume / slice.previous - 1,
-    change: slice.volume - slice.previous,
-    total: true
-  });
-  return { slice, rows };
-}
-
-function rankingDynamics(row) {
-  if (!Number.isFinite(row.growthValue)) {
-    return '<td class="ranking-dynamics"><span class="ranking-dynamics-grid"><span class="ranking-dynamics-percent">—</span><small class="ranking-dynamics-change">—</small></span></td>';
-  }
-  const isPositive = row.growth.startsWith('+');
-  const isNegative = row.growth.startsWith('−');
-  return `<td class="ranking-dynamics${isPositive ? ' positive' : isNegative ? ' negative' : ''}"><span class="ranking-dynamics-grid"><span class="ranking-dynamics-percent">${esc(row.growth)}</span><small class="ranking-dynamics-change">${esc(formatVolumeChange(row.change))}</small></span></td>`;
-}
-
-function renderRankingRows(mode = 'all') {
-  const { rows } = getRankingRows(mode);
-  const formatShare = (value, total) => total ? '100%' : `${(value * 100).toFixed(1).replace('.', ',')}%`;
-  return rows.map((row) => {
-    const itemName = row.item && mode === 'state' && row.item.type === 'iit'
-      ? textWithInfo(row.name, info(row.item.stateInfo, 'Почему ИИТ в этом срезе'))
-      : row.item ? linkTo(row.item) : row.tooltip ? textWithInfo(row.name, info(row.tooltip, 'Другие УЦ')) : esc(row.name);
-    const volume = row.item
-      ? textWithInfo(row.display, row.item.breakdown ? info(row.item.breakdown, 'Состав объема') : '')
-      : esc(row.display);
-    const classes = [row.item?.accent ? 'is-kontur' : '', row.other ? 'ranking-other' : '', row.total ? 'ranking-total' : ''].filter(Boolean).join(' ');
-    return `<tr class="${classes}"><td>${esc(row.rank)}</td><td>${itemName}</td><td>${volume}</td><td>${formatShare(row.share, row.total)}</td>${rankingDynamics(row)}</tr>`;
-  }).join('');
-}
-
-function renderRankingAnalysis(mode = activeRankingMode) {
-  return renderRadarAnalysis(market.ranking.analysis?.[mode]);
 }
 
 function formatFinancialValue(value) {
@@ -374,67 +314,6 @@ function renderMchdRankingRow(item, index, maxValue, totalValue) {
   return `<div class="mchd-row ${item.accent ? 'is-kontur' : ''}"><span>${index + 1}</span><p>${linkTo(item, item.shortName)}</p><div><i style="width:${item.value / maxValue * 100}%"></i></div><b>${volumeMarkup}</b><strong class="mchd-share">${String((item.value / totalValue * 100).toFixed(1)).replace('.', ',')}%</strong></div>`;
 }
 
-function downloadRanking(mode = activeRankingMode) {
-  const sliceLabels = { all: 'Все', commercial: 'Коммерческие', state: 'Государственные' };
-  const { rows } = getRankingRows(mode);
-  downloadXlsx({
-    filename: `Рейтинг_УЦ_${sliceLabels[mode]}_Янв-июнь_2026.xlsx`,
-    sheetName: 'Рейтинг УЦ',
-    columns: [
-      { key: 'rank', label: '№', type: 'number', width: 7 },
-      { key: 'name', label: 'Игрок', type: 'text', width: 34 },
-      { key: 'volume', label: 'Объем', type: 'number', width: 18 },
-      { key: 'share', label: 'Доля', type: 'percent', width: 14 },
-      { key: 'growth', label: 'Динамика, %', type: 'signedPercent', width: 17 },
-      { key: 'change', label: 'Изменение объема', type: 'signedNumber', width: 23 }
-    ],
-    rows: rows.map((row) => ({
-      rank: row.rank,
-      name: row.name,
-      volume: Math.round(row.volume * 1_000_000),
-      share: row.share,
-      growth: row.growthValue ?? '—',
-      change: Number.isFinite(row.change) ? Math.round(row.change * 1_000_000) : '—',
-      total: row.total
-    }))
-  });
-}
-
-const hasText = (value) => Boolean(String(value ?? '').trim());
-
-function marketSignalMetadata(item) {
-  if (hasText(item?.date)) return [item.date, item.status].filter(hasText).join(' · ');
-  return item?.metadata ?? item?.status ?? '';
-}
-
-function hasMarketSignal(item) {
-  const hasStructuredMetadata = hasText(item?.date) && hasText(item?.status);
-  const hasLegacyMetadata = !hasText(item?.date) && hasText(marketSignalMetadata(item));
-  return !item?.placeholder
-    && (hasStructuredMetadata || hasLegacyMetadata)
-    && hasText(item.title)
-    && hasText(item.description)
-    && hasText(item.source?.label)
-    && hasText(item.source?.href)
-    && Array.isArray(item.details)
-    && item.details.length > 0;
-}
-
-function signalDetails(index) {
-  const item = market.signals[index];
-  if (!hasMarketSignal(item)) return '';
-  const firstIsIntro = item.details[0].endsWith(':');
-  const content = firstIsIntro
-    ? `<p>${esc(item.details[0])}</p><ul>${item.details.slice(1, -1).map((line) => `<li>${esc(line)}</li>`).join('')}</ul><p>${esc(item.details.at(-1))}</p>`
-    : item.details.map((line) => `<p>${esc(line)}</p>`).join('');
-  return `<div class="signal-panel-content"><div><h3>${esc(item.title)}</h3>${content}${item.sourceStatus ? `<p><b>Статус источника:</b> ${esc(item.sourceStatus)}</p>` : ''}</div><div class="signal-panel-sources"><p>Основной источник</p>${externalLink(item.source)}<p>Дополнительный источник</p>${externalLink(item.additionalSource)}</div></div>`;
-}
-
-function renderSignalCard(item, index, group) {
-  if (!hasMarketSignal(item)) return '';
-  return `<article class="signal-card" data-signal-card="${index}"><p class="signal-status">${esc(marketSignalMetadata(item))}</p><h3>${esc(item.title)}</h3><p>${esc(item.description)}</p><div class="signal-actions"><button class="inline-disclosure" type="button" data-signal-index="${index}" data-signal-group="${group}">Подробнее ↓</button>${externalLink(item.source)}</div></article>`;
-}
-
 function hasTeamConclusion(item) {
   const hasText = (value) => Boolean(String(value ?? '').trim());
   return !item?.placeholder && hasText(item.title) && hasText(item.fact) && hasText(item.implication ?? item.meaning);
@@ -446,14 +325,8 @@ function renderTeamConclusions(items = []) {
   return `<div class="team-conclusions">${visibleItems.map((item, index) => `<article class="team-card"><span>${String(index + 1).padStart(2, '0')}</span><h3>${esc(item.title)}</h3><p><b>Факт.</b> ${esc(item.fact)}</p><p><b>Значение.</b> ${esc(item.implication ?? item.meaning)}</p></article>`).join('')}</div>`;
 }
 
-function marketSignalRows(signals) {
-  if (signals.length === 5) return [signals.slice(0, 3), signals.slice(3)];
-  if (signals.length === 4) return [signals.slice(0, 2), signals.slice(2)];
-  return signals.length ? [signals] : [];
-}
 
 function renderMarket() {
-  activeRankingMode = 'all';
   activeFinancialMetric = 'revenue';
   const heroCards = market.hero.cards.map((card) => {
     const content = `<div><h2>${textWithInfo(card.title, card.info ? info(card.info) : '')}</h2>${card.subtitle ? `<p class="hero-card-subtitle">${esc(card.subtitle)}</p>` : ''}</div><div class="hero-card-metrics"><p><strong>${esc(card.volume)}</strong> <span>${esc(card.unit)}</span></p><b>${esc(card.growth)}</b></div>${card.share ? `<p class="hero-card-share">${esc(card.share)}</p>` : ''}${card.shares ? `<ul>${card.shares.map((share) => `<li>${esc(share)}</li>`).join('')}</ul>` : ''}`;
@@ -468,23 +341,13 @@ function renderMarket() {
   const growth = `<div class="growth-chart">${market.konturPosition.growth.map((item) => `<div class="growth-row ${esc(item.id)}"><p>${esc(item.label)}</p><div><i style="width:${item.value / growthMax * 100}%"></i></div><b>${esc(item.display)}</b></div>`).join('')}</div>`;
   const shares = `<div class="share-cards">${market.konturPosition.shares.map((item) => `<article><p>${esc(item.title)}</p><strong>${esc(item.values)}</strong><span>${esc(item.delta)}</span></article>`).join('')}</div>`;
 
-  const comparisonPeriod = 'Сравнение: Янв–июнь 2025 → Янв–июнь 2026';
-  const ranking = `<p class="market-period ranking-period">${comparisonPeriod}</p><div class="ranking-head"><div class="ranking-tabs" role="group" aria-label="Срез рейтинга"><button class="active" type="button" data-ranking="all">Все</button><button type="button" data-ranking="commercial">Коммерческие</button><button type="button" data-ranking="state">Государственные</button></div><div class="ranking-actions"><div class="ranking-meta">${inlineInfo(`<b data-ranking-top10>${esc(market.ranking.slices.all.meta)}</b>`, info(market.ranking.info, 'Как читать рейтинг'))}</div><button class="ranking-download" type="button" data-ranking-download>Скачать XLSX ↓</button></div></div><div class="ranking-table"><table><thead><tr><th>№</th><th>Игрок</th><th>Объем</th><th>Доля</th><th>Динамика</th></tr></thead><tbody data-ranking-body>${renderRankingRows()}</tbody></table></div><div data-ranking-analysis>${renderRankingAnalysis('all')}</div>`;
+  const overviewComparisonPeriod = `Сравнение: ${market.period.previous} → ${market.period.current}`;
+  const overviewSources = market.kepOverview ? `<p class="method-note">Выпуск сертификатов, приблизительные значения. Источник: ${market.kepOverview.sources.map(source => `<a href="${esc(source.href)}" target="_blank" rel="noreferrer">${esc(source.label)} ↗</a>`).join(' · ')}.</p>` : '';
+  const ranking = '<div id="period-app" class="market-periods"></div>';
 
-  const financials = `<div class="financial-meta-row"><p class="market-period financial-period">${esc(market.financials.summaryLine)}</p><button class="ranking-download" type="button" data-financial-download>Скачать XLSX ↓</button></div><div data-financial-snapshot>${renderFinancialSnapshot('revenue')}</div>`;
+  const financials = market.financials.visible === false ? '' : `<div class="financial-meta-row"><p class="market-period financial-period">${esc(market.financials.summaryLine)}</p><button class="ranking-download" type="button" data-financial-download>Скачать XLSX ↓</button></div><div data-financial-snapshot>${renderFinancialSnapshot('revenue')}</div>`;
 
-  const mchdMax = market.mchd.transferred[0].value;
-  const mchdTotal = market.mchd.transferred.reduce((sum, item) => sum + item.value, market.mchd.portalFnsValue);
-  const mchd = `<p class="market-period">Срез на июнь 2026</p><p class="section-note">${esc(market.mchd.intro)}</p><div class="mchd-summary-v2"><article><p>Контур: передано на хранение</p><strong>${esc(market.mchd.konturTransferred)} МЧД</strong><small>Суммарно по узлам СКБ Контур и Сертум-Про.</small></article><article><p>Запрошено из реестра</p><strong>${esc(market.mchd.konturRequested)} МЧД</strong></article></div><div class="mchd-bars"><div class="mchd-row mchd-header"><span></span><p>Узел</p><div></div><b>Передано</b><strong>Доля*</strong></div>${market.mchd.transferred.map((item, index) => renderMchdRankingRow(item, index, mchdMax, mchdTotal)).join('')}</div>${renderRadarAnalysis(market.mchd.conclusion)}<p class="mchd-footnote">* Доля рассчитана от общего объема ${mchdTotal.toLocaleString('ru-RU')} МЧД: сумма объемов узлов, вошедших в рейтинг, и ${esc(market.mchd.portalFns)} МЧД, отдельно загруженных через портал ФНС.</p>`;
-
-  const visibleSignals = market.signals
-    .map((item, index) => ({ item, index }))
-    .filter(({ item }) => hasMarketSignal(item));
-  const signals = marketSignalRows(visibleSignals).map((row, rowIndex) => {
-    const rowClass = row.length === 3 ? 'signal-row-three' : row.length === 2 ? 'signal-row-two' : 'signal-row-one';
-    const group = `market-${rowIndex}`;
-    return `<div class="signal-row ${rowClass} market-signal-row">${row.map(({ item, index }) => renderSignalCard(item, index, group)).join('')}</div><div class="signal-panel" data-signal-panel="${group}" hidden></div>`;
-  }).join('');
+  const mchd = '<div id="market-mchd-app" class="market-mchd"></div>';
 
   const teamConclusions = renderTeamConclusions(market.conclusions);
 
@@ -494,14 +357,22 @@ function renderMarket() {
 
   layout(`<section class="hero market-hero-v2"><div class="market-hero-copy"><p class="eyebrow">${esc(market.hero.eyebrow)}</p><h1>${esc(market.hero.title)}</h1><p class="lead">${esc(market.hero.text)}</p><div class="hero-conclusion"><b>${esc(market.hero.conclusion)}</b></div></div><div class="hero-cascade">${heroCards}</div></section>
     ${section('СТРУКТУРА РЫНКА', 'Какие сегменты обеспечили рост рынка', `<div class="structure-visual">${structureBars}</div>${renderRadarAnalysis(market.structure.conclusion)}`, 'market-section')}
-    ${section('КОНТУР НА РЫНКЕ', 'Динамика выпуска и доли', `<p class="market-period">${comparisonPeriod}</p>${growth}${shares}${renderRadarAnalysis(market.konturPosition.conclusion)}`, 'market-section')}
+    ${section('КОНТУР НА РЫНКЕ', 'Динамика выпуска и доли', `<p class="market-period">${esc(overviewComparisonPeriod)}</p>${growth}${shares}${renderRadarAnalysis(market.konturPosition.conclusion)}${overviewSources}`, 'market-section')}
     ${section('ИГРОКИ РЫНКА', 'Как меняется рынок', ranking, 'market-section ranking-section')}
-    ${section('ЭКОНОМИЧЕСКИЙ СРЕЗ', 'Как меняется выручка игроков', financials, 'market-section financial-section')}
+    ${financials ? section('ЭКОНОМИЧЕСКИЙ СРЕЗ', 'Как меняется выручка игроков', financials, 'market-section financial-section') : ''}
     ${section('МЧД', 'Где сосредоточена активность инфраструктуры МЧД', mchd, 'market-section mchd-section')}
-    <section class="market-section signals-section"><div class="section-heading"><div><p class="eyebrow">СИГНАЛЫ РЫНКА</p><h2>Что меняется в регуляторике и у конкурентов</h2></div><p>Актуально на ${esc(market.period.updatedAt)}</p></div>${signals}</section>
+    <div id="market-signals-app" class="market-signals"></div>
     ${teamConclusions ? section('ВЫВОДЫ ДЛЯ КОМАНДЫ', 'Что учитывать в работе с рынком', teamConclusions, 'market-section') : ''}
     <section class="collapsible-section">${demographics}</section>
     <section class="collapsible-section">${methodology}</section>`, 'market');
+  marketPeriodsController.mount(document.getElementById('period-app'), { reset: true });
+  marketMchdController.mount(document.getElementById('market-mchd-app'));
+  marketSignalsController.mount(document.getElementById('market-signals-app'));
+}
+
+function renderMarketSignalsArchive() {
+  layout('<div id="market-signals-app" class="market-signals"></div>', 'market');
+  marketSignalsController.mount(document.getElementById('market-signals-app'), { archive: true });
 }
 
 function renderPositioning(competitor) {
@@ -525,7 +396,7 @@ function renderOffers(competitor) {
 }
 
 function renderTariffPanel(offer, key) {
-  const rows = offer.tariffs.map((tariff) => `<tr${tariff.comparisonId ? ` data-product-tariff="${esc(tariff.comparisonId)}"` : ''}><td>${esc(tariff.name)}</td><td>${esc(tariff.price)}</td><td>${esc((tariff.includes ?? []).join(' · '))}</td></tr>`).join('');
+  const rows = offer.tariffs.map((tariff) => `<tr${tariff.comparisonId ? ` data-product-tariff="${esc(tariff.comparisonId)}"` : ''}><td>${esc(tariff.name)}</td><td>${inlineInfo(esc(tariff.price), renderPriceInfo(tariff.priceInfo || tariff.priceInfoEmbedded ? tariff : offer, `Условия цены «${tariff.name}»`))}</td><td>${esc((tariff.includes ?? []).join(' · '))}</td></tr>`).join('');
   return `<div class="product-detail-panel" data-product-panel="${key}" hidden>
     <div class="product-detail-head"><h4>${esc(offer.role ?? offer.title)}</h4></div>
     <div class="table-wrap product-tariff-table"><table><thead><tr><th>${esc(offer.detailLabel ?? 'Тариф')}</th><th>Цена</th><th>Состав и отличия</th></tr></thead><tbody>${rows}</tbody></table></div>
@@ -540,11 +411,7 @@ function formatAddonCount(count) {
 }
 
 function renderAddonPrice(item) {
-  const tooltip = !item.priceInfo
-    ? ''
-    : typeof item.priceInfo === 'string'
-      ? info(item.priceInfo, `Уточнение цены «${item.title}»`)
-      : infoWithSource(item.priceInfo.text, item.priceInfo.source, `Уточнение цены «${item.title}»`);
+  const tooltip = renderPriceInfo(item, `Уточнение цены «${item.title}»`);
   return inlineInfo(esc(item.price), tooltip);
 }
 
@@ -558,7 +425,7 @@ function renderProductsV2(competitor, className = '') {
       const roleKey = offer.comparisonId?.replace(/^kep-/, '') ?? String(index);
       const key = `base-${competitor.slug}-${roleKey}`;
       const hasDetails = offer.tariffs?.length > 0;
-      return `<article class="product-card" data-product-card="${key}" data-base-role="${esc(roleKey)}"><h4>${esc(offer.role)}</h4><strong>${esc(offer.price)}</strong><div class="product-card-actions"><span>${esc(offer.meta ?? '')}</span>${hasDetails ? `<button class="secondary-action inline-disclosure" type="button" data-product-index="${key}">Подробнее ↓</button>` : ''}</div></article>`;
+      return `<article class="product-card" data-product-card="${key}" data-base-role="${esc(roleKey)}"><h4>${esc(offer.role)}</h4><strong>${inlineInfo(esc(offer.price), renderPriceInfo(offer, `Условия цены «${offer.role}»`))}</strong><div class="product-card-actions"><span>${esc(offer.meta ?? '')}</span>${hasDetails ? `<button class="secondary-action inline-disclosure" type="button" data-product-index="${key}">Подробнее ↓</button>` : ''}</div></article>`;
     }).join('')}</div>${baseOffers.map((offer, index) => {
       const roleKey = offer.comparisonId?.replace(/^kep-/, '') ?? String(index);
       return offer.tariffs?.length ? renderTariffPanel(offer, `base-${competitor.slug}-${roleKey}`) : '';
@@ -569,17 +436,18 @@ function renderProductsV2(competitor, className = '') {
       const key = `other-${index}`;
       const hasDetails = offer.tariffs?.length > 0;
       const [costLabel, ...costValue] = offer.price.split(':');
-      return `<article class="product-card product-card-secondary" data-product-card="${key}"${offer.comparisonId ? ` data-product-offer="${esc(offer.comparisonId)}"` : ''}><h4>${esc(offer.title)}</h4><p class="product-cost"><span>${esc(`${costLabel}:`)}</span> <strong>${esc(costValue.join(':').trim())}</strong></p><p class="product-description">${esc(offer.description)}</p><div class="product-card-actions"><span>${esc(offer.meta ?? '')}</span>${hasDetails ? `<button class="secondary-action inline-disclosure" type="button" data-product-index="${key}">Подробнее ↓</button>` : ''}</div></article>`;
+      const priceTooltip = renderPriceInfo(offer, `Условия цены «${offer.title}»`);
+      return `<article class="product-card product-card-secondary" data-product-card="${key}"${offer.comparisonId ? ` data-product-offer="${esc(offer.comparisonId)}"` : ''}><h4>${esc(offer.title)}</h4><p class="product-cost"><span>${esc(`${costLabel}:`)}</span> <strong>${inlineInfo(esc(costValue.join(':').trim()), priceTooltip)}</strong></p><p class="product-description">${esc(offer.description)}</p><div class="product-card-actions"><span>${esc(offer.meta ?? '')}</span>${hasDetails ? `<button class="secondary-action inline-disclosure" type="button" data-product-index="${key}">Подробнее ↓</button>` : ''}</div></article>`;
     }).join('')}</div>${data.otherOffers.map((offer, index) => offer.tariffs?.length ? renderTariffPanel(offer, `other-${index}`) : '').join('')}` : '';
   const addonsKey = `${competitor.slug}-addons`;
   const addonsSummary = data.addons?.length ? `${formatAddonCount(data.addons.length)}${data.addonsSummary ? ` · ${data.addonsSummary}` : ''}` : '';
   const addonsPositionTooltip = data.addonsPositionInfo
     ? infoWithEmbeddedSource(data.addonsPositionInfo, 'Источники и применимость цен')
-    : '';
+    : renderPriceInfo({ priceInfo: data.addonsPriceInfo }, 'Региональные условия цен');
   const addons = data.addons?.length ? `
     <div class="product-addons"><h3 class="competitor-subheading product-subheading">${textWithInfo(data.addonsTitle ?? 'Дополнения к КЭП', data.addonsInfo ? infoWithEmbeddedSource(data.addonsInfo, 'Условия стоимости носителей') : '')}</h3>
       <div class="product-addons-summary"><p>${esc(addonsSummary)}</p><button class="secondary-action inline-disclosure" type="button" data-product-addons-toggle="${esc(addonsKey)}">Подробнее ↓</button></div>
-      <div class="table-wrap product-addon-table product-addon-panel" data-product-addons-panel="${esc(addonsKey)}" hidden><table><thead><tr><th>${textWithInfo('Позиция', addonsPositionTooltip)}</th><th>Цена</th><th>Условие</th></tr></thead><tbody>${data.addons.map((item) => `<tr><td>${textWithInfo(item.title, addonsPositionTooltip ? '' : item.source ? infoWithSource('Стоимость и условия позиции опубликованы на официальной странице.', item.source, `Источник «${item.title}»`) : '')}</td><td>${renderAddonPrice(item)}</td><td>${esc(item.condition)}</td></tr>`).join('')}</tbody></table>${data.addonsTableNote ? `<p class="product-addon-note">${esc(data.addonsTableNote)}</p>` : ''}</div>
+      <div class="table-wrap product-addon-table product-addon-panel" data-product-addons-panel="${esc(addonsKey)}" hidden><table><thead><tr><th>${textWithInfo('Позиция', addonsPositionTooltip)}</th><th>Цена</th><th>Условие</th></tr></thead><tbody>${data.addons.map((item) => `<tr${item.comparisonId ? ` data-product-addon="${esc(item.comparisonId)}"` : ''}><td>${textWithInfo(item.title, addonsPositionTooltip ? '' : item.source ? infoWithSource('Стоимость и условия позиции опубликованы на официальной странице.', item.source, `Источник «${item.title}»`) : '')}</td><td>${renderAddonPrice(item)}</td><td>${esc(item.condition)}</td></tr>`).join('')}</tbody></table>${data.addonsTableNote ? `<p class="product-addon-note">${esc(data.addonsTableNote)}</p>` : ''}</div>
     </div>` : '';
   const promotions = data.promotions?.length ? `
     <h3 class="competitor-subheading product-subheading">Акции и специальные предложения</h3>
@@ -971,6 +839,19 @@ function renderCompetitorEventRow(events, offset, group) {
   return `<div class="signal-row ${rowClass} competitor-event-row">${events.map((event, index) => renderCompetitorEvent(event, event.sourceIndex ?? offset + index, group)).join('')}</div><div class="signal-panel" data-competitor-event-panel="${group}" hidden></div>`;
 }
 
+function competitorEventArchiveHref(competitor) {
+  return competitor === kontur ? '#kontur/events' : '#competitor/' + competitor.slug + '/events';
+}
+
+function renderCompetitorEventsArchive(competitor) {
+  const owner = competitor === kontur ? 'kontur' : competitor.slug;
+  if (!competitorEventArchiveControllers.has(owner)) {
+    competitorEventArchiveControllers.set(owner, createCompetitorEventArchive(competitor, owner));
+  }
+  layout('<div id="competitor-events-archive" class="market-signals"></div>', owner === 'kontur' ? 'kontur' : 'competitor');
+  competitorEventArchiveControllers.get(owner).mount(document.getElementById('competitor-events-archive'), { archive: true });
+}
+
 function renderCompetitorEvents(competitor, className = '') {
   const parseEventDate = (value) => {
     if (!value) return null;
@@ -986,12 +867,15 @@ function renderCompetitorEvents(competitor, className = '') {
     .filter((event) => event.title && event.summary && event.sources?.[0])
     .filter((event) => !asOf || !event.eventDate || (event.parsedEventDate && event.parsedEventDate >= twelveMonthsAgo && event.parsedEventDate <= asOf))
     .sort((a, b) => (b.parsedEventDate?.getTime() ?? 0) - (a.parsedEventDate?.getTime() ?? 0));
-  if (!events.length) return '';
+  if (!events.length && !competitorEventArchivesEnabled) return '';
   const visibleEvents = events.slice(0, 3);
-  const firstRow = renderCompetitorEventRow(visibleEvents, 0, 'first');
+  const firstRow = visibleEvents.length ? renderCompetitorEventRow(visibleEvents, 0, 'first') : '<p class="section-note">В текущей подборке событий нет.</p>';
   const extraEvents = events.slice(3);
   const more = extraEvents.length ? `<div class="competitor-events-more" data-competitor-events-more hidden>${renderCompetitorEventRow(extraEvents, 3, 'extra')}</div><button class="secondary-action inline-disclosure competitor-events-toggle" type="button" data-competitor-events-toggle data-competitor-events-count="${events.length}">Все изменения (${events.length}) ↓</button>` : '';
-  return section('СОБЫТИЯ И ВАЖНЫЕ ИЗМЕНЕНИЯ', `Что меняется у ${competitor.eventsName ?? competitor.shortName}`, `${firstRow}${more}`, className);
+  const title = 'Что меняется у ' + (competitor.eventsName ?? competitor.shortName);
+  if (!competitorEventArchivesEnabled) return section('СОБЫТИЯ И ВАЖНЫЕ ИЗМЕНЕНИЯ', title, firstRow + more, className);
+  return '<section class="' + esc(className) + '"><p class="eyebrow">СОБЫТИЯ И ВАЖНЫЕ ИЗМЕНЕНИЯ</p><div class="signals-title-row"><h2>' + esc(title) + '</h2><a class="signals-archive-link" href="' + esc(competitorEventArchiveHref(competitor)) + '">Все события →</a></div>' + firstRow + more + '</section>';
+
 }
 
 function renderCompetitorV2(competitor) {
@@ -1059,7 +943,7 @@ function renderCompactMethodology(data) {
       return `<div class="method-source-row"><strong>${esc(source.name)}</strong><span>${source.links.map(renderMethodologyLink).join(' · ')}</span></div>`;
     })
     .join('');
-  return `<section class="collapsible-section"><details class="fold-section methodology-fold"><summary><span><span class="eyebrow">ИСТОЧНИКИ И МЕТОДИКА</span><strong>Как читать данные и откуда информация</strong></span><i>Открыть ↓</i></summary><div class="fold-content compact-methodology"><div class="method-reading"><p class="method-subheading">ИНТЕРПРЕТАЦИЯ ПОКАЗАТЕЛЕЙ</p><ul>${(data.reading ?? []).map((item) => `<li>${esc(item)}</li>`).join('')}</ul></div><div class="method-sources-block"><h3>ИСТОЧНИКИ</h3><div class="method-sources-compact">${sourceRows}</div></div></div></details></section>`;
+  return `<section class="collapsible-section"><details class="fold-section methodology-fold"><summary><span class="methodology-label" role="heading" aria-level="2">ИСТОЧНИКИ И МЕТОДИКА</span><i>Открыть ↓</i></summary><div class="fold-content compact-methodology"><div class="method-reading"><p class="method-subheading">ИНТЕРПРЕТАЦИЯ ПОКАЗАТЕЛЕЙ</p><ul>${(data.reading ?? []).map((item) => `<li>${esc(item)}</li>`).join('')}</ul></div><div class="method-sources-block"><h3>ИСТОЧНИКИ</h3><div class="method-sources-compact">${sourceRows}</div></div></div></details></section>`;
 }
 
 function competitorMethodologyFold(competitor) {
@@ -1076,12 +960,17 @@ function render(resetScroll = false) {
   const requestedRole = params.get('role');
   const requestedOffer = params.get('offer');
   const requestedTariff = params.get('tariff');
+  const requestedAddon = params.get('addon');
   const [, slug] = route.split('/');
-  if (route === 'kontur') renderKontur();
+  if (competitorEventArchivesEnabled && route === 'kontur/events') renderCompetitorEventsArchive(kontur);
+  else if (competitorEventArchivesEnabled && /^competitor\/[^/]+\/events$/.test(route) && competitors[slug]) renderCompetitorEventsArchive(competitors[slug]);
+  else if (route === 'kontur') renderKontur();
+  else if (route === 'market-signals') renderMarketSignalsArchive();
   else if (route.startsWith('competitor/') && competitors[slug]) renderCompetitor(competitors[slug]);
   else renderMarket();
-  if (route === 'kontur' || route.startsWith('competitor/')) {
-    if (requestedOffer) requestAnimationFrame(() => openComparedOffer(requestedOffer, requestedTariff));
+  if (route === 'kontur' || (route.startsWith('competitor/') && !route.endsWith('/events'))) {
+    if (requestedAddon) requestAnimationFrame(() => openComparedAddon(requestedAddon));
+    else if (requestedOffer) requestAnimationFrame(() => openComparedOffer(requestedOffer, requestedTariff));
     else if (requestedRole) requestAnimationFrame(() => openBaseOffer(requestedRole));
   }
 }
@@ -1131,6 +1020,19 @@ function openComparedOffer(offerId, tariffId = '') {
     : null;
   if (tariffRow) tariffRow.classList.add('selected');
   scrollToProductTarget(tariffRow ?? card);
+}
+
+function openComparedAddon(addonId) {
+  const row = document.querySelector(`[data-product-addon="${CSS.escape(addonId)}"]`);
+  const panel = row?.closest('[data-product-addons-panel]');
+  if (!row || !panel) return;
+  const key = panel.dataset.productAddonsPanel;
+  const button = document.querySelector(`[data-product-addons-toggle="${CSS.escape(key)}"]`);
+  document.querySelectorAll('[data-product-addon]').forEach((item) => item.classList.remove('selected'));
+  panel.hidden = false;
+  if (button) button.textContent = 'Скрыть ↑';
+  row.classList.add('selected');
+  scrollToProductTarget(row);
 }
 
 function positionFinancialKonturTooltip(trigger) {
@@ -1200,9 +1102,14 @@ function financialHoverZone(target) {
   return target?.closest?.('[data-financial-hover-zone], .financial-bar:not(.is-placeholder)');
 }
 
+const pendingInfoTipClosures = new WeakMap();
+
 function closeInfoTip(trigger) {
+  clearTimeout(pendingInfoTipClosures.get(trigger));
+  pendingInfoTipClosures.delete(trigger);
   trigger.classList.remove('is-open');
   trigger.setAttribute('aria-expanded', 'false');
+  delete trigger.dataset.infoTipPinned;
 }
 
 function closeInfoTips(except = null) {
@@ -1220,29 +1127,34 @@ function positionInfoTip(trigger) {
   const gap = 12;
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
+  const topInset = Math.max(inset, (document.querySelector('.topbar')?.getBoundingClientRect().bottom ?? 0) + 8);
   const anchor = icon.getBoundingClientRect();
   const width = Math.min(290, viewportWidth - inset * 2);
   tooltip.style.width = `${width}px`;
+  tooltip.style.maxHeight = `${Math.max(48, viewportHeight - topInset - inset)}px`;
+  tooltip.style.overflowY = 'auto';
   const { height } = tooltip.getBoundingClientRect();
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
   const centeredX = clamp(anchor.left + anchor.width / 2 - width / 2, inset, viewportWidth - width - inset);
-  const centeredY = clamp(anchor.top + anchor.height / 2 - height / 2, inset, viewportHeight - height - inset);
+  const centeredY = clamp(anchor.top + anchor.height / 2 - height / 2, topInset, viewportHeight - height - inset);
   const place = (x, y) => {
     tooltip.style.setProperty('--info-tooltip-x', `${Math.round(x)}px`);
     tooltip.style.setProperty('--info-tooltip-y', `${Math.round(y)}px`);
   };
 
   if (viewportWidth <= 680) {
-    if (anchor.top - gap - height >= inset) return place(centeredX, anchor.top - gap - height);
-    return place(centeredX, clamp(anchor.bottom + gap, inset, viewportHeight - height - inset));
+    if (anchor.top - gap - height >= topInset) return place(centeredX, anchor.top - gap - height);
+    return place(centeredX, clamp(anchor.bottom + gap, topInset, viewportHeight - height - inset));
   }
   if (anchor.right + gap + width <= viewportWidth - inset) return place(anchor.right + gap, centeredY);
   if (anchor.left - gap - width >= inset) return place(anchor.left - gap - width, centeredY);
-  if (anchor.top - gap - height >= inset) return place(centeredX, anchor.top - gap - height);
-  place(centeredX, clamp(anchor.bottom + gap, inset, viewportHeight - height - inset));
+  if (anchor.top - gap - height >= topInset) return place(centeredX, anchor.top - gap - height);
+  place(centeredX, clamp(anchor.bottom + gap, topInset, viewportHeight - height - inset));
 }
 
 function openInfoTip(trigger) {
+  clearTimeout(pendingInfoTipClosures.get(trigger));
+  pendingInfoTipClosures.delete(trigger);
   closeInfoTips(trigger);
   trigger.classList.add('is-open');
   trigger.setAttribute('aria-expanded', 'true');
@@ -1261,7 +1173,10 @@ document.addEventListener('pointerover', (event) => {
 
 document.addEventListener('pointerout', (event) => {
   const infoTrigger = event.target.closest('[data-info-tip]');
-  if (infoTrigger && event.pointerType !== 'touch' && !infoTrigger.contains(event.relatedTarget)) closeInfoTip(infoTrigger);
+  if (infoTrigger && event.pointerType !== 'touch' && !infoTrigger.dataset.infoTipPinned && !infoTrigger.contains(event.relatedTarget)) {
+    clearTimeout(pendingInfoTipClosures.get(infoTrigger));
+    pendingInfoTipClosures.set(infoTrigger, setTimeout(() => closeInfoTip(infoTrigger), 180));
+  }
   if (event.pointerType === 'touch') return;
   const zone = financialHoverZone(event.target);
   const group = zone?.closest('[data-financial-player]');
@@ -1328,10 +1243,13 @@ document.addEventListener('keydown', (event) => {
     hideFinancialGroupTooltip();
     return;
   }
-  if (infoTrigger && ['Enter', ' '].includes(event.key)) {
+  if (infoTrigger && !event.target.closest('a') && ['Enter', ' '].includes(event.key)) {
     event.preventDefault();
-    if (infoTrigger.classList.contains('is-open')) closeInfoTip(infoTrigger);
-    else openInfoTip(infoTrigger);
+    if (infoTrigger.dataset.infoTipPinned) closeInfoTip(infoTrigger);
+    else {
+      openInfoTip(infoTrigger);
+      infoTrigger.dataset.infoTipPinned = 'true';
+    }
     return;
   }
   if (!group || !['Enter', ' '].includes(event.key)) return;
@@ -1361,27 +1279,14 @@ document.addEventListener('click', (event) => {
   if (infoTrigger) {
     if (event.target.closest('a')) return;
     event.preventDefault();
-    if (infoTrigger.classList.contains('is-open')) closeInfoTip(infoTrigger);
-    else openInfoTip(infoTrigger);
+    if (infoTrigger.dataset.infoTipPinned) closeInfoTip(infoTrigger);
+    else {
+      openInfoTip(infoTrigger);
+      infoTrigger.dataset.infoTipPinned = 'true';
+    }
     return;
   }
   closeInfoTips();
-
-  const rankingButton = event.target.closest('[data-ranking]');
-  if (rankingButton) {
-    const mode = rankingButton.dataset.ranking;
-    activeRankingMode = mode;
-    document.querySelectorAll('[data-ranking]').forEach((button) => button.classList.toggle('active', button === rankingButton));
-    const body = document.querySelector('[data-ranking-body]');
-    if (body) body.innerHTML = renderRankingRows(mode);
-    const top10 = document.querySelector('[data-ranking-top10]');
-    if (top10) top10.textContent = market.ranking.slices[mode].meta;
-    const analysis = document.querySelector('[data-ranking-analysis]');
-    if (analysis) analysis.innerHTML = renderRankingAnalysis(mode);
-  }
-
-  const rankingDownload = event.target.closest('[data-ranking-download]');
-  if (rankingDownload) downloadRanking();
 
   const financialMetricButton = event.target.closest('[data-financial-metric]');
   if (financialMetricButton) {
@@ -1393,23 +1298,6 @@ document.addEventListener('click', (event) => {
 
   const financialDownload = event.target.closest('[data-financial-download]');
   if (financialDownload) downloadFinancials('revenue');
-
-  const signalButton = event.target.closest('[data-signal-index]');
-  if (signalButton) {
-    const index = Number(signalButton.dataset.signalIndex);
-    const card = signalButton.closest('[data-signal-card]');
-    const wasSelected = card.classList.contains('selected');
-    document.querySelectorAll('[data-signal-card]').forEach((item) => item.classList.remove('selected'));
-    document.querySelectorAll('[data-signal-index]').forEach((button) => { button.textContent = 'Подробнее ↓'; });
-    document.querySelectorAll('[data-signal-panel]').forEach((panel) => { panel.hidden = true; panel.innerHTML = ''; });
-    if (!wasSelected) {
-      card.classList.add('selected');
-      signalButton.textContent = 'Скрыть ↑';
-      const panel = document.querySelector(`[data-signal-panel="${signalButton.dataset.signalGroup}"]`);
-      panel.innerHTML = signalDetails(index);
-      panel.hidden = false;
-    }
-  }
 
   const competitorEventButton = event.target.closest('[data-competitor-event-index]');
   if (competitorEventButton) {

@@ -1,3 +1,15 @@
+const competitorUnknownPriceInfo = (source) => ({ text: 'Регион цены не указан.', source });
+const competitorUnspecifiedPriceRegion = { region: null, regionStatus: 'unspecified' };
+const osnovanieTariffsSource = { label: 'Тарифы Основания ↗', href: 'https://api.uc-osnovanie.ru/api/tariffs' };
+const tenzorTariffsSource = { label: 'Тарифы Тензора ↗', href: 'https://tensor.ru/uc/tariffs' };
+const tenzorPriceRegion = { region: 'Москва и Московская область', regionStatus: 'moscow_mo' };
+const tenzorPriceInfo = { text: 'Цена для Москвы и Московской области.', source: tenzorTariffsSource };
+const sabyMchdSource = { label: 'Тарифы Saby ↗', href: 'https://saby.ru/tariffs/info' };
+const taxcomMoscowSource = { label: 'Прайс Такскома для Москвы и МО ↗', href: 'https://taxcom.ru/upload/price/price_77.pdf' };
+const astralCertificateSource = { label: 'Тарифы Астрала ↗', href: 'https://astral.ru/products/astral-et/' };
+const astralFnsSource = { label: 'КЭП ФНС в Астрале ↗', href: 'https://astral.ru/products/kep-v-fns/' };
+const astralMchdSource = { label: 'Тарифы МЧД Астрала ↗', href: 'https://astral.ru/products/astral-doverennost/' };
+
 const checkedAt = '19.08.2026';
 
 export const competitors = {
@@ -136,11 +148,24 @@ export const competitors = {
       ]
     },
     {
+      "name": "Основание.МЧД и региональная цена заполнения",
+      "links": [
+        {
+          "label": "Основание.МЧД ↗",
+          "href": "https://uc-osnovanie.ru/mchd/"
+        },
+        {
+          "label": "Прайс Иркутского филиала на сайте агента ↗",
+          "href": "https://ed2inteh.ru/services/e-sign/"
+        }
+      ]
+    },
+    {
       "name": "СКЗИ и носители — УЦ «Основание»",
       "links": [
         {
-          "label": "Прайс Ивановского филиала ↗",
-          "href": "https://xn--b1aahn2beei.xn--p1ai/prays-list_uc"
+          "label": "Тарифы Основания ↗",
+          "href": "https://api.uc-osnovanie.ru/api/tariffs"
         },
         {
           "label": "JaCarta PKI/ГОСТ ↗",
@@ -172,6 +197,31 @@ export const competitors = {
     {
       "name": "Публичные отзывы об УЦ «Основание»",
       "links": []
+    },
+    {
+      "name": "Функциональность — проверка 02.11.2026",
+      "links": [
+        {
+          "href": "https://uc-osnovanie.ru/longread/",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://uc-osnovanie.ru/docs/Rukovodstvo_Moj_klyuch_V_00.02.pdf",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://www.rutoken.ru/partners/tech/osnovanie.html",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://uc-osnovanie.ru/uslugi/poluchit-ep/korporativnym-klientam/",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://t.me/ucosnovanie/797",
+          "label": "Официальная документация ↗"
+        }
+      ]
     },
     {
       "name": "КЭП: январь–сентябрь 2025 и 2026",
@@ -338,15 +388,14 @@ export const competitors = {
   }
 ],
     productsV2: {
-      baseNote: 'Цены относятся к исследовательскому срезу проекта. Полный актуальный публичный прайс этих тарифных линий не подтвержден.',
+      baseNote: 'Базовые цены подтверждены по публичному каталогу сайта и форме заказа 30.10.2026. Регион цены не указан; состав вариантов раскрывается по кнопке «Подробнее».',
       baseOffers: [
         {
           role: 'Руководитель / ИП',
-          comparisonId: 'kep-leader',
+          comparisonId: 'kep-leader', ...competitorUnspecifiedPriceRegion, priceInfo: competitorUnknownPriceInfo(osnovanieTariffsSource),
           baseTariffId: 'initial',
-          priceSource: { label: 'Исследовательский срез Radar', internal: true },
-          priceCheckedAt: '28.10.2026',
-          comparisonStatus: 'research',
+          priceSource: osnovanieTariffsSource,
+          priceCheckedAt: '30.10.2026',
           price: '4 200 ₽',
           meta: '5 тарифов',
           tariffs: [
@@ -359,11 +408,10 @@ export const competitors = {
         },
         {
           role: 'Сотрудник',
-          comparisonId: 'kep-employee',
+          comparisonId: 'kep-employee', ...competitorUnspecifiedPriceRegion, priceInfo: competitorUnknownPriceInfo(osnovanieTariffsSource),
           baseTariffId: 'initial',
-          priceSource: { label: 'Исследовательский срез Radar', internal: true },
-          priceCheckedAt: '28.10.2026',
-          comparisonStatus: 'research',
+          priceSource: osnovanieTariffsSource,
+          priceCheckedAt: '30.10.2026',
           price: '3 200 ₽',
           meta: '4 тарифа',
           tariffs: [
@@ -375,11 +423,10 @@ export const competitors = {
         },
         {
           role: 'Физлицо',
-          comparisonId: 'kep-person',
+          comparisonId: 'kep-person', ...competitorUnspecifiedPriceRegion, priceInfo: competitorUnknownPriceInfo(osnovanieTariffsSource),
           baseTariffId: 'initial',
-          priceSource: { label: 'Исследовательский срез Radar', internal: true },
-          priceCheckedAt: '28.10.2026',
-          comparisonStatus: 'research',
+          priceSource: osnovanieTariffsSource,
+          priceCheckedAt: '30.10.2026',
           price: '2 550 ₽',
           meta: '4 тарифа',
           tariffs: [
@@ -400,24 +447,40 @@ export const competitors = {
           title: 'Неквалифицированная электронная подпись',
           price: 'Стоимость: цена не раскрыта',
           description: 'НЭП для внутренних документов и бизнес-процессов: облачный вариант или подпись на носителе, получение онлайн или очно.'
+        },
+        {
+          title: 'МЧД',
+          fullName: 'Основание.МЧД',
+          comparisonId: 'mchd',
+          comparisonTariffId: 'mchd-1',
+          excludePriceDelta: true,
+          price: 'Стоимость: 735 ₽',
+          priceStatus: 'Региональная цена услуги заполнения МЧД',
+          priceSource: { label: 'Прайс Иркутского филиала УЦ «Основание» ↗', href: 'https://ed2inteh.ru/services/e-sign/' },
+          priceInfoEmbedded: {
+            before: 'Заполнение МЧД по прайсу ',
+            linkText: 'Иркутского филиала УЦ «Основание»',
+            source: { href: 'https://ed2inteh.ru/services/e-sign/' },
+            after: '. Цена для Москвы и Московской области не подтверждена.'
+          },
+          region: 'Иркутский филиал', regionStatus: 'regional',
+          priceCheckedAt: '30.10.2026',
+          checkedAt: '30.10.2026',
+          description: 'Создание, подписание, загрузка и отзыв МЧД в личном кабинете; проверка доверенностей доступна без авторизации. Для корпоративных клиентов предусмотрен API',
+          source: { href: 'https://uc-osnovanie.ru/mchd/' },
+          researchNote: '735 ₽ — цена услуги заполнения МЧД в прайсе Иркутского филиала, опубликованном агентом ООО «Инфотех». Это не подтверждённая федеральная тарифная линейка «Основание.МЧД». Цена опубликована с региональным tooltip, без расчёта delta; пакеты и безлимит не подтверждены.',
+          researchSource: { href: 'https://ed2inteh.ru/services/e-sign/' },
+          publisherRoleSource: { href: 'https://ed2inteh.ru/about/' }
         }
       ],
       addonsTitle: 'СКЗИ и носители',
-      addonsPositionInfo: {
-        before: 'Цены и условия КриптоПро CSP 5.0 и Рутокенов приведены по ',
-        linkText: 'прайсу Ивановского филиала',
-        source: { href: 'https://xn--b1aahn2beei.xn--p1ai/prays-list_uc' },
-        after: '. Дата актуализации прайса и применимость цен в других регионах не подтверждены. JaCarta PKI/ГОСТ — по ',
-        extraSources: [
-          { text: 'официальной странице Основания', href: 'https://uc-osnovanie.ru/uslugi/tokeny-dlya-ep/jacarta/', after: '.' }
-        ]
-      },
+      addonsPriceInfo: competitorUnknownPriceInfo(osnovanieTariffsSource),
       addons: [
-        { title: 'КриптоПро CSP 5.0', comparisonId: 'csp-annual', price: '1 850 ₽', condition: 'Отдельная лицензия на 1 рабочее место, 1 год', source: { label: 'Прайс Ивановского филиала ↗', href: 'https://xn--b1aahn2beei.xn--p1ai/prays-list_uc' }, historicalSource: { label: 'Цены КриптоПро — исторический период ↗', href: 'https://t.me/ucosnovanie/840' }, checkedAt: '28.10.2026', region: 'Ивановский филиал; применимость к другим регионам не подтверждена' },
-        { title: 'КриптоПро CSP 5.0', comparisonId: 'csp-perpetual', price: '3 700 ₽', condition: 'Отдельная лицензия на 1 рабочее место, бессрочно', source: { label: 'Прайс Ивановского филиала ↗', href: 'https://xn--b1aahn2beei.xn--p1ai/prays-list_uc' }, historicalSource: { label: 'Цены КриптоПро — исторический период ↗', href: 'https://t.me/ucosnovanie/840' }, checkedAt: '28.10.2026', region: 'Ивановский филиал; применимость к другим регионам не подтверждена' },
-        { title: 'Рутокен Lite 128 КБ', comparisonId: 'rutoken-lite', price: '2 050 ₽', condition: 'Защищённый USB-носитель, сертификат ФСТЭК', source: { label: 'Прайс Ивановского филиала ↗', href: 'https://xn--b1aahn2beei.xn--p1ai/prays-list_uc' }, checkedAt: '28.10.2026', region: 'Ивановский филиал; применимость к другим регионам не подтверждена' },
-        { title: 'Рутокен ЭЦП 3.0', comparisonId: 'rutoken-ecp3', price: '3 100 ₽', condition: 'Модификация 3220, встроенное СКЗИ, сертификат ФСБ', source: { label: 'Прайс Ивановского филиала ↗', href: 'https://xn--b1aahn2beei.xn--p1ai/prays-list_uc' }, checkedAt: '28.10.2026', region: 'Ивановский филиал; применимость к другим регионам не подтверждена' },
-        { title: 'JaCarta PKI/ГОСТ', price: '5 100 ₽', condition: 'Для ЭТП Казахстана; ЭП выпускает УЦ «Гамма», доставка отдельно', source: { label: 'Страница JaCarta PKI/ГОСТ ↗', href: 'https://uc-osnovanie.ru/uslugi/tokeny-dlya-ep/jacarta/' }, additionalSource: { label: 'Форма заказа JaCarta ↗', href: 'https://uc-osnovanie.ru/tokenPreapplication/?partnerId=1&source=uc&tariffId=929' }, checkedAt: '28.10.2026' }
+        { title: 'КриптоПро CSP 5.0', comparisonId: 'csp-annual', price: '1 850 ₽', condition: 'Отдельная лицензия на 1 рабочее место, 1 год', priceSource: osnovanieTariffsSource, checkedAt: '30.10.2026', ...competitorUnspecifiedPriceRegion },
+        { title: 'КриптоПро CSP 5.0', comparisonId: 'csp-perpetual', price: '3 700 ₽', condition: 'Отдельная лицензия на 1 рабочее место, бессрочно', priceSource: osnovanieTariffsSource, checkedAt: '30.10.2026', ...competitorUnspecifiedPriceRegion },
+        { title: 'Рутокен Lite 128 КБ', comparisonId: 'rutoken-lite', price: '2 550 ₽', condition: 'Защищённый USB-носитель, сертификат ФСТЭК', priceSource: osnovanieTariffsSource, checkedAt: '30.10.2026', ...competitorUnspecifiedPriceRegion, historicalPrice: { price: '2 050 ₽', region: 'Ивановский филиал', checkedAt: '28.10.2026', href: 'https://xn--b1aahn2beei.xn--p1ai/prays-list_uc' } },
+        { title: 'Рутокен ЭЦП 3.0', comparisonId: 'rutoken-ecp3', price: '3 400 ₽', condition: 'Криптотокен со встроенным СКЗИ, сертификат ФСБ', priceSource: osnovanieTariffsSource, checkedAt: '30.10.2026', ...competitorUnspecifiedPriceRegion, historicalPrice: { price: '3 100 ₽', region: 'Ивановский филиал', checkedAt: '28.10.2026', href: 'https://xn--b1aahn2beei.xn--p1ai/prays-list_uc' } },
+        { title: 'JaCarta PKI/ГОСТ', price: '5 100 ₽', condition: 'Для ЭТП Казахстана; ЭП выпускает УЦ «Гамма», доставка отдельно', priceSource: osnovanieTariffsSource, source: { label: 'Страница JaCarta PKI/ГОСТ ↗', href: 'https://uc-osnovanie.ru/uslugi/tokeny-dlya-ep/jacarta/' }, additionalSource: { label: 'Форма заказа JaCarta ↗', href: 'https://uc-osnovanie.ru/tokenPreapplication/?partnerId=1&source=uc&tariffId=929' }, checkedAt: '30.10.2026', ...competitorUnspecifiedPriceRegion }
       ],
       promotions: [
         {
@@ -580,49 +643,152 @@ export const competitors = {
       limitations: ['Полностью дистанционный первичный выпуск не подтверждён контрольной покупкой.', 'Бесплатная настройка рабочего места не предоставляется.']
     },
     functionalityV2: {
-      user: {
-        personalAccount: {
-          status: 'available',
-          value: 'Личный кабинет',
-          description: 'Заявки и их статусы, текущие и истекшие электронные подписи, информация по сертификатам.'
+      "user": {
+        "personalAccount": {
+          "status": "available",
+          "value": "Личный кабинет",
+          "description": "Заявки и сертификаты; подача заявления на отзыв сертификата АО «Аналитический Центр» через кабинет. При утрате или неисправности носителя инструкция предусматривает очное обращение.",
+          "comparisonNote": "Заявки, сертификаты и заявление на отзыв сертификата своего УЦ.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://uc-osnovanie.ru/longread/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "scope": "standard-client-without-corporate-solution"
         },
-        remoteScenarios: {
-          status: 'conditional',
-          value: 'Дистанционные сценарии',
-          description: 'Для физлиц доступен первичный выпуск с дистанционной идентификацией по подтвержденной биометрии. Стандартный сценарий предусматривает очную идентификацию.'
+        "remoteScenarios": {
+          "status": "conditional",
+          "value": "Дистанционные сценарии",
+          "description": "Физлицам доступен дистанционный выпуск через Единую биометрическую систему (ЕБС) при подтверждённых биометрии и учётной записи Госуслуг. До окончания действия ЭП можно дистанционно подать заявление на перевыпуск.",
+          "comparisonNote": "Физлица: выпуск по подтверждённой биометрии; удалённое продление до окончания действия ЭП.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://uc-osnovanie.ru/longread/",
+              "label": "Официальная документация ↗"
+            }
+          ]
         },
-        mobileSignature: {
-          status: 'available',
-          value: 'Мобильная ЭП',
-          description: 'Приложение «Мой ключ» для работы с электронной подписью со смартфона.',
-          tooltip: '«Мой ключ» позволяет работать с электронной подписью со смартфона.'
+        "mobileSignature": {
+          "status": "conditional",
+          "value": "Мобильная ЭП",
+          "description": "Приложение «Мой ключ» поддерживает подписание с NFC-токеном на Android 7+ и другие способы подключения носителя. Мобильная КЭП без физического токена не подтверждена.",
+          "comparisonNote": "Приложение «Мой ключ» поддерживает подписание с NFC-токеном на Android 7+ и другие способы подключения носителя. Мобильная КЭП без физического токена не подтверждена.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://uc-osnovanie.ru/docs/Rukovodstvo_Moj_klyuch_V_00.02.pdf",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "solutionName": "Мой ключ"
+        },
+        "mobileWithoutToken": {
+          "description": "Подтверждена работа с внешним носителем; КЭП без токена не установлена.",
+          "comparisonNote": "Подтверждена работа с внешним носителем; КЭП без токена не установлена.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://uc-osnovanie.ru/docs/Rukovodstvo_Moj_klyuch_V_00.02.pdf",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "status": "unconfirmed",
+          "solutionName": "Мой ключ"
+        },
+        "nfc": {
+          "description": "Подписание с NFC-токеном на Android 7+; устройство должно поддерживать NFC.",
+          "comparisonNote": "Подписание с NFC-токеном на Android 7+; устройство должно поддерживать NFC.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://uc-osnovanie.ru/docs/Rukovodstvo_Moj_klyuch_V_00.02.pdf",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://www.rutoken.ru/partners/tech/osnovanie.html",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "status": "conditional",
+          "solutionName": "Мой ключ"
+        },
+        "remoteIssuance": {
+          "status": "conditional",
+          "description": "По биометрии, без действующей КЭП. Нужны подтверждённая биометрия в Единой биометрической системе (ЕБС) и учётная запись Госуслуг.",
+          "comparisonNote": "По биометрии, без действующей КЭП. Нужны подтверждённая биометрия в ЕБС и учётная запись Госуслуг.",
+          "sources": [
+            {
+              "href": "https://uc-osnovanie.ru/longread/",
+              "label": "Получение КЭП ↗"
+            }
+          ],
+          "checkedAt": "2026-11-02"
+        },
+        "remoteRenewal": {
+          "status": "conditional",
+          "description": "Удалённо до окончания действия ЭП; заявление подписывается действующей подписью.",
+          "comparisonNote": "Удалённо до окончания действия ЭП; заявление подписывается действующей подписью.",
+          "sources": [
+            {
+              "href": "https://uc-osnovanie.ru/longread/",
+              "label": "Продление КЭП ↗"
+            }
+          ],
+          "checkedAt": "2026-11-02"
         }
       },
-      organization: {
-        certificateManagement: {
-          status: 'available',
-          value: 'КЦР',
-          solutionName: 'КЦР',
-          title: 'Массовый выпуск и управление сертификатами',
-          description: 'централизованный массовый выпуск КЭП и НЭП сотрудникам с получением сертификатов на рабочих местах.',
-          tooltip: 'Основание заявляет сокращение срока получения сертификата с нескольких дней до 1 часа.'
+      "organization": {
+        "certificateManagement": {
+          "status": "available",
+          "value": "КЦР",
+          "solutionName": "КЦР",
+          "title": "Массовый выпуск и управление сертификатами",
+          "description": "Массовый выпуск КЭП и НЭП сотрудникам с получением сертификатов на рабочих местах.",
+          "comparisonNote": "Массовый выпуск КЭП и НЭП на рабочих местах.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://uc-osnovanie.ru/uslugi/poluchit-ep/korporativnym-klientam/",
+              "label": "Официальная документация ↗"
+            }
+          ]
         },
-        apiIntegrations: {
-          status: 'available',
-          value: 'API и интеграции',
-          description: 'Интеграция КЦР с внутренними системами компании; API для автоматизации выпуска, обновления и отзыва электронных подписей.'
+        "apiIntegrations": {
+          "status": "available",
+          "value": "API и интеграции",
+          "description": "Интеграция КЦР с системами организации для автоматизации выпуска, обновления и отзыва ЭП.",
+          "comparisonNote": "Выпуск, обновление и отзыв ЭП из корпоративных систем.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://uc-osnovanie.ru/uslugi/poluchit-ep/korporativnym-klientam/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "solutionName": "API КЦР"
         },
-        mchd: {
-          status: 'available',
-          value: 'Основание.МЧД',
-          solutionName: 'Основание.МЧД',
-          title: 'МЧД и полномочия',
-          description: 'сервис для работы с машиночитаемыми доверенностями.',
-          tooltip: 'Подробный функциональный состав текущей публичной витриной не подтвержден.'
+        "mchd": {
+          "status": "available",
+          "value": "Основание.МЧД",
+          "solutionName": "Основание.МЧД",
+          "title": "МЧД и полномочия",
+          "description": "УЦ заявлял сервис оформления и управления «Основание.МЧД». Текущая доступность интерфейса и подробный состав операций не проверены; официальный анонс относится к 2024 году.",
+          "comparisonNote": "Сервис заявлен УЦ; текущая доступность и состав операций требуют уточнения.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://t.me/ucosnovanie/797",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "verificationScope": "official-announcement-2024; current-interface-unverified"
         }
       },
-      focus: 'Наиболее развит корпоративный контур: КЦР объединяет массовый выпуск КЭП и НЭП, централизованное управление и интеграцию с внутренними системами через API.',
-      claimedVsChecked: 'Дистанционный выпуск по биометрии подтвержден публичной витриной для физлиц. Контрольная покупка апреля 2026 проходила с очным визитом, поэтому дистанционный сценарий фактически не проверен.'
+      "focus": "Наиболее развит корпоративный контур: КЦР объединяет массовый выпуск КЭП и НЭП, централизованное управление и интеграцию с внутренними системами через API.",
+      "claimedVsChecked": "Дистанционный выпуск по биометрии подтвержден публичной витриной для физлиц. Контрольная покупка апреля 2026 проходила с очным визитом, поэтому дистанционный сценарий фактически не проверен."
     },
     support: {
       channels: 'Горячая линия, e-mail, форма консультации, чат, Telegram-бот и очные центры.',
@@ -917,6 +1083,60 @@ export const competitors = {
       ]
     },
     {
+      "name": "Функциональность — проверка 02.11.2026",
+      "links": [
+        {
+          "href": "https://saby.ru/help/ep/kep/order",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://saby.ru/help/ep/kep/del",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://saby.ru/help/ep/kep/order/biometr",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://saby.ru/help/ep/mep",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://saby.ru/help/ep/mep/nfc",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://saby.ru/help/ep/kuc",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://saby.ru/help/integration/api/trust",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://saby.ru/help/integration/api/powers",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://saby.ru/help/ep/mchd",
+          "label": "Официальная документация ↗"
+        },
+        {
+          "href": "https://saby.ru/edo/mchd",
+          "label": "Официальная документация ↗"
+        }
+      ]
+    },
+    {
+      "name": "Личный кабинет и дистанционные сценарии",
+      "links": [
+        {
+          "href": "https://saby.ru/help/ep/kep/prolong",
+          "label": "Продление КЭП ↗"
+        }
+      ]
+    },
+    {
       "name": "КЭП: январь–сентябрь 2025 и 2026",
       "links": [
         {
@@ -964,7 +1184,7 @@ export const competitors = {
       advantages: [
         { title: 'Быстрый выпуск', text: 'Получение электронной подписи — через 15 минут.' },
         { title: 'Дистанционный выпуск', text: 'Получение ключа ЭП в один клик; для удаленной идентификации используются действующая КЭП или биометрия.' },
-        { title: 'Корпоративный УЦ', text: 'Пункт выдачи ЭП и МЧД в офисе компании за день без доработок и доплат.' },
+        { title: 'Корпоративный УЦ', ...tenzorPriceRegion, priceSource: tenzorTariffsSource, priceInfo: tenzorPriceInfo, text: 'Пункт выдачи ЭП и МЧД в офисе компании за день без доработок и доплат.' },
         { title: 'Сопровождение торгов', text: 'Регистрация в ЕИС, подготовка и проведение торгов, обучение работе на электронных торговых площадках.' }
       ],
       trust: [
@@ -975,14 +1195,14 @@ export const competitors = {
       clients: { label: 'Нам доверяют', text: 'Банк России · Газпром · РЖД · МегаФон · Аэрофлот', source: { href: 'https://tensor.ru/uc' } }
     },
     productsV2: {
-      baseNote: 'Цены сверены по публичным тарифам Тензора на 15.09.2026. Для руководителя / ИП в карточке указана цена первичного получения; другие варианты раскрываются по кнопке «Подробнее».',
+      baseNote: 'Цены сверены по публичным тарифам Тензора 30.10.2026 для Москвы и Московской области. Для руководителя / ИП в карточке указана цена первичного получения; другие варианты раскрываются по кнопке «Подробнее».',
       baseOffers: [
         {
           role: 'Руководитель / ИП',
-          comparisonId: 'kep-leader',
+          comparisonId: 'kep-leader', ...tenzorPriceRegion, priceInfo: tenzorPriceInfo,
           baseTariffId: 'initial',
-          priceSource: { label: 'Публичные тарифы Тензора ↗', href: 'https://tensor.ru/uc' },
-          priceCheckedAt: '15.09.2026',
+          priceSource: tenzorTariffsSource,
+          priceCheckedAt: '30.10.2026',
           price: '4 000 ₽',
           meta: '3 варианта',
           detailLabel: 'Вариант',
@@ -992,12 +1212,12 @@ export const competitors = {
             { name: 'Бизнес-пакет ФНС', price: '10 500 ₽', includes: ['КЭП руководителя / ИП и одного сотрудника', 'подготовка документов', 'помощь с регистрацией на площадках', 'техподдержка', 'вебинары по закупкам', 'помощь с банковской гарантией'] }
           ]
         },
-        { role: 'Сотрудник', comparisonId: 'kep-employee', price: '4 000 ₽', meta: 'базовая цена', priceSource: { label: 'Публичные тарифы Тензора ↗', href: 'https://tensor.ru/uc' }, priceCheckedAt: '15.09.2026' },
-        { role: 'Физлицо', comparisonId: 'kep-person', price: '2 000 ₽', meta: 'базовая цена', priceSource: { label: 'Публичные тарифы Тензора ↗', href: 'https://tensor.ru/uc' }, priceCheckedAt: '15.09.2026' }
+        { role: 'Сотрудник', comparisonId: 'kep-employee', ...tenzorPriceRegion, priceInfo: tenzorPriceInfo, price: '4 000 ₽', meta: 'базовая цена', priceSource: tenzorTariffsSource, priceCheckedAt: '30.10.2026' },
+        { role: 'Физлицо', comparisonId: 'kep-person', ...tenzorPriceRegion, priceInfo: tenzorPriceInfo, price: '2 000 ₽', meta: 'базовая цена', priceSource: tenzorTariffsSource, priceCheckedAt: '30.10.2026' }
       ],
       otherOffers: [
         {
-          title: 'КЭП для торгов и бизнес-задач',
+          title: 'КЭП для торгов и бизнес-задач', ...tenzorPriceRegion, priceSource: tenzorTariffsSource, priceInfo: tenzorPriceInfo,
           price: 'Стоимость: 4 000–16 000 ₽',
           description: 'Тарифы различаются набором торговых площадок и сценариев. Дополнительные коммерческие площадки — 4 200 ₽ за площадку.',
           meta: '4 тарифа',
@@ -1011,9 +1231,9 @@ export const competitors = {
         },
         {
           title: 'МЧД',
-          comparisonId: 'mchd',
-          priceSource: { label: 'Публичные тарифы Тензора ↗', href: 'https://tensor.ru/uc' },
-          priceCheckedAt: '15.09.2026',
+          comparisonId: 'mchd', ...competitorUnspecifiedPriceRegion, priceInfo: competitorUnknownPriceInfo(sabyMchdSource),
+          priceSource: sabyMchdSource,
+          priceCheckedAt: '30.10.2026',
           price: 'Стоимость: от 1 100 ₽',
           description: 'Пакеты от 1 МЧД до безлимита для регистрации и управления доверенностями. Для интеграции доступен МЧД API.',
           meta: '8 пакетов + API',
@@ -1037,12 +1257,13 @@ export const competitors = {
         }
       ],
       addonsTitle: 'СКЗИ и носители',
+      addonsPriceInfo: tenzorPriceInfo,
       addons: [
-        { title: 'КриптоПро CSP', comparisonId: 'csp-annual', price: '1 850 ₽', condition: 'годовая лицензия', source: { label: 'Публичные тарифы Тензора ↗', href: 'https://tensor.ru/uc' }, checkedAt: '15.09.2026' },
-        { title: 'КриптоПро CSP', price: '3 700 ₽', condition: 'бессрочная лицензия' },
-        { title: 'Рутокен', comparisonId: 'rutoken-lite', price: '2 250 ₽', condition: 'защищенный носитель', source: { label: 'Публичные тарифы Тензора ↗', href: 'https://tensor.ru/uc' }, checkedAt: '15.09.2026' },
-        { title: 'Рутокен ЭЦП', comparisonId: 'rutoken-ecp3', price: '3 000 ₽', condition: 'носитель со встроенной криптографией', source: { label: 'Публичные тарифы Тензора ↗', href: 'https://tensor.ru/uc' }, checkedAt: '15.09.2026' },
-        { title: 'Рутокен ЭЦП NFC', comparisonId: 'rutoken-ecp3-nfc', price: '3 900 ₽', condition: 'NFC-носитель', source: { label: 'Публичные тарифы Тензора ↗', href: 'https://tensor.ru/uc' }, checkedAt: '15.09.2026' }
+        { ...tenzorPriceRegion, priceSource: tenzorTariffsSource, title: 'КриптоПро CSP', comparisonId: 'csp-annual', price: '1 850 ₽', condition: 'годовая лицензия', source: tenzorTariffsSource, checkedAt: '30.10.2026' },
+        { ...tenzorPriceRegion, priceSource: tenzorTariffsSource, title: 'КриптоПро CSP', price: '3 700 ₽', condition: 'бессрочная лицензия' },
+        { ...tenzorPriceRegion, priceSource: tenzorTariffsSource, title: 'Рутокен', comparisonId: 'rutoken-lite', price: '2 250 ₽', condition: 'защищенный носитель', source: tenzorTariffsSource, checkedAt: '30.10.2026' },
+        { ...tenzorPriceRegion, priceSource: tenzorTariffsSource, title: 'Рутокен ЭЦП', comparisonId: 'rutoken-ecp3', price: '3 000 ₽', condition: 'носитель со встроенной криптографией', source: tenzorTariffsSource, checkedAt: '30.10.2026' },
+        { ...tenzorPriceRegion, priceSource: tenzorTariffsSource, title: 'Рутокен ЭЦП NFC', comparisonId: 'rutoken-ecp3-nfc', price: '3 900 ₽', condition: 'NFC-носитель', source: tenzorTariffsSource, checkedAt: '30.10.2026' }
       ],
       promotions: [
         { label: 'СПЕЦПРЕДЛОЖЕНИЕ', title: 'КЭП для физлица по биометрии', value: '0 ₽', description: 'КЭП для физлица можно получить бесплатно при использовании биометрии.' }
@@ -1165,39 +1386,167 @@ export const competitors = {
       limitations: ['Постоянный личный кабинет владельца КЭП не подтверждён.', 'Дистанционный первичный выпуск заявлен, но контрольный путь был офисным.', 'Использование Госключа именно для идентификации при выпуске КЭП не подтверждено.']
     },
     functionalityV2: {
-      user: {
-        personalAccount: {
-          status: 'available',
-          description: 'Заявки на выпуск и продление, просмотр ЭП и срока действия сертификатов, самостоятельный отзыв.'
+      "user": {
+        "personalAccount": {
+          "status": "available",
+          "description": "Заявки на выпуск и продление, просмотр сертификатов и сроков, самостоятельная заявка на отзыв с дальнейшей обработкой УЦ.",
+          "comparisonNote": "Заявки на выпуск и продление, сертификаты, заявление на отзыв.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/ep/kep/order",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://saby.ru/help/ep/kep/del",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "scope": "standard-client-without-corporate-solution"
         },
-        remoteScenarios: {
-          status: 'conditional',
-          description: 'Первичный выпуск — по действующей КЭП или подтвержденной биометрии; продление — с действующей ЭП, для КЭП ФНС — без визита при неизменных реквизитах.'
+        "remoteScenarios": {
+          "status": "conditional",
+          "description": "Выпуск по действующей КЭП, включая сертификат другого УЦ, либо по подтверждённой биометрии в Единой биометрической системе (ЕБС). Продление выполняется по предусмотренному онлайн-сценарию; перевыпуск КЭП ФНС — отдельная процедура.",
+          "comparisonNote": "Выпуск по КЭП или биометрии; онлайн-продление по предусмотренному сценарию.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/ep/kep/order",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://saby.ru/help/ep/kep/order/biometr",
+              "label": "Официальная документация ↗"
+            }
+          ]
         },
-        mobileSignature: {
-          status: 'conditional',
-          description: 'Для сотрудников ключ хранится в защищенном хранилище смартфона и используется для подписания в Saby; для руководителя и ИП мобильный сценарий — через Рутокен NFC.'
+        "mobileSignature": {
+          "status": "conditional",
+          "description": "Для сотрудников доступна КЭП с ключом в смартфоне, используемая в Saby. Имеющуюся подпись можно подключить через Рутокен NFC; для руководителей и ИП инструкция предусматривает этот мобильный вариант.",
+          "comparisonNote": "Для сотрудников доступна КЭП с ключом в смартфоне, используемая в Saby. Имеющуюся подпись можно подключить через Рутокен NFC; для руководителей и ИП инструкция предусматривает этот мобильный вариант.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/ep/mep",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://saby.ru/help/ep/mep/nfc",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "solutionName": "Saby"
+        },
+        "mobileWithoutToken": {
+          "description": "Для сотрудников: ключ в смартфоне, выпущенная на телефон КЭП используется в Saby.",
+          "comparisonNote": "Для сотрудников: ключ в смартфоне, выпущенная на телефон КЭП используется в Saby.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/ep/mep",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "status": "conditional",
+          "solutionName": "Saby"
+        },
+        "nfc": {
+          "description": "Подключение имеющейся подписи к телефону; для руководителей и ИП — основной мобильный вариант.",
+          "comparisonNote": "Подключение имеющейся подписи к телефону; для руководителей и ИП — основной мобильный вариант.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/ep/mep/nfc",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://saby.ru/help/ep/mep",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "status": "conditional",
+          "solutionName": "Saby + Рутокен NFC"
+        },
+        "remoteIssuance": {
+          "status": "conditional",
+          "description": "По биометрии либо действующей КЭП, в том числе другого УЦ. После идентификации заявку проверяет сотрудник УЦ.",
+          "comparisonNote": "По биометрии либо действующей КЭП, в том числе другого УЦ. После идентификации заявку проверяет сотрудник УЦ.",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/ep/kep/order/biometr",
+              "label": "Получение КЭП ↗"
+            },
+            {
+              "href": "https://saby.ru/help/ep/kep/order",
+              "label": "Способы получения КЭП ↗"
+            }
+          ],
+          "checkedAt": "2026-11-02"
+        },
+        "remoteRenewal": {
+          "status": "conditional",
+          "description": "До окончания действия КЭП; в Saby или на сайте УЦ. Мобильная КЭП — через приложение.",
+          "comparisonNote": "До окончания действия КЭП; в Saby или на сайте УЦ. Мобильная КЭП — через приложение.",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/ep/kep/prolong",
+              "label": "Продление КЭП ↗"
+            }
+          ],
+          "checkedAt": "2026-11-02"
         }
       },
-      organization: {
-        certificateManagement: {
-          status: 'available',
-          solutionName: 'Корпоративный УЦ Saby',
-          description: 'Массовый выпуск КЭП и НЭП сотрудникам; администраторы управляют заявками, идентификацией, продлением и отзывом подписей.'
+      "organization": {
+        "certificateManagement": {
+          "status": "available",
+          "solutionName": "Корпоративный УЦ Saby",
+          "description": "Выпуск, продление и отзыв КЭП и НЭП через администраторов организации на инфраструктуре УЦ Тензора.",
+          "comparisonNote": "Выпуск, продление и отзыв ЭП через администраторов.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/ep/kuc",
+              "label": "Официальная документация ↗"
+            }
+          ]
         },
-        apiIntegrations: {
-          status: 'available',
-          solutionName: 'API SabyTrust',
-          description: 'Автоматическое создание заявок на КЭП из корпоративных систем без ручного заполнения в Saby; через API доступны и операции с МЧД. Работает в тарифе «Корпоративный УЦ».'
+        "apiIntegrations": {
+          "status": "available",
+          "solutionName": "API SabyTrust и МЧД",
+          "description": "API SabyTrust формирует заявки на КЭП и требует тарифа «Корпоративный УЦ». Регистрация, получение и отзыв МЧД доступны отдельными методами API ЭДО; условия SabyTrust не переносятся автоматически на эти методы.",
+          "comparisonNote": "SabyTrust — заявки на КЭП; операции с МЧД — отдельные методы API.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/integration/api/trust",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://saby.ru/help/integration/api/powers",
+              "label": "Официальная документация ↗"
+            }
+          ]
         },
-        mchd: {
-          status: 'available',
-          solutionName: 'Saby МЧД',
-          description: 'Создание, регистрация, отзыв и реестр доверенностей; настройка полномочий для ЭДО, отчетности, ЕГАИС и других сценариев.'
+        "mchd": {
+          "status": "available",
+          "solutionName": "Saby МЧД",
+          "description": "Создание, регистрация, проверка, передоверие, отзыв и реестр МЧД.",
+          "comparisonNote": "Создание, регистрация, проверка, передоверие и отзыв МЧД.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://saby.ru/help/ep/mchd",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://saby.ru/edo/mchd",
+              "label": "Официальная документация ↗"
+            }
+          ]
         }
       },
-      focus: 'Тензор развивает два функциональных контура: для владельца ЭП — личный кабинет, дистанционные и мобильные сценарии; для организаций — массовый выпуск через Корпоративный УЦ, управление МЧД и API-интеграции.',
-      claimedVsChecked: 'Дистанционный первичный выпуск заявлен по действующей КЭП или подтвержденной биометрии. В контрольной покупке КЭП сотрудника оформление вел менеджер, а идентификация и выпуск прошли в офисе; сквозной дистанционный сценарий не проверен.'
+      "focus": "Тензор развивает два функциональных контура: для владельца ЭП — личный кабинет, дистанционные и мобильные сценарии; для организаций — массовый выпуск через Корпоративный УЦ, управление МЧД и API-интеграции.",
+      "claimedVsChecked": "Дистанционный первичный выпуск заявлен по действующей КЭП или подтвержденной биометрии. В контрольной покупке КЭП сотрудника оформление вел менеджер, а идентификация и выпуск прошли в офисе; сквозной дистанционный сценарий не проверен."
     },
     support: {
       channels: 'Телефон 24/7, обратный звонок эксперта, центры выдачи; возможен выезд инженера.',
@@ -1252,6 +1601,7 @@ export const competitors = {
 
   taxcom: {
     slug: 'taxcom',
+    eventsName: 'Такскома',
     shortName: 'Такском',
     brandName: 'УЦ «Такском»',
     logo: { src: './src/assets/competitors/taxcom.png', alt: 'Логотип Такском', variant: 'full' },
@@ -1387,55 +1737,337 @@ export const competitors = {
       }
     },
     productsV2: {
-      baseNoteEmbedded: {
-        before: 'Цены по прейскуранту от 03.08.2026 для региональных офисов и представителей, кроме Москвы и Московской области. Данные с ',
-        linkText: 'сайта Такском',
-        after: '.',
-        source: { href: 'https://taxcom.ru/upload/price/price_all.pdf' }
+      "baseNoteEmbedded": {
+        "before": "Цены для Москвы и Московской области по прейскуранту от 18.09.2026. Данные с ",
+        "linkText": "сайта Такском",
+        "after": ".",
+        "source": {
+          "href": "https://taxcom.ru/upload/price/price_77.pdf"
+        }
       },
-      baseOffers: [
-        { role: 'Руководитель / ИП', comparisonId: 'kep-leader', baseTariffId: 'initial', price: '3 950 ₽', meta: '2 варианта', detailLabel: 'Вариант', region: 'Региональные офисы и представители, кроме Москвы и Московской области', priceSource: { label: 'Прейскурант УЦ Такском от 03.08.2026 ↗', href: 'https://taxcom.ru/upload/price/price_all.pdf' }, priceCheckedAt: '03.08.2026', tariffs: [
-          { name: 'Первичное получение', tariffId: 'initial', price: '3 950 ₽', includes: ['Сопровождение получения бесплатной КЭП УЦ ФНС через доверенное лицо'] },
-          { name: 'Удалённый перевыпуск', price: '3 950 ₽', includes: ['Сопровождение удалённого перевыпуска бесплатной КЭП УЦ ФНС без визита в инспекцию'] }
-        ] },
-        { role: 'Сотрудник', comparisonId: 'kep-employee', baseTariffId: 'initial', price: '3 000 ₽', meta: '3 варианта', detailLabel: 'Вариант', region: 'Региональные офисы и представители, кроме Москвы и Московской области', priceSource: { label: 'Прейскурант УЦ Такском от 03.08.2026 ↗', href: 'https://taxcom.ru/upload/price/price_all.pdf' }, priceCheckedAt: '03.08.2026', tariffs: [
-          { name: 'Базовая КЭП', tariffId: 'initial', price: '3 000 ₽', includes: ['КЭП физического лица для сотрудника'] },
-          { name: 'С КриптоПро CSP', price: '3 950 ₽', includes: ['КЭП сотрудника', 'лицензия КриптоПро CSP'] },
-          { name: 'Для мобильных приложений', price: '4 000 ₽', includes: ['ЭП для корпоративного ЭДО', 'использование Рутокен 3.0 NFC'] }
-        ] },
-        { role: 'Физлицо', comparisonId: 'kep-person', baseTariffId: 'initial', price: '2 000 ₽', meta: '3 варианта', detailLabel: 'Вариант', region: 'Региональные офисы и представители, кроме Москвы и Московской области', priceSource: { label: 'Прейскурант УЦ Такском от 03.08.2026 ↗', href: 'https://taxcom.ru/upload/price/price_all.pdf' }, priceCheckedAt: '03.08.2026', tariffs: [
-          { name: 'Стандартная КЭП', tariffId: 'initial', price: '2 000 ₽', includes: ['Срок действия 1 год'] },
-          { name: 'Экспресс', price: '1 750 ₽', includes: ['Срок действия 3 месяца'] },
-          { name: 'С КриптоПро CSP', price: '2 950 ₽', includes: ['КЭП на 1 год', 'лицензия КриптоПро CSP'] }
-        ] }
+      "baseOffers": [
+        {
+          "role": "Руководитель / ИП",
+          "comparisonId": "kep-leader",
+          "baseTariffId": "initial",
+          "price": "3 950 ₽",
+          "meta": "2 варианта",
+          "detailLabel": "Вариант",
+          "region": "Москва и Московская область",
+          "regionStatus": "moscow_mo",
+          "priceSource": {
+            "label": "Прайс Такскома для Москвы и МО от 18.09.2026 ↗",
+            "href": "https://taxcom.ru/upload/price/price_77.pdf"
+          },
+          "priceCheckedAt": "30.10.2026",
+          "priceDocumentDate": "18.09.2026",
+          "tariffs": [
+            {
+              "name": "Первичное получение",
+              "tariffId": "initial",
+              "price": "3 950 ₽",
+              "includes": [
+                "Сопровождение получения бесплатной КЭП УЦ ФНС через доверенное лицо"
+              ]
+            },
+            {
+              "name": "Удалённый перевыпуск",
+              "price": "3 950 ₽",
+              "includes": [
+                "Сопровождение удалённого перевыпуска бесплатной КЭП УЦ ФНС без визита в инспекцию"
+              ]
+            }
+          ]
+        },
+        {
+          "role": "Сотрудник",
+          "comparisonId": "kep-employee",
+          "baseTariffId": "initial",
+          "price": "3 000 ₽",
+          "meta": "3 варианта",
+          "detailLabel": "Вариант",
+          "region": "Москва и Московская область",
+          "regionStatus": "moscow_mo",
+          "priceSource": {
+            "label": "Прайс Такскома для Москвы и МО от 18.09.2026 ↗",
+            "href": "https://taxcom.ru/upload/price/price_77.pdf"
+          },
+          "priceCheckedAt": "30.10.2026",
+          "priceDocumentDate": "18.09.2026",
+          "tariffs": [
+            {
+              "name": "Базовая КЭП",
+              "tariffId": "initial",
+              "price": "3 000 ₽",
+              "includes": [
+                "КЭП физического лица для сотрудника"
+              ]
+            },
+            {
+              "name": "С КриптоПро CSP",
+              "price": "3 950 ₽",
+              "includes": [
+                "КЭП сотрудника",
+                "лицензия КриптоПро CSP"
+              ]
+            },
+            {
+              "name": "Для мобильных приложений",
+              "price": "4 000 ₽",
+              "includes": [
+                "ЭП для корпоративного ЭДО",
+                "использование Рутокен 3.0 NFC"
+              ]
+            }
+          ]
+        },
+        {
+          "role": "Физлицо",
+          "comparisonId": "kep-person",
+          "baseTariffId": "initial",
+          "price": "2 000 ₽",
+          "meta": "3 варианта",
+          "detailLabel": "Вариант",
+          "region": "Москва и Московская область",
+          "regionStatus": "moscow_mo",
+          "priceSource": {
+            "label": "Прайс Такскома для Москвы и МО от 18.09.2026 ↗",
+            "href": "https://taxcom.ru/upload/price/price_77.pdf"
+          },
+          "priceCheckedAt": "30.10.2026",
+          "priceDocumentDate": "18.09.2026",
+          "tariffs": [
+            {
+              "name": "Стандартная КЭП",
+              "tariffId": "initial",
+              "price": "2 000 ₽",
+              "includes": [
+                "Срок действия 1 год"
+              ]
+            },
+            {
+              "name": "Экспресс",
+              "price": "1 750 ₽",
+              "includes": [
+                "Срок действия 3 месяца"
+              ]
+            },
+            {
+              "name": "С КриптоПро CSP",
+              "price": "2 950 ₽",
+              "includes": [
+                "КЭП на 1 год",
+                "лицензия КриптоПро CSP"
+              ]
+            }
+          ]
+        }
       ],
-      otherOffers: [
-        { title: 'Управление сертификатами (ТУС)', price: 'Стоимость: по запросу.', description: 'Корпоративное решение для выпуска ЭП сотрудникам в офисе организации, учёта сертификатов, перевыпуска и отзыва. Для компаний со штатом от 50 человек.', source: { href: 'https://taxcom.ru/centr/upravlenie-elektronnymi-podpisyami/' } },
-        { title: 'API УЦ', price: 'Стоимость: по запросу.', description: 'Интеграция операций с электронными подписями в корпоративные информационные системы. Для организаций от 200 сотрудников с собственной учётной системой.', source: { href: 'https://taxcom.ru/centr/korporativnye-resheniya-taxcom/' } },
-        { title: 'Управление доверенностями', comparisonId: 'mchd', price: 'Стоимость: от 1 500 ₽ в год', description: 'Сервис создания, регистрации, продления и отзыва МЧД с пакетными лицензиями и отдельным API.', meta: '9 пакетов + API', detailLabel: 'Пакет', source: { href: 'https://taxcom.ru/upload/price/price_all.pdf' }, priceSource: { label: 'Прейскурант УЦ Такском от 03.08.2026 ↗', href: 'https://taxcom.ru/upload/price/price_all.pdf' }, priceCheckedAt: '03.08.2026', tariffs: [
-          { name: '1 МЧД', comparisonId: 'mchd-1', price: '1 500 ₽', includes: ['Лицензия на 1 год'] },
-          { name: '2 МЧД', price: '2 500 ₽', includes: ['Лицензия на 1 год'] },
-          { name: '5 МЧД', comparisonId: 'mchd-5', price: '5 000 ₽', includes: ['Лицензия на 1 год'] },
-          { name: '10 МЧД', price: '8 000 ₽', includes: ['Лицензия на 1 год'] },
-          { name: '25 МЧД', price: '17 000 ₽', includes: ['Лицензия на 1 год'] },
-          { name: '50 МЧД', price: '30 000 ₽', includes: ['Лицензия на 1 год'] },
-          { name: '75 МЧД', price: '33 000 ₽', includes: ['Лицензия на 1 год'] },
-          { name: '100 МЧД', price: '38 000 ₽', includes: ['Лицензия на 1 год'] },
-          { name: 'Безлимит МЧД', comparisonId: 'mchd-unlimited', price: '85 000 ₽', includes: ['Лицензия на 1 год'] },
-          { name: 'API управления доверенностями', price: '90 000 ₽', includes: ['Лицензия на 1 год'] }
-        ] }
+      "otherOffers": [
+        {
+          "title": "Управление сертификатами (ТУС)",
+          "price": "Стоимость: по запросу.",
+          "description": "Корпоративное решение для выпуска ЭП сотрудникам в офисе организации, учёта сертификатов, перевыпуска и отзыва. Рекомендован компаниям со штатом от 50 человек; обязательный минимум подключения не подтверждён.",
+          "source": {
+            "href": "https://taxcom.ru/centr/upravlenie-elektronnymi-podpisyami/"
+          }
+        },
+        {
+          "title": "API УЦ",
+          "price": "Стоимость: по запросу.",
+          "description": "Интеграция операций с электронными подписями в корпоративные информационные системы. Для организаций от 200 сотрудников с собственной учётной системой.",
+          "source": {
+            "href": "https://taxcom.ru/centr/korporativnye-resheniya-taxcom/"
+          }
+        },
+        {
+          "title": "Управление доверенностями",
+          "comparisonId": "mchd",
+          "region": "Москва и Московская область",
+          "regionStatus": "moscow_mo",
+          "price": "Стоимость: от 1 500 ₽ в год",
+          "description": "Сервис создания, регистрации, продления и отзыва МЧД с пакетными лицензиями и отдельным API.",
+          "meta": "9 пакетов + API",
+          "detailLabel": "Пакет",
+          "source": {
+            "href": "https://taxcom.ru/upload/price/price_77.pdf"
+          },
+          "priceSource": {
+            "label": "Прайс Такскома для Москвы и МО от 18.09.2026 ↗",
+            "href": "https://taxcom.ru/upload/price/price_77.pdf"
+          },
+          "priceCheckedAt": "30.10.2026",
+          "priceDocumentDate": "18.09.2026",
+          "tariffs": [
+            {
+              "name": "1 МЧД",
+              "comparisonId": "mchd-1",
+              "price": "1 500 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            },
+            {
+              "name": "2 МЧД",
+              "price": "2 500 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            },
+            {
+              "name": "5 МЧД",
+              "comparisonId": "mchd-5",
+              "price": "5 000 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            },
+            {
+              "name": "10 МЧД",
+              "price": "8 000 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            },
+            {
+              "name": "25 МЧД",
+              "price": "17 000 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            },
+            {
+              "name": "50 МЧД",
+              "price": "30 000 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            },
+            {
+              "name": "75 МЧД",
+              "price": "33 000 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            },
+            {
+              "name": "100 МЧД",
+              "price": "38 000 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            },
+            {
+              "name": "Безлимит МЧД",
+              "comparisonId": "mchd-unlimited",
+              "price": "85 000 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            },
+            {
+              "name": "API управления доверенностями",
+              "price": "90 000 ₽",
+              "includes": [
+                "Лицензия на 1 год"
+              ]
+            }
+          ]
+        }
       ],
-      addonsTitle: 'СКЗИ и носители',
-      addons: [
-        { title: 'КриптоПро CSP', comparisonId: 'csp-annual', price: '1 850 ₽', condition: 'Лицензия на 1 год', source: { label: 'Прейскурант УЦ Такском от 03.08.2026 ↗', href: 'https://taxcom.ru/upload/price/price_all.pdf' }, checkedAt: '03.08.2026' },
-        { title: 'Рутокен Lite', comparisonId: 'rutoken-lite', price: '2 250 ₽', condition: 'Для подписания требуется программное СКЗИ', source: { label: 'Прейскурант УЦ Такском от 03.08.2026 ↗', href: 'https://taxcom.ru/upload/price/price_all.pdf' }, checkedAt: '03.08.2026', region: 'Региональные офисы и представители, кроме Москвы и Московской области' },
-        { title: 'Рутокен ЭЦП 3.0', comparisonId: 'rutoken-ecp3', price: '3 000 ₽', condition: 'Подпись формируется на самом носителе', source: { label: 'Прейскурант УЦ Такском от 03.08.2026 ↗', href: 'https://taxcom.ru/upload/price/price_all.pdf' }, checkedAt: '03.08.2026', region: 'Региональные офисы и представители, кроме Москвы и Московской области' },
-        { title: 'Рутокен ЭЦП 3.0 NFC', comparisonId: 'rutoken-ecp3-nfc', price: '3 900 ₽', condition: 'Поддержка мобильного подписания через NFC', source: { label: 'Прейскурант УЦ Такском от 03.08.2026 ↗', href: 'https://taxcom.ru/upload/price/price_all.pdf' }, checkedAt: '03.08.2026', region: 'Региональные офисы и представители, кроме Москвы и Московской области' }
+      "addonsTitle": "СКЗИ и носители",
+      "addonsPositionInfo": {
+        "before": "Цены для Москвы и Московской области. ",
+        "linkText": "Прайс Такскома",
+        "source": {
+          "href": "https://taxcom.ru/upload/price/price_77.pdf"
+        },
+        "after": "."
+      },
+      "addons": [
+        {
+          "title": "КриптоПро CSP",
+          "comparisonId": "csp-annual",
+          "region": "Москва и Московская область",
+          "regionStatus": "moscow_mo",
+          "price": "1 850 ₽",
+          "condition": "Лицензия на 1 год",
+          "source": {
+            "label": "Прайс Такскома для Москвы и МО от 18.09.2026 ↗",
+            "href": "https://taxcom.ru/upload/price/price_77.pdf"
+          },
+          "checkedAt": "30.10.2026",
+          "priceDocumentDate": "18.09.2026"
+        },
+        {
+          "title": "Рутокен Lite",
+          "comparisonId": "rutoken-lite",
+          "price": "2 300 ₽",
+          "priceInfoEmbedded": {
+            "before": "Для Москвы и Московской области — 2 300 ₽; по региональному прайсу — 2 250 ₽. Итоговая стоимость уточняется при заказе. ",
+            "linkText": "Москва и МО",
+            "source": {
+              "href": "https://taxcom.ru/upload/price/price_77.pdf"
+            },
+            "after": " ·",
+            "extraSources": [
+              {
+                "text": "Региональный прайс",
+                "href": "https://taxcom.ru/upload/price/price_all.pdf",
+                "after": "."
+              }
+            ]
+          },
+          "condition": "Для подписания требуется программное СКЗИ",
+          "source": {
+            "label": "Прайс Такскома для Москвы и МО от 18.09.2026 ↗",
+            "href": "https://taxcom.ru/upload/price/price_77.pdf"
+          },
+          "checkedAt": "30.10.2026",
+          "priceDocumentDate": "18.09.2026",
+          "region": "Москва и Московская область",
+          "regionStatus": "moscow_mo"
+        },
+        {
+          "title": "Рутокен ЭЦП 3.0",
+          "comparisonId": "rutoken-ecp3",
+          "price": "3 000 ₽",
+          "condition": "Подпись формируется на самом носителе",
+          "source": {
+            "label": "Прайс Такскома для Москвы и МО от 18.09.2026 ↗",
+            "href": "https://taxcom.ru/upload/price/price_77.pdf"
+          },
+          "checkedAt": "30.10.2026",
+          "priceDocumentDate": "18.09.2026",
+          "region": "Москва и Московская область",
+          "regionStatus": "moscow_mo"
+        },
+        {
+          "title": "Рутокен ЭЦП 3.0 NFC",
+          "comparisonId": "rutoken-ecp3-nfc",
+          "price": "3 900 ₽",
+          "condition": "Поддержка мобильного подписания через NFC",
+          "source": {
+            "label": "Прайс Такскома для Москвы и МО от 18.09.2026 ↗",
+            "href": "https://taxcom.ru/upload/price/price_77.pdf"
+          },
+          "checkedAt": "30.10.2026",
+          "priceDocumentDate": "18.09.2026",
+          "region": "Москва и Московская область",
+          "regionStatus": "moscow_mo"
+        }
       ],
-      addonsTableNote: 'Цены на носители ориентировочные. Окончательная стоимость указывается в счёте при заказе.',
-      promotionsEmptyNote: 'На дату среза публичные акции и специальные предложения по КЭП не найдены.',
-      promotionsCheck: { checkedAt: 'октябрь 2026', sources: [{ href: 'https://taxcom.ru/about/promo/' }] },
-      analysis: 'Модель монетизации сочетает базовые КЭП, специализированные сертификаты, платное сопровождение получения КЭП ФНС и самостоятельные корпоративные решения. Дополнительные источники выручки — лицензии, МЧД и услуги настройки.'
+      "addonsTableNote": "Цены на носители ориентировочные. Окончательная стоимость указывается в счёте при заказе.",
+      "promotionsEmptyNote": "На дату среза публичные акции и специальные предложения по КЭП не найдены.",
+      "promotionsCheck": {
+        "checkedAt": "октябрь 2026",
+        "sources": [
+          {
+            "href": "https://taxcom.ru/about/promo/"
+          }
+        ]
+      },
+      "analysis": "Модель монетизации сочетает базовые КЭП, специализированные сертификаты, платное сопровождение получения КЭП ФНС и самостоятельные корпоративные решения. Дополнительные источники выручки — лицензии, МЧД и услуги настройки."
     },
     salesV2: {
       purchaseModel: [
@@ -1460,54 +2092,158 @@ export const competitors = {
       ]
     },
     functionalityV2: {
-      user: {
-        personalAccount: {
-          status: 'conditional',
-          description: 'Просмотр списка сертификатов и переход к перевыпуску через «Мастер выпуска». Другие самостоятельные операции не подтверждены.',
-          sources: [
-            { href: 'https://lk.taxcom.ru/Content/Instruct/2_1_1_4___priv_cert_________print.htm' },
-            { href: 'https://taxcom.ru/centr/obn-el-pdps/' }
-          ]
+      "user": {
+        "personalAccount": {
+          "status": "available",
+          "description": "Список действующих и истёкших сертификатов, предупреждения о сроках и переход к выпуску или перевыпуску через Мастер выпуска. Самостоятельный отзыв в обычном кабинете не подтверждён.",
+          "sources": [
+            {
+              "href": "https://lk.taxcom.ru/Content/Instruct/5__aboncert_list_export__.htm",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://lk.taxcom.ru/Content/Instruct/2_1_1_4___priv_cert_________print.htm",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Сертификаты, сроки действия и переход к выпуску или перевыпуску.",
+          "checkedAt": "2026-11-02",
+          "scope": "standard-client-without-corporate-solution"
         },
-        remoteScenarios: {
-          status: 'conditional',
-          description: 'Перевыпуск без визита при действующей ЭП и неизменных данных. Дистанционный первичный выпуск для нового клиента не подтверждён.',
-          sources: [{ href: 'https://taxcom.ru/centr/prodlenie-ecp-fns-bez-poseshcheniya-nalogovoj/' }]
+        "remoteScenarios": {
+          "status": "conditional",
+          "description": "Подтверждён дистанционный перевыпуск; для КЭП ФНС предлагается отдельная услуга. Полностью дистанционный первичный выпуск КЭП без действующей подписи не установлен.",
+          "sources": [
+            {
+              "href": "https://taxcom.ru/centr/obn-el-pdps/",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://taxcom.ru/centr/prodlenie-ecp-fns-bez-poseshcheniya-nalogovoj/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Подтверждён перевыпуск; дистанционный первичный выпуск требует подтверждения.",
+          "checkedAt": "2026-11-02"
         },
-        mobileSignature: {
-          status: 'conditional',
-          description: 'Подписание документов в «Такском-Файлере» со смартфона с NFC-токеном «Рутокен ЭЦП 3.0 NFC». Другие приложения не поддерживаются.',
-          sources: [
-            { href: 'https://taxcom.ru/support/etoken/' },
-            { href: 'https://taxcom.ru/dokumentooborot/fajler/' }
-          ]
+        "mobileSignature": {
+          "status": "conditional",
+          "description": "Подписание в мобильном Такском-Файлере с Рутокен ЭЦП 3.0 NFC и ключом в формате ФКН. Это подтверждённое приложение в периметре ПО Такскома; общая совместимость носителя со сторонним ПО шире. Безтокенная мобильная КЭП не установлена.",
+          "sources": [
+            {
+              "href": "https://taxcom.ru/support/etoken/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Подписание в мобильном Такском-Файлере с Рутокен ЭЦП 3.0 NFC и ключом в формате ФКН. Это подтверждённое приложение в периметре ПО Такскома; общая совместимость носителя со сторонним ПО шире. Безтокенная мобильная КЭП не установлена.",
+          "checkedAt": "2026-11-02",
+          "solutionName": "Такском-Файлер"
+        },
+        "mobileWithoutToken": {
+          "description": "КЭП с ключом на смартфоне без токена не подтверждена. Такском-Ручка отдельно поддерживает КЭП с ключом на компьютере и облачную НЭП; это другие сценарии, не доказательство мобильной КЭП.",
+          "comparisonNote": "КЭП с ключом на смартфоне не подтверждена. КЭП на компьютере и облачная НЭП — другие сценарии.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://taxcom.ru/support/mobilniy-fayler/",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://taxcom.ru/support/etoken/",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://taxcom.ru/upload/instructions/t-sign_rukovodstvo_polzovatelja_v1_2.pdf",
+              "label": "Сценарии Такском-Ручки ↗"
+            }
+          ],
+          "status": "unconfirmed",
+          "solutionName": ""
+        },
+        "nfc": {
+          "description": "Нужны NFC и ключ в формате ФКН; среди приложений Такскома подтверждён Файлер.",
+          "comparisonNote": "Нужны NFC и ключ в формате ФКН; среди приложений Такскома подтверждён Файлер.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://taxcom.ru/support/etoken/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "status": "conditional",
+          "solutionName": "Такском-Файлер + Рутокен ЭЦП 3.0 NFC"
+        },
+        "remoteIssuance": {
+          "status": "unconfirmed",
+          "description": "Дистанционный выпуск новой КЭП не установлен; подтверждён онлайн-перевыпуск.",
+          "comparisonNote": "Дистанционный выпуск новой КЭП не установлен; подтверждён онлайн-перевыпуск.",
+          "sources": [
+            {
+              "href": "https://taxcom.ru/centr/obn-el-pdps/",
+              "label": "Получение КЭП ↗"
+            }
+          ],
+          "checkedAt": "2026-11-02"
+        },
+        "remoteRenewal": {
+          "status": "conditional",
+          "description": "Через Мастер выпуска; для описанного сценария отчётности — при неизменных реквизитах.",
+          "comparisonNote": "Через Мастер выпуска; для описанного сценария отчётности — при неизменных реквизитах.",
+          "sources": [
+            {
+              "href": "https://taxcom.ru/centr/obn-el-pdps/",
+              "label": "Продление КЭП ↗"
+            }
+          ],
+          "checkedAt": "2026-11-02"
         }
       },
-      organization: {
-        certificateManagement: {
-          status: 'available',
-          solutionName: 'ТУС',
-          description: 'Выпуск ЭП сотрудникам в офисе через администратора, учёт сертификатов, контроль сроков и отзыв.',
-          sources: [{ href: 'https://taxcom.ru/centr/upravlenie-elektronnymi-podpisyami/' }]
+      "organization": {
+        "certificateManagement": {
+          "status": "available",
+          "solutionName": "ТУС",
+          "description": "Выпуск сотрудникам, учёт сертификатов, контроль сроков и отзыв. ТУС рекомендован компаниям от 50 сотрудников; обязательный минимум подключения не подтверждён.",
+          "sources": [
+            {
+              "href": "https://taxcom.ru/centr/upravlenie-elektronnymi-podpisyami/",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://taxcom.ru/centr/korporativnye-resheniya-taxcom/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Выпуск, учёт и отзыв ЭП; рекомендован компаниям от 50 сотрудников.",
+          "checkedAt": "2026-11-02"
         },
-        apiIntegrations: {
-          status: 'conditional',
-          solutionName: 'API УЦ',
-          description: 'Интеграция процессов выпуска и управления ЭП с корпоративной системой. Решение для компаний от 200 сотрудников.',
-          sources: [{ href: 'https://taxcom.ru/centr/korporativnye-resheniya-taxcom/' }]
+        "apiIntegrations": {
+          "status": "available",
+          "solutionName": "API УЦ",
+          "description": "Интеграция выпуска и управления ЭП с корпоративной системой. API УЦ рекомендован компаниям от 200 сотрудников с кастомизированной учётной системой; обязательный минимум подключения не установлен.",
+          "sources": [
+            {
+              "href": "https://taxcom.ru/centr/korporativnye-resheniya-taxcom/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Интеграция с корпоративной системой; рекомендован компаниям от 200 сотрудников.",
+          "checkedAt": "2026-11-02"
         },
-        mchd: {
-          status: 'available',
-          solutionName: 'Управление доверенностями',
-          description: 'Создание, подписание, регистрация и отзыв МЧД, контроль статусов. Для изменения зарегистрированной в ФНС МЧД создаётся новая.',
-          sources: [
-            { href: 'https://taxcom.ru/support/sozdanie-mchd/' },
-            { href: 'https://taxcom.ru/support/registratsiya-mchd-v-fns/' },
-            { href: 'https://taxcom.ru/support/kak-izmenit-zaregistrirovannuyu-v-fns-mchd/' }
-          ]
+        "mchd": {
+          "status": "available",
+          "solutionName": "Управление доверенностями",
+          "description": "Создание, подписание, регистрация, отзыв и хранение МЧД, контроль сроков и статусов.",
+          "sources": [
+            {
+              "href": "https://taxcom.ru/baza-znaniy/elektronnaya-podpis/video/takskom-upravlenie-doverennostyami/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Создание, регистрация, отзыв и контроль статусов МЧД.",
+          "checkedAt": "2026-11-02"
         }
       },
-      focus: 'Главный акцент — управление выпуском ЭП внутри организации и интеграция с её системами; мобильное подписание остаётся ограниченным сценарием для «Файлера».'
+      "focus": "Главный акцент — управление выпуском ЭП внутри организации и интеграция с её системами; мобильное подписание остаётся ограниченным сценарием для «Файлера»."
     },
     journeyV2: {
       researchContext: {
@@ -1613,52 +2349,228 @@ export const competitors = {
       analysis: 'Публичные выступления Такском посвящены ЭПД и сценариям электронного подписания. Найденные центры имеют рейтинг ≈4,6/5 по разным услугам; в исследованных отзывах о КЭП повторяются жалобы на продление и комплектацию, но распространённость проблем не установлена.'
     },
     methodologyV2: {
-      reading: [
-        '3 950 ₽ — стоимость сопровождения получения или перевыпуска КЭП УЦ ФНС в Такскоме. Сам сертификат выпускается бесплатно. Токен и ПО при необходимости оплачиваются отдельно.',
-        'Доступность онлайн-заявки, удалённого перевыпуска и других цифровых операций не подтверждает полностью самостоятельную покупку. Контрольная покупка Такском не проводилась.'
+      "reading": [
+        "3 950 ₽ — стоимость сопровождения получения или перевыпуска КЭП УЦ ФНС в Такскоме. Сам сертификат выпускается бесплатно. Токен и ПО при необходимости оплачиваются отдельно.",
+        "Доступность онлайн-заявки, удалённого перевыпуска и других цифровых операций не подтверждает полностью самостоятельную покупку. Контрольная покупка Такском не проводилась."
       ],
-      sources: [
-        { name: 'Внутренний документ «Конкурентный анализ КЭП»', links: [{ label: 'Google Sheets ↗', href: 'https://docs.google.com/spreadsheets/d/1DH1GR1PkLCfFp8jVYk-sDcFaSCtdHBwrp1JfqmmMwoE/edit?gid=0#gid=0' }] },
-        { name: 'Внутренний документ «КЭП дневник покупки»', links: [{ label: 'Google Sheets ↗', href: 'https://docs.google.com/spreadsheets/d/1mQyQpnhwI7PVCHVHnA_pJ2r-7yOJ5SZf_2kloaZg1d4/edit?gid=444945529#gid=444945529' }] },
-        { name: 'Удостоверяющий центр Такском', links: [{ label: 'Сайт Такском ↗', href: 'https://taxcom.ru/centr/' }] },
-        { name: 'ФНС России — доверенные лица УЦ ФНС', links: [{ label: 'ФНС России ↗', href: 'https://www.nalog.gov.ru/rn77/related_activities/ucfns/dlucfns/' }] },
-        { name: 'Прейскурант удостоверяющего центра Такском', links: [{ label: 'Прейскурант ↗', href: 'https://taxcom.ru/upload/price/price_all.pdf' }] },
-        { name: 'Корпоративные решения и МЧД Такском', links: [
-          { label: 'Корпоративные решения ↗', href: 'https://taxcom.ru/centr/korporativnye-resheniya-taxcom/' },
-          { label: 'Управление сертификатами ↗', href: 'https://taxcom.ru/centr/upravlenie-elektronnymi-podpisyami/' },
-          { label: 'Управление доверенностями ↗', href: 'https://taxcom.ru/centr/taxcom-mchd-doverennost/' }
-        ] },
-        { name: 'Выпуск, продление и мобильная ЭП', links: [
-          { label: 'Перевыпуск ЭП ↗', href: 'https://taxcom.ru/centr/obn-el-pdps/' },
-          { label: 'КЭП ФНС без визита ↗', href: 'https://taxcom.ru/centr/prodlenie-ecp-fns-bez-poseshcheniya-nalogovoj/' },
-          { label: 'Мобильное подписание ↗', href: 'https://taxcom.ru/support/etoken/' },
-          { label: 'Такском-Файлер ↗', href: 'https://taxcom.ru/dokumentooborot/fajler/' }
-        ] },
-        { name: 'Партнёрские программы Такском', links: [
-          { label: 'Партнёры ↗', href: 'https://taxcom.ru/about/partners/' },
-          { label: 'Реферальная программа ↗', href: 'https://taxcom.ru/about/partners/referal/' }
-        ] },
-        { name: 'Профессиональные мероприятия и представители', links: [
-          { label: 'ТрансЛогистика ↗', href: 'https://taxcom.ru/baza-znaniy/perevozochnye-dokumenty/novosti/takskom-podelilsya-keysami-perekhoda-na-epd-na-translogistike-sanktpeterburg/' },
-          { label: 'Минцифры ↗', href: 'https://taxcom.ru/baza-znaniy/perevozochnye-dokumenty/novosti/ekspert-takskom-predstavil-praktiku-vnedreniya-elektronnykh-perevozochnykh-dokumentov-na-vebinare-mi/' },
-          { label: 'ТПП Ростовской области ↗', href: 'https://taxcom.ru/baza-znaniy/perevozochnye-dokumenty/novosti/takskom-rasskazal-o-gotovnosti-biznesa-k-perekhodu-na-epd-na-zasedanii-tpp-rostovskoy-oblasti/' }
-        ] },
-        { name: 'Публичные отзывы Такском — примеры исследованных карточек', links: [
-          { label: 'Яндекс Карты ↗', href: 'https://yandex.com/maps/org/takskom/104679415573/reviews/' },
-          { label: '2ГИС, Санкт-Петербург ↗', href: 'https://2gis.ru/spb/firm/5348552838732135/tab/reviews' },
-          { label: '2ГИС, Пермь ↗', href: 'https://2gis.ru/perm/firm/70000001055974918/tab/reviews' }
-        ] },
-        { name: 'Оформление электронной подписи Такском', links: [{ label: 'Такском ↗', href: 'https://taxcom.ru/t-sign/' }] },
-        { name: 'Акции и специальные предложения Такском', links: [{ label: 'Такском ↗', href: 'https://taxcom.ru/about/promo/' }] },
-        { name: 'Такском и 1С-ЭПД', links: [
-          { label: 'Такском ↗', href: 'https://taxcom.ru/baza-znaniy/perevozochnye-dokumenty/novosti/takskom-predlagaet-biznesu-gotovuyu-infrastrukturu-dlya-raboty-s-epd-v-1s/' },
-          { label: '1С ↗', href: 'https://v8.1c.ru/static/obyazatelnye-elektronnye-perevozochnye-dokumenty-epd-s-01-09-2026/' }
-        ] },
-        { name: 'Соглашение Такском и Минцифры по «Госключу»', links: [
-          { label: 'РБК Компании ↗', href: 'https://companies.rbc.ru/news/uzd3ME7YRU/mintsifryi-i-takskom-dogovorilis-o-sovmestnoj-rabote/' },
-          { label: 'Такском ↗', href: 'https://taxcom.ru/baza-znaniy/elektronnyy-dokumentooborot/novosti/gosklyuch-dlya-biznesa-mintsifry-i-takskom-dogovorilis-o-sovmestnoy-rabote/' }
-        ] },
-        { name: 'Бухгалтерская отчётность ООО «Такском»', links: [{ label: 'ГИР БО ФНС ↗', href: 'https://bo.nalog.gov.ru/organizations-card/6624212' }] }
+      "sources": [
+        {
+          "name": "Внутренний документ «Конкурентный анализ КЭП»",
+          "links": [
+            {
+              "label": "Google Sheets ↗",
+              "href": "https://docs.google.com/spreadsheets/d/1DH1GR1PkLCfFp8jVYk-sDcFaSCtdHBwrp1JfqmmMwoE/edit?gid=0#gid=0"
+            }
+          ]
+        },
+        {
+          "name": "Внутренний документ «КЭП дневник покупки»",
+          "links": [
+            {
+              "label": "Google Sheets ↗",
+              "href": "https://docs.google.com/spreadsheets/d/1mQyQpnhwI7PVCHVHnA_pJ2r-7yOJ5SZf_2kloaZg1d4/edit?gid=444945529#gid=444945529"
+            }
+          ]
+        },
+        {
+          "name": "Удостоверяющий центр Такском",
+          "links": [
+            {
+              "label": "Сайт Такском ↗",
+              "href": "https://taxcom.ru/centr/"
+            }
+          ]
+        },
+        {
+          "name": "ФНС России — доверенные лица УЦ ФНС",
+          "links": [
+            {
+              "label": "ФНС России ↗",
+              "href": "https://www.nalog.gov.ru/rn77/related_activities/ucfns/dlucfns/"
+            }
+          ]
+        },
+        {
+          "name": "Прейскуранты удостоверяющего центра Такском",
+          "links": [
+            {
+              "label": "Прайс Такскома для Москвы и МО ↗",
+              "href": "https://taxcom.ru/upload/price/price_77.pdf"
+            },
+            {
+              "label": "Региональный прайс ↗",
+              "href": "https://taxcom.ru/upload/price/price_all.pdf"
+            }
+          ]
+        },
+        {
+          "name": "Корпоративные решения и МЧД Такском",
+          "links": [
+            {
+              "label": "Корпоративные решения ↗",
+              "href": "https://taxcom.ru/centr/korporativnye-resheniya-taxcom/"
+            },
+            {
+              "label": "Управление сертификатами ↗",
+              "href": "https://taxcom.ru/centr/upravlenie-elektronnymi-podpisyami/"
+            },
+            {
+              "label": "Управление доверенностями ↗",
+              "href": "https://taxcom.ru/centr/taxcom-mchd-doverennost/"
+            }
+          ]
+        },
+        {
+          "name": "Выпуск, продление и мобильная ЭП",
+          "links": [
+            {
+              "label": "Перевыпуск ЭП ↗",
+              "href": "https://taxcom.ru/centr/obn-el-pdps/"
+            },
+            {
+              "label": "КЭП ФНС без визита ↗",
+              "href": "https://taxcom.ru/centr/prodlenie-ecp-fns-bez-poseshcheniya-nalogovoj/"
+            },
+            {
+              "label": "Мобильное подписание ↗",
+              "href": "https://taxcom.ru/support/etoken/"
+            },
+            {
+              "label": "Такском-Файлер ↗",
+              "href": "https://taxcom.ru/dokumentooborot/fajler/"
+            }
+          ]
+        },
+        {
+          "name": "Партнёрские программы Такском",
+          "links": [
+            {
+              "label": "Партнёры ↗",
+              "href": "https://taxcom.ru/about/partners/"
+            },
+            {
+              "label": "Реферальная программа ↗",
+              "href": "https://taxcom.ru/about/partners/referal/"
+            }
+          ]
+        },
+        {
+          "name": "Профессиональные мероприятия и представители",
+          "links": [
+            {
+              "label": "ТрансЛогистика ↗",
+              "href": "https://taxcom.ru/baza-znaniy/perevozochnye-dokumenty/novosti/takskom-podelilsya-keysami-perekhoda-na-epd-na-translogistike-sanktpeterburg/"
+            },
+            {
+              "label": "Минцифры ↗",
+              "href": "https://taxcom.ru/baza-znaniy/perevozochnye-dokumenty/novosti/ekspert-takskom-predstavil-praktiku-vnedreniya-elektronnykh-perevozochnykh-dokumentov-na-vebinare-mi/"
+            },
+            {
+              "label": "ТПП Ростовской области ↗",
+              "href": "https://taxcom.ru/baza-znaniy/perevozochnye-dokumenty/novosti/takskom-rasskazal-o-gotovnosti-biznesa-k-perekhodu-na-epd-na-zasedanii-tpp-rostovskoy-oblasti/"
+            }
+          ]
+        },
+        {
+          "name": "Публичные отзывы Такском — примеры исследованных карточек",
+          "links": [
+            {
+              "label": "Яндекс Карты ↗",
+              "href": "https://yandex.com/maps/org/takskom/104679415573/reviews/"
+            },
+            {
+              "label": "2ГИС, Санкт-Петербург ↗",
+              "href": "https://2gis.ru/spb/firm/5348552838732135/tab/reviews"
+            },
+            {
+              "label": "2ГИС, Пермь ↗",
+              "href": "https://2gis.ru/perm/firm/70000001055974918/tab/reviews"
+            }
+          ]
+        },
+        {
+          "name": "Оформление электронной подписи Такском",
+          "links": [
+            {
+              "label": "Такском ↗",
+              "href": "https://taxcom.ru/t-sign/"
+            }
+          ]
+        },
+        {
+          "name": "Акции и специальные предложения Такском",
+          "links": [
+            {
+              "label": "Такском ↗",
+              "href": "https://taxcom.ru/about/promo/"
+            }
+          ]
+        },
+        {
+          "name": "Такском и 1С-ЭПД",
+          "links": [
+            {
+              "label": "Такском ↗",
+              "href": "https://taxcom.ru/baza-znaniy/perevozochnye-dokumenty/novosti/takskom-predlagaet-biznesu-gotovuyu-infrastrukturu-dlya-raboty-s-epd-v-1s/"
+            },
+            {
+              "label": "1С ↗",
+              "href": "https://v8.1c.ru/static/obyazatelnye-elektronnye-perevozochnye-dokumenty-epd-s-01-09-2026/"
+            }
+          ]
+        },
+        {
+          "name": "Соглашение Такском и Минцифры по «Госключу»",
+          "links": [
+            {
+              "label": "РБК Компании ↗",
+              "href": "https://companies.rbc.ru/news/uzd3ME7YRU/mintsifryi-i-takskom-dogovorilis-o-sovmestnoj-rabote/"
+            },
+            {
+              "label": "Такском ↗",
+              "href": "https://taxcom.ru/baza-znaniy/elektronnyy-dokumentooborot/novosti/gosklyuch-dlya-biznesa-mintsifry-i-takskom-dogovorilis-o-sovmestnoy-rabote/"
+            }
+          ]
+        },
+        {
+          "name": "Бухгалтерская отчётность ООО «Такском»",
+          "links": [
+            {
+              "label": "ГИР БО ФНС ↗",
+              "href": "https://bo.nalog.gov.ru/organizations-card/6624212"
+            }
+          ]
+        },
+        {
+          "name": "Функциональность — проверка 02.11.2026",
+          "links": [
+            {
+              "href": "https://lk.taxcom.ru/Content/Instruct/5__aboncert_list_export__.htm",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://lk.taxcom.ru/Content/Instruct/2_1_1_4___priv_cert_________print.htm",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://taxcom.ru/support/mobilniy-fayler/",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://taxcom.ru/baza-znaniy/elektronnaya-podpis/video/takskom-upravlenie-doverennostyami/",
+              "label": "Официальная документация ↗"
+            }
+          ]
+        },
+        {
+          "name": "Личный кабинет и дистанционные сценарии",
+          "links": [
+            {
+              "href": "https://taxcom.ru/upload/instructions/t-sign_rukovodstvo_polzovatelja_v1_2.pdf",
+              "label": "Сценарии Такском-Ручки ↗"
+            }
+          ]
+        }
       ]
     },
     marketPosition: [
@@ -1905,7 +2817,7 @@ export const competitors = {
           value: '2 300+',
           note: 'точек идентификации по стране',
           info: 'Астрал публикует показатель 2 300+ точек идентификации — мест, где заявитель может пройти очную идентификацию при оформлении электронной подписи. Это показатель инфраструктуры идентификации, а не отдельно подтверждённое количество пунктов непосредственной выдачи сертификатов или носителей.',
-          source: { label: 'Астрал Подпись ↗', href: 'https://astral.ru/products/astral-et/' }
+          source: astralCertificateSource
         }
       ]
     },
@@ -1982,9 +2894,9 @@ export const competitors = {
       baseOffers: [
         {
           role: 'Руководитель / ИП',
-          comparisonId: 'kep-leader',
+          comparisonId: 'kep-leader', ...competitorUnspecifiedPriceRegion, priceInfo: competitorUnknownPriceInfo(astralFnsSource),
           baseTariffId: 'initial',
-          priceSource: { label: 'КЭП ФНС в Астрале ↗', href: 'https://astral.ru/products/kep-v-fns/' },
+          priceSource: astralFnsSource,
           priceCheckedAt: 'октябрь 2026',
           price: '2 400 ₽',
           meta: '2 варианта',
@@ -1994,12 +2906,12 @@ export const competitors = {
             { name: 'Удалённый перевыпуск КЭП УЦ ФНС', price: 'от 3 500 ₽', includes: ['Дистанционный перевыпуск действующего сертификата'] }
           ]
         },
-        { role: 'Сотрудник', comparisonId: 'kep-employee', price: '2 900 ₽', meta: 'базовая цена', priceSource: { label: 'Астрал Подпись ↗', href: 'https://astral.ru/products/astral-et/' }, priceCheckedAt: 'октябрь 2026' },
+        { role: 'Сотрудник', comparisonId: 'kep-employee', ...competitorUnspecifiedPriceRegion, priceInfo: competitorUnknownPriceInfo(astralCertificateSource), price: '2 900 ₽', meta: 'базовая цена', priceSource: astralCertificateSource, priceCheckedAt: 'октябрь 2026' },
         {
           role: 'Физлицо',
-          comparisonId: 'kep-person',
+          comparisonId: 'kep-person', ...competitorUnspecifiedPriceRegion, priceInfo: competitorUnknownPriceInfo(astralCertificateSource),
           baseTariffId: 'initial',
-          priceSource: { label: 'Астрал Подпись ↗', href: 'https://astral.ru/products/astral-et/' },
+          priceSource: astralCertificateSource,
           priceCheckedAt: 'октябрь 2026',
           price: '2 900 ₽',
           meta: 'Базис · 4 тарифа',
@@ -2028,17 +2940,19 @@ export const competitors = {
         {
           title: 'Астрал Доверенность',
           comparisonId: 'mchd',
-          priceSource: { label: 'Астрал Доверенность ↗', href: 'https://astral.ru/products/mchd/' },
-          priceCheckedAt: 'октябрь 2026',
+          region: 'Москва', regionStatus: 'moscow',
+          priceInfo: { text: 'Цена для Москвы.', source: astralMchdSource },
+          priceSource: astralMchdSource,
+          priceCheckedAt: '30.10.2026',
           price: 'Стоимость: от 1 690 ₽',
           description: 'Самостоятельный сервис для создания, регистрации и управления машиночитаемыми доверенностями — от одной МЧД до годовых и безлимитных пакетов.',
           meta: '4 пакета',
           detailLabel: 'Пакет',
           tariffs: [
-          { name: '1 МЧД', comparisonId: 'mchd-1', price: '1 690 ₽', includes: ['Одна машиночитаемая доверенность'] },
-          { name: 'Базовый', comparisonId: 'mchd-5', price: '4 000 ₽', includes: ['До 5 МЧД от одной организации'] },
+          { name: '1 МЧД', comparisonId: 'mchd-1', price: '1 690 ₽', includes: ['Создание и выпуск одной МЧД специалистами сервиса'] },
+          { name: 'Базовый', comparisonId: 'mchd-5', price: '4 000 ₽', comparisonTerm: '1 год', includes: ['До 5 МЧД от одной организации', '1 год'] },
             { name: 'Расширенный', price: '10 500 ₽', includes: ['Расширенный годовой пакет'] },
-          { name: 'Премиальный', comparisonId: 'mchd-unlimited', price: 'от 44 000 ₽', includes: ['Безлимитный выпуск МЧД'] }
+          { name: 'Премиальный', comparisonId: 'mchd-unlimited', price: 'от 44 000 ₽', comparisonTerm: '1 год', includes: ['Безлимитный выпуск МЧД от разных организаций', '1 год'] }
           ]
         },
         {
@@ -2048,14 +2962,19 @@ export const competitors = {
         }
       ],
       addonsTitle: 'СКЗИ и носители',
+      addonsPriceInfo: { text: 'Регион цены не указан.' },
+      addonsPositionInfo: {
+        before: 'Регион цены не указан. CSP — ', linkText: 'Тарифы CSP', source: { href: 'https://astral.ru/products/cryptopro/' }, after: ';',
+        extraSources: [ { text: 'Lite и ЭЦП 3.0', href: 'https://astral.ru/products/astral-et/', after: ';' }, { text: 'NFC', href: 'https://astral.ru/products/rutoken-etsp-3-0/', after: '.' } ]
+      },
       addons: [
-        { title: 'Рутокен Lite', comparisonId: 'rutoken-lite', price: '2 450 ₽', condition: 'Базовый защищённый USB-носитель для хранения ключа электронной подписи', source: { label: 'Астрал Подпись ↗', href: 'https://astral.ru/products/astral-et/' }, checkedAt: 'октябрь 2026' },
-        { title: 'Рутокен ЭЦП 3.0', comparisonId: 'rutoken-ecp3', price: '3 200 ₽', condition: 'Криптотокен со встроенной криптографией: ключ создаётся и хранится внутри устройства', source: { label: 'Астрал Подпись ↗', href: 'https://astral.ru/products/astral-et/' }, checkedAt: 'октябрь 2026' },
-        { title: 'Рутокен ЭЦП 3.0 NFC 3100', comparisonId: 'rutoken-ecp3-nfc', price: '4 000 ₽', condition: 'NFC-носитель, сертификат ФСБ', source: { label: 'Страница Рутокен ЭЦП 3.0 ↗', href: 'https://astral.ru/products/rutoken-etsp-3-0/' }, checkedAt: 'октябрь 2026' },
-        { title: 'JaCarta-2 SE', price: '2 350 ₽', condition: 'Защищённый носитель со встроенной криптографией; применяется в том числе для специализированных сценариев, включая ЕГАИС' },
-        { title: 'КриптоПро CSP 5.0, встроенная лицензия', price: '1 000 ₽', condition: 'Лицензия связана с сертификатом и позволяет работать с КЭП без отдельной лицензии КриптоПро для конкретного рабочего места' },
-        { title: 'КриптоПро CSP 5.0, годовая лицензия', comparisonId: 'csp-annual', price: '2 500 ₽', condition: 'Отдельная лицензия на 12 месяцев, одно рабочее место, любое количество сертификатов', source: { label: 'Страница КриптоПро CSP 5.0 ↗', href: 'https://astral.ru/products/cryptopro/' }, checkedAt: 'октябрь 2026' },
-        { title: 'КриптоПро CSP 5.0, бессрочная лицензия', price: '4 700 ₽', condition: 'Отдельная бессрочная лицензия, одно рабочее место, любое количество сертификатов', source: { label: 'Страница КриптоПро CSP 5.0 ↗', href: 'https://astral.ru/products/cryptopro/' } }
+        { ...competitorUnspecifiedPriceRegion, title: 'Рутокен Lite', comparisonId: 'rutoken-lite', price: '2 450 ₽', condition: 'Базовый защищённый USB-носитель для хранения ключа электронной подписи', source: astralCertificateSource, checkedAt: 'октябрь 2026' },
+        { ...competitorUnspecifiedPriceRegion, title: 'Рутокен ЭЦП 3.0', comparisonId: 'rutoken-ecp3', price: '3 200 ₽', condition: 'Криптотокен со встроенной криптографией: ключ создаётся и хранится внутри устройства', source: astralCertificateSource, checkedAt: 'октябрь 2026' },
+        { ...competitorUnspecifiedPriceRegion, title: 'Рутокен ЭЦП 3.0 NFC 3100', comparisonId: 'rutoken-ecp3-nfc', price: '4 000 ₽', condition: 'NFC-носитель, сертификат ФСБ', source: { label: 'Страница Рутокен ЭЦП 3.0 ↗', href: 'https://astral.ru/products/rutoken-etsp-3-0/' }, checkedAt: 'октябрь 2026' },
+        { ...competitorUnspecifiedPriceRegion, title: 'JaCarta-2 SE', price: '2 350 ₽', condition: 'Защищённый носитель со встроенной криптографией; применяется в том числе для специализированных сценариев, включая ЕГАИС' },
+        { ...competitorUnspecifiedPriceRegion, title: 'КриптоПро CSP 5.0, встроенная лицензия', price: '1 000 ₽', condition: 'Лицензия связана с сертификатом и позволяет работать с КЭП без отдельной лицензии КриптоПро для конкретного рабочего места' },
+        { ...competitorUnspecifiedPriceRegion, title: 'КриптоПро CSP 5.0, годовая лицензия', comparisonId: 'csp-annual', price: '2 500 ₽', condition: 'Отдельная лицензия на 12 месяцев, одно рабочее место, любое количество сертификатов', source: { label: 'Страница КриптоПро CSP 5.0 ↗', href: 'https://astral.ru/products/cryptopro/' }, checkedAt: 'октябрь 2026' },
+        { ...competitorUnspecifiedPriceRegion, title: 'КриптоПро CSP 5.0, бессрочная лицензия', price: '4 700 ₽', condition: 'Отдельная бессрочная лицензия, одно рабочее место, любое количество сертификатов', source: { label: 'Страница КриптоПро CSP 5.0 ↗', href: 'https://astral.ru/products/cryptopro/' } }
       ],
       promotionsEmptyNote: 'На дату среза публичные акции и специальные предложения по КЭП на официальных ресурсах Астрала не найдены.',
       analysis: 'Астрал сочетает розничную КЭП с отдельными продуктовыми контурами для 1С, МЧД и корпоративного выпуска. Для организаций предложение масштабируется от отдельного сертификата к централизованному управлению выпуском и полномочиями.'
@@ -2098,44 +3017,147 @@ export const competitors = {
       journeyStages: []
     },
     functionalityV2: {
-      user: {
-        personalAccount: {
-          status: 'unconfirmed',
-          description: 'Подтверждено онлайн-оформление и продление ЭП, но возможность самостоятельного управления сертификатами в личном кабинете не установлена.',
-          sources: [{ href: 'https://astral.ru/products/astral-et/' }]
+      "user": {
+        "personalAccount": {
+          "status": "available",
+          "description": "Обычный кабинет Астрал Подписи: оформление заявления, получение, установка и проверка сертификата, онлайн-продление при выполнении условий. Для отзыва инструкция предусматривает заявление в обслуживающую организацию или по электронной почте. Функции администратора КЦР сюда не относятся.",
+          "sources": [
+            {
+              "href": "https://astral.ru/help/astral-podpis/",
+              "label": "Личный кабинет Астрал Подписи ↗"
+            },
+            {
+              "href": "https://astral.ru/products/astral-et/",
+              "label": "Онлайн-выпуск и продление ↗"
+            }
+          ],
+          "comparisonNote": "Заявление, получение и проверка сертификата; онлайн-продление с условиями.",
+          "checkedAt": "2026-11-02",
+          "scope": "standard-client-without-corporate-solution"
         },
-        remoteScenarios: {
-          status: 'conditional',
-          description: 'Физлица могут оформить КЭП без визита с действующей КЭП или КЭП Госключа. Для первичного клиента без такой подписи дистанционный выпуск не подтверждён.',
-          sources: [{ href: 'https://astral.ru/products/astral-et/' }]
+        "remoteScenarios": {
+          "status": "conditional",
+          "description": "Физлица могут оформить КЭП без визита с действующей КЭП или КЭП Госключа. Для первичного клиента без такой подписи дистанционный выпуск не подтверждён.",
+          "sources": [
+            {
+              "href": "https://astral.ru/products/astral-et/"
+            }
+          ],
+          "comparisonNote": "Физлица: выпуск и продление по действующей КЭП либо КЭП Госключа."
         },
-        mobileSignature: {
-          status: 'unconfirmed',
-          description: 'Астрал продаёт Рутокен ЭЦП 3.0 NFC, но возможность подписывать документы со смартфона КЭП, выпущенной УЦ «Калуга Астрал», не подтверждена.',
-          sources: [{ href: 'https://astral.ru/products/astral-et/' }, { href: 'https://astral.ru/products/rutoken-etsp-3-0/' }]
+        "mobileSignature": {
+          "status": "unconfirmed",
+          "description": "Мобильная КЭП собственного УЦ без токена и конкретная NFC-интеграция не подтверждены. Продажа NFC-носителя не доказывает интеграцию приложения. Астрал отдельно описывает мобильную УНЭП, которую нельзя смешивать с КЭП.",
+          "sources": [
+            {
+              "href": "https://astral.ru/products/rutoken-etsp-3-0/",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://platform.astral.ru/news",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Мобильная КЭП собственного УЦ без токена и конкретная NFC-интеграция не подтверждены. Продажа NFC-носителя не доказывает интеграцию приложения. Астрал отдельно описывает мобильную УНЭП, которую нельзя смешивать с КЭП.",
+          "checkedAt": "2026-11-02"
+        },
+        "mobileWithoutToken": {
+          "description": "КЭП без токена не установлена; мобильная УНЭП — отдельный сценарий.",
+          "comparisonNote": "КЭП без токена не установлена; мобильная УНЭП — отдельный сценарий.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://platform.astral.ru/news",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "status": "unconfirmed",
+          "solutionName": ""
+        },
+        "nfc": {
+          "description": "Носитель продаётся; приложение и сценарий мобильного подписания КЭП Астрала не установлены.",
+          "comparisonNote": "Носитель продаётся; приложение и сценарий мобильного подписания КЭП Астрала не установлены.",
+          "checkedAt": "2026-11-02",
+          "sources": [
+            {
+              "href": "https://astral.ru/products/rutoken-etsp-3-0/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "status": "unconfirmed",
+          "solutionName": "Рутокен ЭЦП 3.0 NFC"
+        },
+        "remoteIssuance": {
+          "status": "conditional",
+          "description": "При действующей КЭП либо КЭП Госключа; заявление оформляется в Астрал Подписи.",
+          "comparisonNote": "При действующей КЭП либо КЭП Госключа; заявление оформляется в Астрал Подписи.",
+          "sources": [
+            {
+              "href": "https://astral.ru/products/astral-et/",
+              "label": "Получение КЭП ↗"
+            }
+          ],
+          "checkedAt": "2026-11-02"
+        },
+        "remoteRenewal": {
+          "status": "conditional",
+          "description": "Онлайн с действующей КЭП либо КЭП Госключа.",
+          "comparisonNote": "Онлайн с действующей КЭП либо КЭП Госключа.",
+          "sources": [
+            {
+              "href": "https://astral.ru/products/astral-et/",
+              "label": "Продление КЭП ↗"
+            }
+          ],
+          "checkedAt": "2026-11-02"
         }
       },
-      organization: {
-        certificateManagement: {
-          status: 'available',
-          solutionName: 'Корпоративный центр регистрации (КЦР)',
-          description: 'Выпуск ЭП сотрудникам на рабочих местах, создание заявок, контроль сроков и централизованное управление сертификатами.',
-          sources: [{ href: 'https://astral.ru/products/kcr/' }]
+      "organization": {
+        "certificateManagement": {
+          "status": "available",
+          "solutionName": "Корпоративный центр регистрации (КЦР)",
+          "description": "Выпуск КЭП и НЭП внутри компании, единый учёт, контроль сроков и отзыв сертификатов через КЦР.",
+          "sources": [
+            {
+              "href": "https://astral.ru/products/kcr/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Выпуск внутри компании, учёт, сроки и отзыв сертификатов.",
+          "checkedAt": "2026-11-02"
         },
-        apiIntegrations: {
-          status: 'available',
-          solutionName: 'API выпуска УКЭП',
-          description: 'Создание заявок на УКЭП из систем компании, получение статусов, перевыпуск и блокировка сертификатов, подписание документов.',
-          sources: [{ href: 'https://platform.astral.ru/service/signingDocuments' }]
+        "apiIntegrations": {
+          "status": "available",
+          "solutionName": "API Астрал.Платформы",
+          "description": "API Астрал.Платформы для заявок на УКЭП и интеграции подписания. Подтверждена блокировка сертификата; полный набор методов требует документации. Операции с МЧД доступны через отдельный API.",
+          "sources": [
+            {
+              "href": "https://platform.astral.ru/service/signingDocuments",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://platform.astral.ru/service/dov",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Заявки на УКЭП и интеграция подписания; отдельный API МЧД.",
+          "checkedAt": "2026-11-02"
         },
-        mchd: {
-          status: 'available',
-          solutionName: 'Астрал Доверенность',
-          description: 'Создание, регистрация и отзыв МЧД, проверка полномочий подписантов и получение сведений из реестров.',
-          sources: [{ href: 'https://platform.astral.ru/service/dov' }]
+        "mchd": {
+          "status": "available",
+          "solutionName": "Астрал Доверенность",
+          "description": "Создание, подписание, регистрация и отзыв МЧД, контроль сроков и статусов, выбор полномочий. Автоматическая проверка полномочий подписанта отдельно подтверждена для API, но не для этого веб-интерфейса.",
+          "sources": [
+            {
+              "href": "https://astral.ru/products/astral-doverennost/",
+              "label": "Официальная документация ↗"
+            }
+          ],
+          "comparisonNote": "Создание, регистрация и отзыв МЧД; сроки, статусы и выбор полномочий.",
+          "checkedAt": "2026-11-02"
         }
       },
-      focus: 'Корпоративное предложение Астрала включает массовый выпуск ЭП, централизованное управление сертификатами и API-интеграции. Для индивидуальных клиентов предусмотрены дистанционные сценарии с ограничениями по способу идентификации.'
+      "focus": "Корпоративное предложение Астрала включает массовый выпуск ЭП, централизованное управление сертификатами и API-интеграции. Для индивидуальных клиентов предусмотрены дистанционные сценарии с ограничениями по способу идентификации."
     },
     presenceV2: {
       asOf: '2026-10-08',
@@ -2178,22 +3200,121 @@ export const competitors = {
       }
     },
     methodologyV2: {
-      reading: [
-        'Факты и заявления Астрала отделены от аналитических выводов Radar.',
-        'Публично заявленные возможности не означают их проверки контрольной покупкой.',
-        'Показатели АО «Калуга Астрал» и ГК «Астрал» не равны показателям направления КЭП.'
+      "reading": [
+        "Факты и заявления Астрала отделены от аналитических выводов Radar.",
+        "Публично заявленные возможности не означают их проверки контрольной покупкой.",
+        "Показатели АО «Калуга Астрал» и ГК «Астрал» не равны показателям направления КЭП."
       ],
-      sources: [
-        { name: 'Внутренний документ «Конкурентный анализ КЭП»', links: [
-          { label: 'Google Sheets ↗', href: 'https://docs.google.com/spreadsheets/d/1DH1GR1PkLCfFp8jVYk-sDcFaSCtdHBwrp1JfqmmMwoE/edit?gid=0#gid=0' },
-          { label: 'Wiki ↗', href: 'https://wiki.skbkontur.ru/pages/viewpage.action?pageId=1029510909#id-2026.%D0%A1%D0%A1%D0%90%D0%B4%D0%BB%D1%8F%D0%9A%D0%AD%D0%9F-%D0%91%D0%BB%D0%BE%D0%BA-7%D0%9A%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D0%B5%D0%BD%D1%82%D1%8B%D0%BD%D0%B0%D1%80%D1%8B%D0%BD%D0%BA%D0%B5%D0%9A%D0%AD%D0%9F' }
-        ] },
-        { name: 'Внутренний документ «КЭП дневник покупки»', links: [{ label: 'Google Sheets ↗', href: 'https://docs.google.com/spreadsheets/d/1mQyQpnhwI7PVCHVHnA_pJ2r-7yOJ5SZf_2kloaZg1d4/edit?gid=444945529#gid=444945529' }] },
-        { name: 'Электронная подпись и КЭП ФНС', links: [{ label: 'Астрал Подпись ↗', href: 'https://astral.ru/products/astral-et/' }, { label: 'КЭП ФНС ↗', href: 'https://astral.ru/products/kep-v-fns/' }] },
-        { name: 'СКЗИ и носители', links: [{ label: 'Рутокен ЭЦП 3.0 ↗', href: 'https://astral.ru/products/rutoken-etsp-3-0/' }, { label: 'КриптоПро CSP 5.0 ↗', href: 'https://astral.ru/products/cryptopro/' }] },
-        { name: 'Корпоративные решения', links: [{ label: 'КЦР ↗', href: 'https://astral.ru/products/kcr/' }] },
-        { name: 'API и МЧД', links: [{ label: 'API УКЭП ↗', href: 'https://platform.astral.ru/service/signingDocuments' }, { label: 'API МЧД ↗', href: 'https://platform.astral.ru/service/dov' }] },
-        { name: 'Профессиональное присутствие и представители', links: [{ label: 'ФНС России ↗', href: 'https://www.nalog.gov.ru/rn40/news/seminar/16610504/' }, { label: 'Программа мероприятия по ЭПД ↗', href: 'https://1c-o.ru/blog/1c-meropriyatiya/epd-s-1-sentyabrya-2026-perehod-bez-riskov' }, { label: '1С-Рарус ↗', href: 'https://rarus-soft.ru/press/events/398930/' }] }
+      "sources": [
+        {
+          "name": "Внутренний документ «Конкурентный анализ КЭП»",
+          "links": [
+            {
+              "label": "Google Sheets ↗",
+              "href": "https://docs.google.com/spreadsheets/d/1DH1GR1PkLCfFp8jVYk-sDcFaSCtdHBwrp1JfqmmMwoE/edit?gid=0#gid=0"
+            },
+            {
+              "label": "Wiki ↗",
+              "href": "https://wiki.skbkontur.ru/pages/viewpage.action?pageId=1029510909#id-2026.%D0%A1%D0%A1%D0%90%D0%B4%D0%BB%D1%8F%D0%9A%D0%AD%D0%9F-%D0%91%D0%BB%D0%BE%D0%BA-7%D0%9A%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D0%B5%D0%BD%D1%82%D1%8B%D0%BD%D0%B0%D1%80%D1%8B%D0%BD%D0%BA%D0%B5%D0%9A%D0%AD%D0%9F"
+            }
+          ]
+        },
+        {
+          "name": "Внутренний документ «КЭП дневник покупки»",
+          "links": [
+            {
+              "label": "Google Sheets ↗",
+              "href": "https://docs.google.com/spreadsheets/d/1mQyQpnhwI7PVCHVHnA_pJ2r-7yOJ5SZf_2kloaZg1d4/edit?gid=444945529#gid=444945529"
+            }
+          ]
+        },
+        {
+          "name": "Электронная подпись и КЭП ФНС",
+          "links": [
+            {
+              "label": "Тарифы Астрала ↗",
+              "href": "https://astral.ru/products/astral-et/"
+            },
+            {
+              "label": "КЭП ФНС ↗",
+              "href": "https://astral.ru/products/kep-v-fns/"
+            }
+          ]
+        },
+        {
+          "name": "СКЗИ и носители",
+          "links": [
+            {
+              "label": "Рутокен ЭЦП 3.0 ↗",
+              "href": "https://astral.ru/products/rutoken-etsp-3-0/"
+            },
+            {
+              "label": "КриптоПро CSP 5.0 ↗",
+              "href": "https://astral.ru/products/cryptopro/"
+            }
+          ]
+        },
+        {
+          "name": "Корпоративные решения",
+          "links": [
+            {
+              "label": "КЦР ↗",
+              "href": "https://astral.ru/products/kcr/"
+            }
+          ]
+        },
+        {
+          "name": "API и МЧД",
+          "links": [
+            {
+              "label": "API УКЭП ↗",
+              "href": "https://platform.astral.ru/service/signingDocuments"
+            },
+            {
+              "label": "API МЧД ↗",
+              "href": "https://platform.astral.ru/service/dov"
+            }
+          ]
+        },
+        {
+          "name": "Профессиональное присутствие и представители",
+          "links": [
+            {
+              "label": "ФНС России ↗",
+              "href": "https://www.nalog.gov.ru/rn40/news/seminar/16610504/"
+            },
+            {
+              "label": "Программа мероприятия по ЭПД ↗",
+              "href": "https://1c-o.ru/blog/1c-meropriyatiya/epd-s-1-sentyabrya-2026-perehod-bez-riskov"
+            },
+            {
+              "label": "1С-Рарус ↗",
+              "href": "https://rarus-soft.ru/press/events/398930/"
+            }
+          ]
+        },
+        {
+          "name": "Функциональность — проверка 02.11.2026",
+          "links": [
+            {
+              "href": "https://platform.astral.ru/news",
+              "label": "Официальная документация ↗"
+            },
+            {
+              "href": "https://astral.ru/products/astral-doverennost/",
+              "label": "Официальная документация ↗"
+            }
+          ]
+        },
+        {
+          "name": "Личный кабинет и дистанционные сценарии",
+          "links": [
+            {
+              "href": "https://astral.ru/help/astral-podpis/",
+              "label": "Личный кабинет Астрал Подписи ↗"
+            }
+          ]
+        }
       ]
     }
   }

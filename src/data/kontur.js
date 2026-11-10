@@ -37,107 +37,107 @@ export const kontur = {
     }
   ],
   "marketComparison": {
-  "period": "Январь–сентябрь 2025 → Январь–сентябрь 2026",
-  "kpis": [
-    {
-      "label": "Выпущено КЭП",
-      "value": "665 → 808 тыс.",
-      "note": "+143 тыс. (+21,5%)"
-    },
-    {
-      "label": "Место среди всех УЦ",
-      "value": "№ 6 → № 5",
-      "note": "+1 позиция"
-    },
-    {
-      "label": "Доля среди коммерческих УЦ",
-      "value": "13,2% → 14,1%",
-      "note": "+0,9 п.п."
-    }
-  ],
-  "growth": [
-    {
-      "id": "total",
-      "label": "Весь рынок",
-      "value": 20.6,
-      "display": "+20,6%"
-    },
-    {
-      "id": "commercial",
-      "label": "Коммерческие УЦ",
-      "value": 13.5,
-      "display": "+13,5%"
-    },
-    {
-      "id": "kontur",
-      "label": "Контур",
-      "value": 21.5,
-      "display": "+21,5%"
-    }
-  ],
-  "conclusion": "За январь–сентябрь 2026 года Контур выпустил 808 тыс. КЭП — на 143 тыс., или 21,5%, больше, чем за те же месяцы 2025 года. Коммерческий сегмент за это время вырос на 13,5%, поэтому доля Контура в нём увеличилась с 13,2% до 14,1%. По темпу роста Контур уступает Тензору (+28,5%) и АйТи Мониторингу (+27,0%).",
-  "scale": [
-    {
-      "label": "Клиентская база",
-      "value": "3,1 млн+",
-      "note": "2026 · все клиенты экосистемы",
-      "infoEmbedded": {
-        "before": "Клиенты всей экосистемы Контура, использующие различные продукты компании. Это не количество клиентов УЦ. Методика подсчёта не раскрыта. ",
-        "source": {
-          "href": "https://kontur.ru/about"
-        },
-        "linkText": "Данные с сайта Контура"
+    "period": "Январь–сентябрь 2025 → Январь–сентябрь 2026",
+    "kpis": [
+      {
+        "label": "Выпущено КЭП",
+        "value": "665 → 808 тыс.",
+        "note": "+143 тыс. (+21,5%)"
       },
-      "sources": [
-        {
-          "label": "Сайт Контура ↗",
-          "href": "https://kontur.ru/about"
-        }
-      ]
-    },
-    {
-      "label": "Выручка компании",
-      "value": "44,2 млрд ₽",
-      "rawValue": 44.187,
-      "note": "2025",
-      "info": "Сумма выручки двух компаний: АО «ПФ „СКБ Контур“» — около 40,3 млрд ₽; ООО «Сертум-Про» — около 3,9 млрд ₽. Общая выручка по всем продуктам и услугам, не только КЭП. Внутригрупповые расчёты не исключены.",
-      "source": {
-        "label": "ГИР БО ФНС России ↗",
-        "href": "https://bo.nalog.gov.ru/"
+      {
+        "label": "Место среди всех УЦ",
+        "value": "№ 6 → № 5",
+        "note": "+1 позиция"
+      },
+      {
+        "label": "Доля среди коммерческих УЦ",
+        "value": "13,2% → 14,1%",
+        "note": "+0,9 п.п."
       }
-    },
-    {
-      "label": "Сеть выдачи",
-      "value": "6 000+",
-      "note": "центров обслуживания",
-      "infoEmbedded": {
-        "before": "На сайте УЦ Контура заявлено более 6 000 центров обслуживания. В публикации компании за январь 2025 года аналогичный масштаб указан для офисов выдачи сертификатов ЭП. Точная актуальная структура сети не раскрыта. ",
-        "source": {
-          "href": "https://ca.kontur.ru/systems/obmosreg"
+    ],
+    "growth": [
+      {
+        "id": "total",
+        "label": "Весь рынок",
+        "value": 20.6,
+        "display": "+20,6%"
+      },
+      {
+        "id": "commercial",
+        "label": "Коммерческие УЦ",
+        "value": 13.5,
+        "display": "+13,5%"
+      },
+      {
+        "id": "kontur",
+        "label": "Контур",
+        "value": 21.5,
+        "display": "+21,5%"
+      }
+    ],
+    "conclusion": "За январь–сентябрь 2026 года Контур выпустил 808 тыс. КЭП — на 143 тыс., или 21,5%, больше, чем за те же месяцы 2025 года. Коммерческий сегмент за это время вырос на 13,5%, поэтому доля Контура в нём увеличилась с 13,2% до 14,1%. По темпу роста Контур уступает Тензору (+28,5%) и АйТи Мониторингу (+27,0%).",
+    "scale": [
+      {
+        "label": "Клиентская база",
+        "value": "3,1 млн+",
+        "note": "2026 · все клиенты экосистемы",
+        "infoEmbedded": {
+          "before": "Клиенты всей экосистемы Контура, использующие различные продукты компании. Это не количество клиентов УЦ. Методика подсчёта не раскрыта. ",
+          "source": {
+            "href": "https://kontur.ru/about"
+          },
+          "linkText": "Данные с сайта Контура"
         },
-        "linkText": "Сайт УЦ Контура",
-        "after": "; ",
-        "extraSources": [
+        "sources": [
           {
-            "href": "https://kontur.ru/press/news/54820-uc_kontura_vypustil_18_mln_sertifikatov",
-            "text": "официальная публикация Контура",
-            "after": "."
+            "label": "Сайт Контура ↗",
+            "href": "https://kontur.ru/about"
           }
         ]
       },
-      "sources": [
-        {
-          "label": "Сайт УЦ Контура ↗",
-          "href": "https://ca.kontur.ru/systems/obmosreg"
-        },
-        {
-          "label": "Официальная публикация Контура ↗",
-          "href": "https://kontur.ru/press/news/54820-uc_kontura_vypustil_18_mln_sertifikatov"
+      {
+        "label": "Выручка компании",
+        "value": "44,2 млрд ₽",
+        "rawValue": 44.187,
+        "note": "2025",
+        "info": "Сумма выручки двух компаний: АО «ПФ „СКБ Контур“» — около 40,3 млрд ₽; ООО «Сертум-Про» — около 3,9 млрд ₽. Общая выручка по всем продуктам и услугам, не только КЭП. Внутригрупповые расчёты не исключены.",
+        "source": {
+          "label": "ГИР БО ФНС России ↗",
+          "href": "https://bo.nalog.gov.ru/"
         }
-      ]
-    }
-  ]
-},
+      },
+      {
+        "label": "Сеть выдачи",
+        "value": "6 000+",
+        "note": "центров обслуживания",
+        "infoEmbedded": {
+          "before": "На сайте УЦ Контура заявлено более 6 000 центров обслуживания. В публикации компании за январь 2025 года аналогичный масштаб указан для офисов выдачи сертификатов ЭП. Точная актуальная структура сети не раскрыта. ",
+          "source": {
+            "href": "https://ca.kontur.ru/systems/obmosreg"
+          },
+          "linkText": "Сайт УЦ Контура",
+          "after": "; ",
+          "extraSources": [
+            {
+              "href": "https://kontur.ru/press/news/54820-uc_kontura_vypustil_18_mln_sertifikatov",
+              "text": "официальная публикация Контура",
+              "after": "."
+            }
+          ]
+        },
+        "sources": [
+          {
+            "label": "Сайт УЦ Контура ↗",
+            "href": "https://ca.kontur.ru/systems/obmosreg"
+          },
+          {
+            "label": "Официальная публикация Контура ↗",
+            "href": "https://kontur.ru/press/news/54820-uc_kontura_vypustil_18_mln_sertifikatov"
+          }
+        ]
+      }
+    ]
+  },
   "positioningV2": {
     "positioning": {
       "text": "Коммерческий УЦ для частных лиц и организаций, сочетающий выпуск электронной подписи с сопровождением её использования и корпоративными решениями для работы с КЭП и МЧД.",
@@ -390,6 +390,15 @@ export const kontur = {
       {
         "role": "Руководитель / ИП",
         "comparisonId": "kep-leader",
+        "region": null,
+        "regionStatus": "unspecified",
+        "priceInfo": {
+          "text": "Регион цены не указан.",
+          "source": {
+            "label": "Тарифы Контура ↗",
+            "href": "https://ca.kontur.ru/certificate/fns"
+          }
+        },
         "baseTariffId": "initial",
         "comparisonTerm": "15 месяцев",
         "priceSource": {
@@ -441,6 +450,15 @@ export const kontur = {
       {
         "role": "Сотрудник",
         "comparisonId": "kep-employee",
+        "region": null,
+        "regionStatus": "unspecified",
+        "priceInfo": {
+          "text": "Регион цены не указан.",
+          "source": {
+            "label": "Тарифы Контура ↗",
+            "href": "https://ca.kontur.ru/certificate/employees"
+          }
+        },
         "baseTariffId": "initial",
         "comparisonTerm": "12 месяцев",
         "priceSource": {
@@ -492,6 +510,15 @@ export const kontur = {
       {
         "role": "Физлицо",
         "comparisonId": "kep-person",
+        "region": null,
+        "regionStatus": "unspecified",
+        "priceInfo": {
+          "text": "Регион цены не указан.",
+          "source": {
+            "label": "Тарифы Контура ↗",
+            "href": "https://ca.kontur.ru/certificate/private"
+          }
+        },
         "baseTariffId": "initial",
         "comparisonTerm": "12 месяцев",
         "priceSource": {
@@ -528,9 +555,18 @@ export const kontur = {
       {
         "title": "Контур.Доверенность",
         "comparisonId": "mchd",
+        "region": null,
+        "regionStatus": "unspecified",
+        "priceInfo": {
+          "text": "Цена онлайн-тарифа. Регион не указан.",
+          "source": {
+            "label": "Тарифы сервиса ↗",
+            "href": "https://kontur.ru/mchd/price"
+          }
+        },
         "priceSource": {
           "label": "Тарифы Контур.Доверенности ↗",
-          "href": "https://kontur.ru/mchd/price?p=1210"
+          "href": "https://kontur.ru/mchd/price"
         },
         "priceCheckedAt": "22.10.2026",
         "price": "Стоимость: от 1 566 ₽",
@@ -541,6 +577,13 @@ export const kontur = {
           {
             "name": "1 МЧД",
             "comparisonId": "mchd-1",
+            "priceInfo": {
+              "text": "Цена онлайн-тарифа. Регион не указан. Доступна только онлайн-оплата.",
+              "source": {
+                "label": "Тарифы сервиса ↗",
+                "href": "https://kontur.ru/mchd/price"
+              }
+            },
             "price": "1 566 ₽",
             "includes": [
               "Одна доверенность"
@@ -677,10 +720,26 @@ export const kontur = {
       }
     ],
     "addonsTitle": "СКЗИ и носители",
+    "addonsPriceInfo": {
+      "text": "Для отдельных лицензий CSP, Рутокен ЭЦП 3.0 и NFC отдельная цена Москвы и МО в прайсе не выделена. Наличие и возможность покупки уточняются в сервисном центре.",
+      "source": {
+        "label": "Прайс УЦ ↗",
+        "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
+      }
+    },
     "addons": [
       {
         "title": "КриптоПро CSP",
         "comparisonId": "csp-certificate",
+        "priceInfo": {
+          "text": "Регион проверки цены не зафиксирован.",
+          "source": {
+            "label": "Внутренняя проверка онлайн-заказа 26.10.2026",
+            "internal": true
+          }
+        },
+        "region": null,
+        "regionStatus": "unspecified",
         "price": "1 800 ₽",
         "condition": "Опция к тарифу «КЭП для личных целей ФЛ»; лицензия встроена в сертификат.",
         "priceDate": "26.10.2026",
@@ -692,62 +751,72 @@ export const kontur = {
       {
         "title": "КриптоПро CSP 5.0",
         "comparisonId": "csp-annual",
+        "region": null,
+        "regionStatus": "unspecified",
         "price": "1 850 ₽",
         "condition": "Отдельная лицензия на 1 рабочее место, 1 год.",
         "priceDate": "21.04.2026",
         "priceSource": {
-          "label": "Прайс-лист УЦ от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       },
       {
         "title": "КриптоПро CSP 5.0",
         "comparisonId": "csp-perpetual",
+        "region": null,
+        "regionStatus": "unspecified",
         "price": "3 700 ₽",
         "condition": "Отдельная лицензия на 1 рабочее место, бессрочно.",
         "priceDate": "21.04.2026",
         "priceSource": {
-          "label": "Прайс-лист УЦ от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       },
       {
         "title": "Рутокен Lite",
         "comparisonId": "rutoken-lite",
-        "price": "2 250 ₽",
+        "region": "Москва и Московская область",
+        "regionStatus": "moscow_mo",
+        "price": "2 750 ₽",
         "priceInfo": {
-          "text": "Для клиентов на территории Москвы и Московской области — 2 750 ₽. Для остальных регионов — 2 250 ₽.",
+          "text": "Для Москвы и Московской области — 2 750 ₽. Для остальных регионов — 2 250 ₽.",
           "source": {
-            "label": "Прайс-лист ООО «Сертум-Про» от 21.04.2026, часть 1, стр. 24 ↗",
+            "label": "Прайс УЦ ↗",
             "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
           }
         },
         "condition": "Защищённый USB-носитель; для подписания нужно программное СКЗИ.",
         "priceDate": "21.04.2026",
         "priceSource": {
-          "label": "Прайс-лист УЦ от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       },
       {
         "title": "Рутокен ЭЦП 3.0",
         "comparisonId": "rutoken-ecp3",
+        "region": null,
+        "regionStatus": "unspecified",
         "price": "2 950 ₽",
         "condition": "Криптотокен со встроенным СКЗИ.",
         "priceDate": "21.04.2026",
         "priceSource": {
-          "label": "Прайс-лист УЦ от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       },
       {
         "title": "Рутокен ЭЦП 3.0 NFC",
         "comparisonId": "rutoken-ecp3-nfc",
+        "region": null,
+        "regionStatus": "unspecified",
         "price": "3 900 ₽",
         "condition": "Мобильное подписание через NFC в совместимых приложениях.",
         "priceDate": "21.04.2026",
         "priceSource": {
-          "label": "Прайс-лист УЦ от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       }
@@ -838,39 +907,95 @@ export const kontur = {
         "description": "Заполнение и отслеживание заявок, просмотр действующих и архивных сертификатов и сроков их действия, запуск перевыпуска.",
         "sources": [
           {
-            "label": "Работа с сертификатами организации ↗",
-            "href": "https://support.kontur.ru/ca/80916-rabota_s_sertifikatami_organizacii"
+            "href": "https://support.kontur.ru/ca/38743-vypusk_novogo_sertifikata_kep",
+            "label": "Личный кабинет и получение КЭП ↗"
+          },
+          {
+            "href": "https://support.kontur.ru/ca/38744-obnovlenie_sertifikata_kep",
+            "label": "Обновление сертификата ↗"
           }
-        ]
+        ],
+        "comparisonNote": "Заявки, статусы, сертификаты и заявки на обновление.",
+        "scope": "standard-client-without-corporate-solution"
       },
       "remoteScenarios": {
         "status": "conditional",
-        "description": "КЭП физлица можно выпустить и перевыпустить без визита, если заявление и запрос подписаны действующей КЭП с совпадающими ФИО, СНИЛС и ИНН, а данные успешно прошли проверку в государственных системах.",
+        "description": "КЭП физлица можно выпустить и обновить без визита при электронном подписании заявления и запроса действующей КЭП либо Госключом и успешной проверке данных. Для имеющегося сертификата должны совпадать ФИО, СНИЛС и ИНН с заявкой.",
         "sources": [
           {
-            "label": "Выпуск нового сертификата КЭП ↗",
-            "href": "https://support.kontur.ru/ca/38743-vypusk_novogo_sertifikata_kep"
+            "href": "https://support.kontur.ru/ca/38743-vypusk_novogo_sertifikata_kep",
+            "label": "Официальная документация ↗"
           },
           {
-            "label": "Обновление сертификата КЭП ↗",
-            "href": "https://support.kontur.ru/ca/38744-obnovlenie_sertifikata_kep"
+            "href": "https://support.kontur.ru/ca/38744-obnovlenie_sertifikata_kep",
+            "label": "Официальная документация ↗"
           }
-        ]
+        ],
+        "comparisonNote": "Физлица: действующая КЭП либо Госключ, электронное подписание и проверка данных.",
+        "checkedAt": "2026-11-02"
       },
       "mobileSignature": {
         "status": "conditional",
         "solutionName": "Контур.Подпись",
-        "description": "Подписание со смартфона без токена в поддерживаемых сервисах Контура. Альтернативный сценарий — с NFC-токеном Рутокен ЭЦП 3.0 в совместимых мобильных приложениях.",
+        "description": "Без токена — КЭП в Контур.Подписи для Диадока, регистрации бизнеса Контур.Банка и «Электронной сделки». Через Рутокен ЭЦП 3.0 NFC — подписание в Диадоке и Логистике; ключ остаётся на токене.",
         "sources": [
           {
-            "label": "Мобильная ЭП без токена ↗",
-            "href": "https://kontur.ru/press/news/85817-udostoveryayushchiy_centr_pri_uchastii_kriptopro"
-          },
-          {
-            "label": "Мобильная ЭП через NFC ↗",
-            "href": "https://kontur.ru/press/news/86553-podpisyvat_dokumenty_na_telefone_s_pomoshchyu_nfc_tokenov"
+            "href": "https://ca.kontur.ru/ep-na-mobilnom-telefone",
+            "label": "Официальная документация ↗"
           }
-        ]
+        ],
+        "comparisonNote": "Без токена — КЭП в Контур.Подписи для Диадока, регистрации бизнеса Контур.Банка и «Электронной сделки». Через Рутокен ЭЦП 3.0 NFC — подписание в Диадоке и Логистике; ключ остаётся на токене.",
+        "checkedAt": "2026-11-02"
+      },
+      "mobileWithoutToken": {
+        "description": "Ключ на смартфоне; Диадок, регистрация бизнеса Контур.Банка и «Электронная сделка».",
+        "comparisonNote": "Ключ на смартфоне; Диадок, регистрация бизнеса Контур.Банка и «Электронная сделка».",
+        "checkedAt": "2026-11-02",
+        "sources": [
+          {
+            "href": "https://ca.kontur.ru/ep-na-mobilnom-telefone",
+            "label": "Официальная документация ↗"
+          }
+        ],
+        "status": "conditional",
+        "solutionName": "Контур.Подпись"
+      },
+      "nfc": {
+        "description": "Подписание в Диадоке и Логистике; ключ на токене. Нужен смартфон с NFC.",
+        "comparisonNote": "Подписание в Диадоке и Логистике; ключ на токене. Нужен смартфон с NFC.",
+        "checkedAt": "2026-11-02",
+        "sources": [
+          {
+            "href": "https://ca.kontur.ru/ep-na-mobilnom-telefone",
+            "label": "Официальная документация ↗"
+          }
+        ],
+        "status": "conditional",
+        "solutionName": "Контур.Подпись + Рутокен ЭЦП 3.0 NFC"
+      },
+      "remoteIssuance": {
+        "status": "conditional",
+        "description": "При действующей КЭП либо КЭП Госключа; заявление и запрос подписываются электронно, данные проходят проверку.",
+        "comparisonNote": "При действующей КЭП либо КЭП Госключа; заявление и запрос подписываются электронно, данные проходят проверку.",
+        "sources": [
+          {
+            "href": "https://support.kontur.ru/ca/38743-vypusk_novogo_sertifikata_kep",
+            "label": "Получение КЭП ↗"
+          }
+        ],
+        "checkedAt": "2026-11-02"
+      },
+      "remoteRenewal": {
+        "status": "conditional",
+        "description": "В личном кабинете с действующей КЭП либо Госключом и успешной проверкой данных.",
+        "comparisonNote": "В личном кабинете с действующей КЭП либо Госключом и успешной проверкой данных.",
+        "sources": [
+          {
+            "href": "https://support.kontur.ru/ca/38744-obnovlenie_sertifikata_kep",
+            "label": "Продление КЭП ↗"
+          }
+        ],
+        "checkedAt": "2026-11-02"
       }
     },
     "organization": {
@@ -883,7 +1008,8 @@ export const kontur = {
             "label": "Корпоративный выпуск сертификатов ↗",
             "href": "https://ca.kontur.ru/korporativnim-klientam/vipusk"
           }
-        ]
+        ],
+        "comparisonNote": "Массовый выпуск, контроль сроков, обновление и отзыв через администраторов."
       },
       "apiIntegrations": {
         "status": "available",
@@ -897,7 +1023,8 @@ export const kontur = {
             "label": "API Контур.Доверенности ↗",
             "href": "https://kontur.ru/mchd/api"
           }
-        ]
+        ],
+        "comparisonNote": "API КЦР — сертификаты; API Контур.Доверенности — МЧД."
       },
       "mchd": {
         "status": "available",
@@ -912,7 +1039,8 @@ export const kontur = {
             "label": "Условия функций МЧД в КЦР ↗",
             "href": "https://ca.kontur.ru/korporativnim-klientam"
           }
-        ]
+        ],
+        "comparisonNote": "Создание, регистрация и отзыв; контроль полномочий в КЦР зависит от тарифа."
       }
     },
     "focus": "Контур объединяет мобильное подписание без токена и через NFC с корпоративным управлением КЭП и МЧД: КЦР и API встраивают выпуск и обслуживание сертификатов в рабочие процессы организаций."
@@ -1039,320 +1167,341 @@ export const kontur = {
     "analysis": "Контур представлен в профессиональной повестке безопасности ЭП и цифрового подписания. При высоких оценках центров в изученных отзывах повторяются сложности с технической поддержкой и мобильной подписью. Масштаб этих проблем среди всех клиентов неизвестен."
   },
   "events": [
-  {
-    "id": "kontur-mobile-consignors-2026",
-    "eventDate": "2026-11-03",
-    "eventDateBasis": "publication",
-    "publishedAt": "2026-11-03",
-    "date": "НОЯ 2026",
-    "tags": [
-      "НОВЫЙ СЦЕНАРИЙ"
-    ],
-    "title": "Контур расширил мобильное подписание на грузоотправителей",
-    "summary": "В Логистике от Контур.Диадока грузоотправители могут подписывать ЭТрН со смартфона — КЭП или УНЭП через Госключ.",
-    "details": "В Логистике от Контур.Диадока грузоотправители могут подписывать ЭТрН со смартфона — КЭП или УНЭП через Госключ.",
-    "whyItMatters": "Подписание становится доступно непосредственно на месте отгрузки. Для Контура это расширение применения мобильной ЭП в сегменте грузоотправителей.",
-    "sources": [
-      {
-        "shortLabel": "Контур",
-        "label": "Контур — мобильное подписание для грузоотправителей",
-        "href": "https://kontur.ru/press/news/89189-etrn_v_mobilnom_prilozhenii_logistiki_ot_konturdiadoka"
-      }
-    ]
-  },
-  {
-    "date": "ИЮН 2026",
-    "eventDate": "2026-06-26",
-    "tags": [
-      "НОВЫЙ СЦЕНАРИЙ"
-    ],
-    "title": "NFC-подписание для сотрудников",
-    "summary": "УЦ Контура и «Актив» расширили мобильное подписание через NFC-токен на сотрудников организаций. Ранее сценарий был доступен руководителям и ИП.",
-    "details": "Для подписания используются Контур.Диадок, Контур.Подпись и Рутокен ЭЦП 3.0 NFC. Сертификаты сотрудников можно оформить через УЦ Контура или Корпоративный центр регистрации.",
-    "whyItMatters": "Контур расширяет мобильное подписание на корпоративный сегмент, сохраняя аппаратное хранение ключа. Усиливается связь услуг УЦ с Диадоком.",
-    "sources": [
-      {
-        "shortLabel": "Контур",
-        "label": "Контур — NFC-подписание для сотрудников ↗",
-        "href": "https://kontur.ru/press/news/86553-podpisyvat_dokumenty_na_telefone_s_pomoshchyu_nfc_tokenov"
-      }
-    ]
-  },
-  {
-    "date": "ИЮН 2026",
-    "eventDate": "2026-06-03",
-    "tags": [
-      "НОВЫЙ СЦЕНАРИЙ"
-    ],
-    "title": "«Госключ» появился в API Диадока",
-    "summary": "Диадок добавил в API подписание через «Госключ». Сотрудники могут подписывать документы со смартфона без токена в интеграционных решениях.",
-    "details": "С марта 2026 года подписание через «Госключ» доступно в веб-интерфейсе Диадока, с июня — через API.",
-    "caveat": "Сертификат выпускается в «Госключе», а не в УЦ Контура.",
-    "whyItMatters": "«Госключ» расширяет сценарии мобильного подписания в Диадоке и может частично замещать спрос на платные сертификаты в поддерживаемых сценариях.",
-    "sources": [
-      {
-        "shortLabel": "Диадок",
-        "label": "Диадок — «Госключ» через API ↗",
-        "href": "https://www.diadoc.ru/articles/86081-gosklyuch_v_api_diadoka"
-      },
-      {
-        "label": "Диадок — подписание через «Госключ» ↗",
-        "href": "https://www.diadoc.ru/articles/84046-dokumenty_iz_diadoka"
-      }
-    ]
-  },
-  {
-    "date": "МАЙ 2026",
-    "eventDate": "2026-05-21",
-    "tags": [
-      "ПРОДУКТ"
-    ],
-    "title": "Мобильная КЭП без токена",
-    "summary": "УЦ Контура совместно с КриптоПро внедрил электронную подпись на смартфоне без физического токена через приложение Контур.Подпись.",
-    "details": "Решение использует технологию «КриптоПро Ключ». На момент запуска подписание поддерживалось в мобильном Диадоке, сервисах Контур.Банка и Контур.Недвижимости.",
-    "whyItMatters": "Контур развивает альтернативу КЭП на аппаратном носителе и расширяет мобильное подписание внутри собственной экосистемы.",
-    "sources": [
-      {
-        "shortLabel": "Контур",
-        "label": "Контур — мобильная подпись с КриптоПро ↗",
-        "href": "https://kontur.ru/press/news/85817-udostoveryayushchiy_centr_pri_uchastii_kriptopro"
-      }
-    ]
-  },
-  {
-    "date": "МАЙ 2026",
-    "eventDate": "2026-05-08",
-    "tags": [
-      "НОВЫЙ КАНАЛ"
-    ],
-    "title": "Онлайн-покупка тарифа «1 МЧД»",
-    "summary": "Контур.Доверенность запустила самостоятельную покупку тарифа на одну МЧД без обращения к менеджеру.",
-    "details": "Партнёры могут направлять клиентов по реферальной ссылке; покупатель самостоятельно оформляет заказ.",
-    "whyItMatters": "Продажа единичной МЧД переходит в self-service, сокращая необходимость участия менеджера. Реферальный механизм поддерживает партнёрское привлечение.",
-    "sources": [
-      {
-        "shortLabel": "Контур",
-        "label": "Контур — обновления Контур.Доверенности ↗",
-        "href": "https://kontur.ru/press/news/86334-obnovleniya_v_servisah_kontura"
-      }
-    ]
-  }
-],
-  "methodologyV2": {
-  "reading": [
-    "Рыночная статистика выпуска КЭП и внутренний продуктовый учёт Контура имеют разный периметр. Их показатели нельзя напрямую сопоставлять или суммировать."
-  ],
-  "sources": [
     {
-      "name": "Внутренний документ «Конкурентный анализ КЭП»",
-      "links": [
+      "id": "kontur-mobile-consignors-2026",
+      "eventDate": "2026-11-03",
+      "eventDateBasis": "publication",
+      "publishedAt": "2026-11-03",
+      "date": "НОЯ 2026",
+      "tags": [
+        "НОВЫЙ СЦЕНАРИЙ"
+      ],
+      "title": "Контур расширил мобильное подписание на грузоотправителей",
+      "summary": "В Логистике от Контур.Диадока грузоотправители могут подписывать ЭТрН со смартфона — КЭП или УНЭП через Госключ.",
+      "details": "В Логистике от Контур.Диадока грузоотправители могут подписывать ЭТрН со смартфона — КЭП или УНЭП через Госключ.",
+      "whyItMatters": "Подписание становится доступно непосредственно на месте отгрузки. Для Контура это расширение применения мобильной ЭП в сегменте грузоотправителей.",
+      "sources": [
         {
-          "label": "Google Sheets ↗",
-          "href": "https://docs.google.com/spreadsheets/d/1DH1GR1PkLCfFp8jVYk-sDcFaSCtdHBwrp1JfqmmMwoE/edit?gid=0#gid=0"
+          "shortLabel": "Контур",
+          "label": "Контур — мобильное подписание для грузоотправителей",
+          "href": "https://kontur.ru/press/news/89189-etrn_v_mobilnom_prilozhenii_logistiki_ot_konturdiadoka"
         }
       ]
     },
     {
-      "name": "Контур.Крипто",
-      "links": [
+      "date": "ИЮН 2026",
+      "eventDate": "2026-06-26",
+      "tags": [
+        "НОВЫЙ СЦЕНАРИЙ"
+      ],
+      "title": "NFC-подписание для сотрудников",
+      "summary": "УЦ Контура и «Актив» расширили мобильное подписание через NFC-токен на сотрудников организаций. Ранее сценарий был доступен руководителям и ИП.",
+      "details": "Для подписания используются Контур.Диадок, Контур.Подпись и Рутокен ЭЦП 3.0 NFC. Сертификаты сотрудников можно оформить через УЦ Контура или Корпоративный центр регистрации.",
+      "whyItMatters": "Контур расширяет мобильное подписание на корпоративный сегмент, сохраняя аппаратное хранение ключа. Усиливается связь услуг УЦ с Диадоком.",
+      "sources": [
         {
-          "label": "Контур.Крипто ↗",
-          "href": "https://crypto.kontur.ru/"
-        }
-      ]
-    },
-    {
-      "name": "ФНС России — реестр доверенных лиц УЦ ФНС",
-      "links": [
-        {
-          "label": "ФНС России ↗",
-          "href": "https://www.nalog.gov.ru/rn77/related_activities/ucfns/dlucfns/"
-        }
-      ]
-    },
-    {
-      "name": "ГИР БО ФНС России — бухгалтерская отчётность",
-      "links": [
-        {
-          "label": "СКБ Контур ↗",
-          "href": "https://bo.nalog.gov.ru/organizations-card/3446248"
-        },
-        {
-          "label": "Сертум-Про ↗",
-          "href": "https://bo.nalog.gov.ru/organizations-card/4654206"
-        }
-      ]
-    },
-    {
-      "name": "Официальный сайт УЦ Контура и масштаб компании",
-      "links": [
-        {
-          "label": "УЦ Контура ↗",
-          "href": "https://ca.kontur.ru/"
-        },
-        {
-          "label": "О компании ↗",
-          "href": "https://kontur.ru/about"
-        }
-      ]
-    },
-    {
-      "name": "Корпоративный центр регистрации и клиентские кейсы",
-      "links": [
-        {
-          "label": "КЦР ↗",
-          "href": "https://ca.kontur.ru/korporativnim-klientam"
-        },
-        {
-          "label": "Корпоративный выпуск ↗",
-          "href": "https://ca.kontur.ru/korporativnim-klientam/vipusk"
-        },
-        {
-          "label": "Клиентские кейсы ↗",
-          "href": "https://ca.kontur.ru/responses"
-        }
-      ]
-    },
-    {
-      "name": "Контур.Доверенность и API",
-      "links": [
-        {
-          "label": "Тарифы и пакеты МЧД ↗",
-          "href": "https://kontur.ru/mchd/price?p=1210"
-        },
-        {
-          "label": "API Контур.Доверенности ↗",
-          "href": "https://kontur.ru/mchd/api"
-        },
-        {
-          "label": "API КЦР ↗",
-          "href": "https://ca.kontur.ru/korporativnim-klientam/api"
-        }
-      ]
-    },
-    {
-      "name": "Продукты, тарифы и специальные предложения КЭП",
-      "links": [
-        {
-          "label": "КЭП для руководителей и ИП ↗",
-          "href": "https://ca.kontur.ru/certificate/fns"
-        },
-        {
-          "label": "КЭП для сотрудников ↗",
-          "href": "https://ca.kontur.ru/certificate/employees"
-        },
-        {
-          "label": "КЭП для физлиц ↗",
-          "href": "https://ca.kontur.ru/certificate/private"
-        },
-        {
-          "label": "Универсальная КЭП и сервисы ↗",
-          "href": "https://ca.kontur.ru/certificate/158"
-        },
-        {
-          "label": "КЭП и МЧД для главбуха ↗",
-          "href": "https://ca.kontur.ru/podpis-dlya-glavbuha"
-        },
-        {
-          "label": "Прайс-лист УЦ от 21.04.2026 (часть 1) ↗",
-          "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
-        },
-        {
-          "label": "Документы УЦ ↗",
-          "href": "https://ca.kontur.ru/about/documents/48"
-        }
-      ]
-    },
-    {
-      "name": "Онлайн-покупка и партнёрские продажи",
-      "links": [
-        {
-          "label": "Оформление заказа ↗",
-          "href": "https://support.kontur.ru/ca/86928-podbor_tarifa"
-        },
-        {
-          "label": "Продление КЭП ↗",
-          "href": "https://support.kontur.ru/ca/38744-obnovlenie_sertifikata_kep"
-        },
-        {
-          "label": "Реферальная программа ↗",
-          "href": "https://kontur.ru/partnership/online/ca"
-        },
-        {
-          "label": "Официальные представители ↗",
-          "href": "https://kontur.ru/partnership/sclegal"
-        },
-        {
-          "label": "Условия вознаграждения ↗",
-          "href": "https://kontur.ru/partnership/blog/85723-pravila_rascheta_voznagrazhdeniya_referalnoy_programmy"
-        }
-      ]
-    },
-    {
-      "name": "Мобильная электронная подпись",
-      "links": [
-        {
-          "label": "Подписание без токена ↗",
-          "href": "https://kontur.ru/press/news/85817-udostoveryayushchiy_centr_pri_uchastii_kriptopro"
-        },
-        {
-          "label": "Подписание через NFC ↗",
+          "shortLabel": "Контур",
+          "label": "Контур — NFC-подписание для сотрудников ↗",
           "href": "https://kontur.ru/press/news/86553-podpisyvat_dokumenty_na_telefone_s_pomoshchyu_nfc_tokenov"
         }
       ]
     },
     {
-      "name": "Профессиональное присутствие Контура",
-      "links": [
+      "date": "ИЮН 2026",
+      "eventDate": "2026-06-03",
+      "tags": [
+        "НОВЫЙ СЦЕНАРИЙ"
+      ],
+      "title": "«Госключ» появился в API Диадока",
+      "summary": "Диадок добавил в API подписание через «Госключ». Сотрудники могут подписывать документы со смартфона без токена в интеграционных решениях.",
+      "details": "С марта 2026 года подписание через «Госключ» доступно в веб-интерфейсе Диадока, с июня — через API.",
+      "caveat": "Сертификат выпускается в «Госключе», а не в УЦ Контура.",
+      "whyItMatters": "«Госключ» расширяет сценарии мобильного подписания в Диадоке и может частично замещать спрос на платные сертификаты в поддерживаемых сценариях.",
+      "sources": [
         {
-          "label": "Форум «Цифровые решения» ↗",
-          "href": "https://kontur.ru/press/news/88713-kontur_ot_imperativa_v_primenenii_epd_k_udobstvu_podpisaniya_dokumentov"
+          "shortLabel": "Диадок",
+          "label": "Диадок — «Госключ» через API ↗",
+          "href": "https://www.diadoc.ru/articles/86081-gosklyuch_v_api_diadoka"
         },
         {
-          "label": "PKI-Форум Россия 2026 ↗",
-          "href": "https://pki-forum.ru/materials"
-        },
-        {
-          "label": "Конференция «Искусство бизнеса» ↗",
-          "href": "https://kontur.ru/press/news/86375-cifrovoy_perimetr_edo"
+          "label": "Диадок — подписание через «Госключ» ↗",
+          "href": "https://www.diadoc.ru/articles/84046-dokumenty_iz_diadoka"
         }
       ]
     },
     {
-      "name": "Публичные представители Контура",
-      "links": [
+      "date": "МАЙ 2026",
+      "eventDate": "2026-05-21",
+      "tags": [
+        "ПРОДУКТ"
+      ],
+      "title": "Мобильная КЭП без токена",
+      "summary": "УЦ Контура совместно с КриптоПро внедрил электронную подпись на смартфоне без физического токена через приложение Контур.Подпись.",
+      "details": "Решение использует технологию «КриптоПро Ключ». На момент запуска подписание поддерживалось в мобильном Диадоке, сервисах Контур.Банка и Контур.Недвижимости.",
+      "whyItMatters": "Контур развивает альтернативу КЭП на аппаратном носителе и расширяет мобильное подписание внутри собственной экосистемы.",
+      "sources": [
         {
-          "label": "Эксперты Контура ↗",
-          "href": "https://kontur.ru/about/management"
-        },
-        {
-          "label": "Экспертиза по КЭП и МЧД ↗",
-          "href": "https://ca.kontur.ru/articles/88680-vypustit_mchd"
+          "shortLabel": "Контур",
+          "label": "Контур — мобильная подпись с КриптоПро ↗",
+          "href": "https://kontur.ru/press/news/85817-udostoveryayushchiy_centr_pri_uchastii_kriptopro"
         }
       ]
     },
     {
-      "name": "КЭП: январь–сентябрь 2025 и 2026",
-      "links": [
+      "date": "МАЙ 2026",
+      "eventDate": "2026-05-08",
+      "tags": [
+        "НОВЫЙ КАНАЛ"
+      ],
+      "title": "Онлайн-покупка тарифа «1 МЧД»",
+      "summary": "Контур.Доверенность запустила самостоятельную покупку тарифа на одну МЧД без обращения к менеджеру.",
+      "details": "Партнёры могут направлять клиентов по реферальной ссылке; покупатель самостоятельно оформляет заказ.",
+      "whyItMatters": "Продажа единичной МЧД переходит в self-service, сокращая необходимость участия менеджера. Реферальный механизм поддерживает партнёрское привлечение.",
+      "sources": [
         {
-          "label": "Срез 2025",
-          "href": "https://t.me/ep_uc/4100"
-        },
-        {
-          "label": "Срез 2026",
-          "href": "https://t.me/ep_uc/5686"
-        }
-      ]
-    },
-    {
-      "name": "Контур — мобильное подписание для грузоотправителей",
-      "links": [
-        {
-          "label": "Контур",
-          "href": "https://kontur.ru/press/news/89189-etrn_v_mobilnom_prilozhenii_logistiki_ot_konturdiadoka"
+          "shortLabel": "Контур",
+          "label": "Контур — обновления Контур.Доверенности ↗",
+          "href": "https://kontur.ru/press/news/86334-obnovleniya_v_servisah_kontura"
         }
       ]
     }
-  ]
-}
+  ],
+  "methodologyV2": {
+    "reading": [
+      "Рыночная статистика выпуска КЭП и внутренний продуктовый учёт Контура имеют разный периметр. Их показатели нельзя напрямую сопоставлять или суммировать."
+    ],
+    "sources": [
+      {
+        "name": "Внутренний документ «Конкурентный анализ КЭП»",
+        "links": [
+          {
+            "label": "Google Sheets ↗",
+            "href": "https://docs.google.com/spreadsheets/d/1DH1GR1PkLCfFp8jVYk-sDcFaSCtdHBwrp1JfqmmMwoE/edit?gid=0#gid=0"
+          }
+        ]
+      },
+      {
+        "name": "Контур.Крипто",
+        "links": [
+          {
+            "label": "Контур.Крипто ↗",
+            "href": "https://crypto.kontur.ru/"
+          }
+        ]
+      },
+      {
+        "name": "ФНС России — реестр доверенных лиц УЦ ФНС",
+        "links": [
+          {
+            "label": "ФНС России ↗",
+            "href": "https://www.nalog.gov.ru/rn77/related_activities/ucfns/dlucfns/"
+          }
+        ]
+      },
+      {
+        "name": "ГИР БО ФНС России — бухгалтерская отчётность",
+        "links": [
+          {
+            "label": "СКБ Контур ↗",
+            "href": "https://bo.nalog.gov.ru/organizations-card/3446248"
+          },
+          {
+            "label": "Сертум-Про ↗",
+            "href": "https://bo.nalog.gov.ru/organizations-card/4654206"
+          }
+        ]
+      },
+      {
+        "name": "Официальный сайт УЦ Контура и масштаб компании",
+        "links": [
+          {
+            "label": "УЦ Контура ↗",
+            "href": "https://ca.kontur.ru/"
+          },
+          {
+            "label": "О компании ↗",
+            "href": "https://kontur.ru/about"
+          }
+        ]
+      },
+      {
+        "name": "Корпоративный центр регистрации и клиентские кейсы",
+        "links": [
+          {
+            "label": "КЦР ↗",
+            "href": "https://ca.kontur.ru/korporativnim-klientam"
+          },
+          {
+            "label": "Корпоративный выпуск ↗",
+            "href": "https://ca.kontur.ru/korporativnim-klientam/vipusk"
+          },
+          {
+            "label": "Клиентские кейсы ↗",
+            "href": "https://ca.kontur.ru/responses"
+          }
+        ]
+      },
+      {
+        "name": "Контур.Доверенность и API",
+        "links": [
+          {
+            "label": "Тарифы и пакеты МЧД ↗",
+            "href": "https://kontur.ru/mchd/price"
+          },
+          {
+            "label": "API Контур.Доверенности ↗",
+            "href": "https://kontur.ru/mchd/api"
+          },
+          {
+            "label": "API КЦР ↗",
+            "href": "https://ca.kontur.ru/korporativnim-klientam/api"
+          }
+        ]
+      },
+      {
+        "name": "Продукты, тарифы и специальные предложения КЭП",
+        "links": [
+          {
+            "label": "КЭП для руководителей и ИП ↗",
+            "href": "https://ca.kontur.ru/certificate/fns"
+          },
+          {
+            "label": "КЭП для сотрудников ↗",
+            "href": "https://ca.kontur.ru/certificate/employees"
+          },
+          {
+            "label": "КЭП для физлиц ↗",
+            "href": "https://ca.kontur.ru/certificate/private"
+          },
+          {
+            "label": "Универсальная КЭП и сервисы ↗",
+            "href": "https://ca.kontur.ru/certificate/158"
+          },
+          {
+            "label": "КЭП и МЧД для главбуха ↗",
+            "href": "https://ca.kontur.ru/podpis-dlya-glavbuha"
+          },
+          {
+            "label": "Прайс-лист УЦ от 21.04.2026 (часть 1) ↗",
+            "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
+          },
+          {
+            "label": "Документы УЦ ↗",
+            "href": "https://ca.kontur.ru/about/documents/48"
+          }
+        ]
+      },
+      {
+        "name": "Онлайн-покупка и партнёрские продажи",
+        "links": [
+          {
+            "label": "Оформление заказа ↗",
+            "href": "https://support.kontur.ru/ca/86928-podbor_tarifa"
+          },
+          {
+            "label": "Продление КЭП ↗",
+            "href": "https://support.kontur.ru/ca/38744-obnovlenie_sertifikata_kep"
+          },
+          {
+            "label": "Реферальная программа ↗",
+            "href": "https://kontur.ru/partnership/online/ca"
+          },
+          {
+            "label": "Официальные представители ↗",
+            "href": "https://kontur.ru/partnership/sclegal"
+          },
+          {
+            "label": "Условия вознаграждения ↗",
+            "href": "https://kontur.ru/partnership/blog/85723-pravila_rascheta_voznagrazhdeniya_referalnoy_programmy"
+          }
+        ]
+      },
+      {
+        "name": "Мобильная электронная подпись",
+        "links": [
+          {
+            "label": "Подписание без токена ↗",
+            "href": "https://kontur.ru/press/news/85817-udostoveryayushchiy_centr_pri_uchastii_kriptopro"
+          },
+          {
+            "label": "Подписание через NFC ↗",
+            "href": "https://kontur.ru/press/news/86553-podpisyvat_dokumenty_na_telefone_s_pomoshchyu_nfc_tokenov"
+          }
+        ]
+      },
+      {
+        "name": "Профессиональное присутствие Контура",
+        "links": [
+          {
+            "label": "Форум «Цифровые решения» ↗",
+            "href": "https://kontur.ru/press/news/88713-kontur_ot_imperativa_v_primenenii_epd_k_udobstvu_podpisaniya_dokumentov"
+          },
+          {
+            "label": "PKI-Форум Россия 2026 ↗",
+            "href": "https://pki-forum.ru/materials"
+          },
+          {
+            "label": "Конференция «Искусство бизнеса» ↗",
+            "href": "https://kontur.ru/press/news/86375-cifrovoy_perimetr_edo"
+          }
+        ]
+      },
+      {
+        "name": "Публичные представители Контура",
+        "links": [
+          {
+            "label": "Эксперты Контура ↗",
+            "href": "https://kontur.ru/about/management"
+          },
+          {
+            "label": "Экспертиза по КЭП и МЧД ↗",
+            "href": "https://ca.kontur.ru/articles/88680-vypustit_mchd"
+          }
+        ]
+      },
+      {
+        "name": "Функциональность — проверка 02.11.2026",
+        "links": [
+          {
+            "href": "https://support.kontur.ru/ca/80916-rabota_s_sertifikatami_organizacii",
+            "label": "Официальная документация ↗"
+          },
+          {
+            "href": "https://support.kontur.ru/ca/38743-vypusk_novogo_sertifikata_kep",
+            "label": "Официальная документация ↗"
+          },
+          {
+            "href": "https://ca.kontur.ru/ep-na-mobilnom-telefone",
+            "label": "Официальная документация ↗"
+          },
+          {
+            "href": "https://support.kontur.ru/mchd/38893-vozmozhnosti_mchd",
+            "label": "Официальная документация ↗"
+          }
+        ]
+      },
+      {
+        "name": "КЭП: январь–сентябрь 2025 и 2026",
+        "links": [
+          {
+            "label": "Срез 2025",
+            "href": "https://t.me/ep_uc/4100"
+          },
+          {
+            "label": "Срез 2026",
+            "href": "https://t.me/ep_uc/5686"
+          }
+        ]
+      },
+      {
+        "name": "Контур — мобильное подписание для грузоотправителей",
+        "links": [
+          {
+            "label": "Контур",
+            "href": "https://kontur.ru/press/news/89189-etrn_v_mobilnom_prilozhenii_logistiki_ot_konturdiadoka"
+          }
+        ]
+      }
+    ]
+  }
 };

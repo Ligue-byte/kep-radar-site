@@ -87,13 +87,13 @@ const styleFor = (column, total = false) => {
     signedNumber: 5,
     integer: 11
   }[column.type] ?? 0;
-  return total && base <= 5 ? base + 5 : base;
+  return total && base <= 5 ? (base === 0 ? 6 : base + 5) : base;
 };
 
-const workbookStyles = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="165" formatCode="0.0%"/></numFmts><fonts count="2"><font><sz val="11"/><color rgb="FF20242B"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Arial"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF123955"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="12"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="3" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/><xf numFmtId="165" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/><xf numFmtId="165" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/><xf numFmtId="3" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" applyFont="1"/><xf numFmtId="3" fontId="1" fillId="0" borderId="0" applyFont="1" applyNumberFormat="1"/><xf numFmtId="165" fontId="1" fillId="0" borderId="0" applyFont="1" applyNumberFormat="1"/><xf numFmtId="165" fontId="1" fillId="0" borderId="0" applyFont="1" applyNumberFormat="1"/><xf numFmtId="3" fontId="1" fillId="0" borderId="0" applyFont="1" applyNumberFormat="1"/><xf numFmtId="1" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Обычный" xfId="0" builtinId="0"/></cellStyles><dxfs count="2"><dxf><font><color rgb="FF008A68"/></font></dxf><dxf><font><color rgb="FFBE453E"/></font></dxf></dxfs></styleSheet>`;
+const workbookStyles = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="165" formatCode="0.0%"/></numFmts><fonts count="3"><font><sz val="11"/><color rgb="FF20242B"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FF20242B"/><name val="Arial"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF123955"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="12"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf><xf numFmtId="3" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/><xf numFmtId="165" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/><xf numFmtId="165" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/><xf numFmtId="3" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/><xf numFmtId="0" fontId="2" fillId="0" borderId="0" applyFont="1"/><xf numFmtId="3" fontId="2" fillId="0" borderId="0" applyFont="1" applyNumberFormat="1"/><xf numFmtId="165" fontId="2" fillId="0" borderId="0" applyFont="1" applyNumberFormat="1"/><xf numFmtId="165" fontId="2" fillId="0" borderId="0" applyFont="1" applyNumberFormat="1"/><xf numFmtId="3" fontId="2" fillId="0" borderId="0" applyFont="1" applyNumberFormat="1"/><xf numFmtId="1" fontId="0" fillId="0" borderId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Обычный" xfId="0" builtinId="0"/></cellStyles><dxfs count="2"><dxf><font><color rgb="FF008A68"/></font></dxf><dxf><font><color rgb="FFBE453E"/></font></dxf></dxfs></styleSheet>`;
 
-function createWorkbook({ sheetName, columns, rows, freezeHeader = true }) {
-  const worksheet = createWorksheet(columns, rows, { freezeHeader });
+function createWorkbook({ sheetName, columns, rows, freezeHeader = true, headerHeight = 24 }) {
+  const worksheet = createWorksheet(columns, rows, { freezeHeader, headerHeight });
 
   return createZip([
     { name: '[Content_Types].xml', content: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>' },
@@ -132,14 +132,14 @@ function conditionalFormatting(columns, lastRow) {
   }).join('');
 }
 
-function createWorksheet(columns, rows, { freezeHeader = true } = {}) {
-  const header = `<row r="1" ht="24" customHeight="1">${columns.map((column, index) => cell(`${columnName(index)}1`, column.label, 1)).join('')}</row>`;
+function createWorksheet(columns, rows, { freezeHeader = true, headerHeight = 24 } = {}) {
+  const header = `<row r="1" ht="${headerHeight}" customHeight="1">${columns.map((column, index) => cell(`${columnName(index)}1`, column.label, 1)).join('')}</row>`;
   const body = rows.map((row, rowIndex) => {
     const currentRow = rowIndex + 2;
     return `<row r="${currentRow}">${columns.map((column, columnIndex) => cell(
       `${columnName(columnIndex)}${currentRow}`,
       row[column.key],
-      styleFor(column, row.total)
+      styleFor(column, row.total === true)
     )).join('')}</row>`;
   }).join('');
   const lastRow = rows.length + 1;
