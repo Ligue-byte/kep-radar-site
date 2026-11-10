@@ -755,9 +755,10 @@ export const kontur = {
         "regionStatus": "unspecified",
         "price": "1 850 ₽",
         "condition": "Отдельная лицензия на 1 рабочее место, 1 год.",
-        "priceDate": "21.04.2026",
+        "priceDate": "25.09.2026",
+        "priceCheckedAt": "11.11.2026",
         "priceSource": {
-          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ „СКБ Контур“», действует с 25.09.2026",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       },
@@ -768,29 +769,31 @@ export const kontur = {
         "regionStatus": "unspecified",
         "price": "3 700 ₽",
         "condition": "Отдельная лицензия на 1 рабочее место, бессрочно.",
-        "priceDate": "21.04.2026",
+        "priceDate": "25.09.2026",
+        "priceCheckedAt": "11.11.2026",
         "priceSource": {
-          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ „СКБ Контур“», действует с 25.09.2026",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       },
       {
         "title": "Рутокен Lite",
         "comparisonId": "rutoken-lite",
-        "region": "Москва и Московская область",
-        "regionStatus": "moscow_mo",
-        "price": "2 750 ₽",
+        "region": null,
+        "regionStatus": "unspecified",
+        "price": "2 400 ₽",
         "priceInfo": {
-          "text": "Для Москвы и Московской области — 2 750 ₽. Для остальных регионов — 2 250 ₽.",
+          "text": "Базовая цена с НДС по прайсу, действующему с 25.09.2026. Регион цены не указан.",
           "source": {
             "label": "Прайс УЦ ↗",
             "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
           }
         },
         "condition": "Защищённый USB-носитель; для подписания нужно программное СКЗИ.",
-        "priceDate": "21.04.2026",
+        "priceDate": "25.09.2026",
+        "priceCheckedAt": "11.11.2026",
         "priceSource": {
-          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ „СКБ Контур“», действует с 25.09.2026",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       },
@@ -801,9 +804,10 @@ export const kontur = {
         "regionStatus": "unspecified",
         "price": "2 950 ₽",
         "condition": "Криптотокен со встроенным СКЗИ.",
-        "priceDate": "21.04.2026",
+        "priceDate": "25.09.2026",
+        "priceCheckedAt": "11.11.2026",
         "priceSource": {
-          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ „СКБ Контур“», действует с 25.09.2026",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       },
@@ -814,9 +818,10 @@ export const kontur = {
         "regionStatus": "unspecified",
         "price": "3 900 ₽",
         "condition": "Мобильное подписание через NFC в совместимых приложениях.",
-        "priceDate": "21.04.2026",
+        "priceDate": "25.09.2026",
+        "priceCheckedAt": "11.11.2026",
         "priceSource": {
-          "label": "Прайс-лист АО «ПФ «СКБ Контур» от 21.04.2026, часть 1",
+          "label": "Прайс-лист АО «ПФ „СКБ Контур“», действует с 25.09.2026",
           "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
         }
       }
@@ -1382,7 +1387,7 @@ export const kontur = {
             "href": "https://ca.kontur.ru/podpis-dlya-glavbuha"
           },
           {
-            "label": "Прайс-лист УЦ от 21.04.2026 (часть 1) ↗",
+            "label": "Прайс-лист УЦ с 25.09.2026 ↗",
             "href": "https://ca.kontur.ru/Files/userfiles/file/instruction/kontur_price.pdf"
           },
           {
