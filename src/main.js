@@ -8,6 +8,7 @@ import { createCompetitorEventArchive } from './competitor-events.js';
 import { marketSignalsData } from './data/market-signals.js';
 import { competitors, competitorList } from './data/competitors.js';
 import { kontur } from './data/kontur.js';
+import { comparison } from './data/comparison.js';
 import { downloadXlsx } from './xlsx.js';
 
 const competitorEventArchivesEnabled = true;
@@ -45,7 +46,7 @@ function layout(content, current) {
   app.innerHTML = `
     <header class="topbar">
       <a class="logo" href="#market">РАДАР <span>РЫНКА УЦ</span></a>
-      <nav><a class="${current === 'market' ? 'active' : ''}" href="#market">Рынок</a><a class="${current === 'kontur' ? 'active' : ''}" href="#kontur">Контур</a>${competitorMenu()}</nav>
+      <nav><a class="${current === 'market' ? 'active' : ''}" href="#market">Рынок</a><a class="${current === 'kontur' ? 'active' : ''}" href="#kontur">Контур</a><a class="${current === 'comparison' ? 'active' : ''}" href="#comparison">Сравнение УЦ</a>${competitorMenu()}</nav>
     </header>
     <main>${content}</main>
     <footer>${current === 'market' ? 'Периоды данных указаны в разделах · методика, ограничения и источники доступны для проверки' : 'Периоды данных указаны в разделах · факты, расчёты и аналитические выводы разделены'}</footer>`;
@@ -325,6 +326,88 @@ function renderTeamConclusions(items = []) {
   return `<div class="team-conclusions">${visibleItems.map((item, index) => `<article class="team-card"><span>${String(index + 1).padStart(2, '0')}</span><h3>${esc(item.title)}</h3><p><b>Факт.</b> ${esc(item.fact)}</p><p><b>Значение.</b> ${esc(item.implication ?? item.meaning)}</p></article>`).join('')}</div>`;
 }
 
+
+function comparisonCellTooltip(cell, product) {
+  const lines = [];
+  if (cell.offerType) lines.push(`<span class="tooltip-title">${esc(cell.offerType)}</span>`);
+  if (cell.included) lines.push(`<span class="tooltip-link-line"><b>Состав:</b> ${esc(cell.included)}</span>`);
+  if (cell.term) lines.push(`<span class="tooltip-link-line"><b>Срок:</b> ${esc(cell.term)}</span>`);
+  if (cell.region) lines.push(`<span class="tooltip-link-line"><b>Регион:</b> ${esc(cell.region)}</span>`);
+  if (cell.reason) lines.push(`<span class="tooltip-note">${esc(cell.reason)}</span>`);
+  if (cell.research) lines.push('<span class="tooltip-note">Цена относится к исследовательскому срезу и не приравнивается к подтверждённому федеральному тарифу.</span>');
+  if (cell.comparabilityNote) lines.push(`<span class="tooltip-note"><b>Сопоставимость:</b> ${esc(cell.comparabilityNote)}</span>`);
+  if (cell.checkedAt) lines.push(`<span class="tooltip-note">Проверено: ${esc(cell.checkedAt)}.</span>`);
+  if (cell.source) lines.push(`<span class="tooltip-link-line">${cell.source.href ? externalLink(cell.source) : esc(cell.source.label)}</span>`);
+  if (!lines.length) return '';
+  return infoTip(lines.join(''), `Условия цены «${product}»`);
+}
+
+function comparisonDelta(cell, konturCell, differenceBasis) {
+  if (cell.excludePriceDelta || konturCell?.excludePriceDelta) return '';
+  if (!Number.isFinite(cell.price) || !Number.isFinite(konturCell?.price)) return '';
+  if (differenceBasis !== 'published' && (!cell.comparable || !konturCell.comparable)) return '';
+  const delta = cell.price - konturCell.price;
+  if (delta === 0) return '<small class="comparison-delta is-same">= 0 ₽</small>';
+  const isHigher = delta > 0;
+  return `<small class="comparison-delta ${isHigher ? 'is-higher' : 'is-lower'}">${isHigher ? '▲' : '▼'} ${Math.abs(delta).toLocaleString('ru-RU')} ₽</small>`;
+}
+
+function comparisonOfferHref(player, row) {
+  if (row.role) return `${player.route}?role=${encodeURIComponent(row.role)}`;
+  if (row.source === 'addon') return `${player.route}?addon=${encodeURIComponent(row.key)}`;
+  if (row.parent && row.source === 'tariff') {
+    return `${player.route}?offer=${encodeURIComponent(row.parent)}&tariff=${encodeURIComponent(row.key)}`;
+  }
+  return '';
+}
+
+function renderComparisonCell(cell, konturCell, product, player, row) {
+  const isKontur = player.accent;
+  const suppressCellInfo = row.source === 'base' || row.parent === 'mchd' || row.source === 'addon';
+  const tooltip = renderPriceInfo(cell, `Условия цены «${product}»`) || (suppressCellInfo ? '' : comparisonCellTooltip(cell, product));
+  if (!cell.priceDisplay) {
+    return `<td class="comparison-cell comparison-status-cell${isKontur ? ' comparison-kontur-cell' : ''}"><span class="comparison-status">—</span>${tooltip}</td>`;
+  }
+  const href = comparisonOfferHref(player, row);
+  const price = href
+    ? `<a class="comparison-price-link" href="${esc(href)}">${esc(cell.priceDisplay)}</a>`
+    : `<span class="comparison-price">${esc(cell.priceDisplay)}</span>`;
+  const delta = comparisonDelta(cell, konturCell, row.differenceBasis);
+  return `<td class="comparison-cell${isKontur ? ' comparison-kontur-cell' : ''}"><span class="comparison-price-row">${price}${tooltip}</span>${isKontur ? '' : delta}</td>`;
+}
+
+function renderCapabilitiesComparison() {
+const players=comparison.players;
+const rows=comparison.capabilityRows;
+const labels=functionalityStatus;
+const symbols={available:'✓',conditional:'◐',unconfirmed:'—'};
+const cells=rows.map(row=>players.map(player=>{const d=player.profile.functionalityV2[row.group][row.key];return {status:d.status,name:d.solutionName??'',note:d.comparisonNote??d.description,detail:d.description,sources:d.sources??[],profileRoute:player.route};}));
+function standardInfo(text,label){return `<span class="info-tip" data-info-tip tabindex="0" role="button" aria-expanded="false" aria-label="${esc(label)}"><span aria-hidden="true">i</span><span role="tooltip">${esc(text)}</span></span>`}
+function renderCell(cell,player,row){
+  const links=cell.sources.filter(s=>s.href).map(s=>`<a href="${esc(s.href)}" target="_blank" rel="noreferrer">${esc(String(s.label??'Официальная страница').replace(/\s*↗$/u,''))} ↗</a>`).join(' · ');
+  const detail=`${esc(cell.detail)}${links?`<span class="tooltip-link-line">${links}</span>`:''}<span class="tooltip-link-line"><a href="${esc(cell.profileRoute)}">Открыть профиль УЦ</a></span>`;
+  return `<td class="capabilities-feature-cell${player.accent?' comparison-kontur-cell':''}" data-capability-player="${player.key}" data-capability-status="${cell.status}"><span class="info-tip capabilities-feature-status is-${cell.status}" data-info-tip tabindex="0" role="button" aria-expanded="false" aria-label="${esc(row.title+' · '+player.name+' · '+labels[cell.status])}"><span><span aria-hidden="true">${symbols[cell.status]}</span> ${labels[cell.status]}</span><span role="tooltip">${detail}</span></span>${cell.name?`<a class="capabilities-feature-name" href="${esc(cell.profileRoute)}">${esc(cell.name)}</a>`:''}<p class="capabilities-feature-note">${esc(cell.note)}</p></td>`;
+}
+const featureHtml=`<section class="capabilities-comparison" id="capabilities"><p class="eyebrow">ВОЗМОЖНОСТИ</p><h2>Возможности и решения УЦ</h2><p class="capabilities-feature-lead">Что доступно клиенту и при каких условиях. Нажмите на статус, чтобы посмотреть подробности.</p><div class="capabilities-feature-legend"><span class="is-available">✓ Есть</span><span class="is-conditional">◐ Есть с условиями</span><span class="is-unconfirmed">— Не подтверждено</span></div><div class="table-wrap comparison-table-wrap capabilities-feature-wrap"><table class="comparison-table capabilities-feature-table"><thead><tr><th class="comparison-product" scope="col">Возможность / решение</th>${players.map(p=>`<th scope="col" class="${p.accent?'comparison-kontur-head':''}">${esc(p.name)}</th>`).join('')}</tr></thead><tbody>${rows.map((r,i)=>`<tr data-capability-row="${r.key}"${r.scope?' class="capabilities-feature-group-start"':''}><th scope="row" class="comparison-product">${r.scope?`<span class="capabilities-feature-scope">${r.scope}</span>`:''}${r.title} ${standardInfo(r.help,'Что сравнивается: '+r.title)}</th>${players.map((p,j)=>renderCell(cells[i][j],p,r)).join('')}</tr>`).join('')}</tbody></table></div><div class="analysis-note"><p>${esc(comparison.capabilityAnalysis)}</p></div><p class="capabilities-feature-footnote">Сводка по текущим профилям Radar. «Не подтверждено» означает недостаток сведений. Дополнительные услуги УЦ будут рассмотрены отдельно.</p></section>`;
+
+return featureHtml;
+}
+
+function renderComparison() {
+  const headers = comparison.players.map((player) => `<th scope="col" class="${player.accent ? 'comparison-kontur-head' : ''}">${esc(player.name)}</th>`).join('');
+  const legend = `<div class="comparison-legend" aria-label="Легенда сравнения цен"><span class="is-lower">▼ конкурент дешевле Контура</span><span class="is-higher">▲ конкурент дороже Контура</span><span class="is-same">= одинаковая цена</span></div>`;
+  const groupInfo = {
+    base: 'Сравниваются стартовые цены базовых предложений по каждой клиентской роли. Для руководителя/ИП — стоимость сопровождения получения КЭП УЦ ФНС. Маркер показывает разницу опубликованных сумм с Контуром. Состав, срок и регион могут различаться; разница не означает одинаковый комплект. Подробности доступны на страницах УЦ',
+    mchd: 'Сравниваются опубликованные цены на 1 МЧД, пакет из 5 МЧД и безлимитный тариф, включая минимально заявленные цены без приставки «от». Под ценами показана разница в рублях относительно Контура. Сроки лицензий, состав операций и ограничения по организациям могут различаться. Разница относится к указанным суммам и не означает одинаковый состав услуги или окончательную стоимость заказа',
+    addons: 'Сравниваются опубликованные цены отдельной годовой лицензии КриптоПро CSP и носителей Рутокен. Минимально заявленные цены показаны без приставки «от», под суммами — разница с Контуром. Регион продажи, версия и модификация носителя могут различаться; точное предложение доступно по клику на цену. Встроенная лицензия в составе сертификата не заменяет отдельную годовую лицензию'
+  };
+  const groups = comparison.groups.map((group) => `<section class="comparison-mini-block"><h3>${textWithInfo(group.title, groupInfo[group.key] ? info(groupInfo[group.key], `Как читать цены «${group.title}»`) : '')}</h3><div class="comparison-table-wrap table-wrap"><table class="comparison-table"><thead><tr><th scope="col" class="comparison-product">Продукт / услуга</th>${headers}</tr></thead><tbody>${group.rows.map((row) => {
+    const konturCell = row.cells.kontur;
+    return `<tr><th scope="row" class="comparison-product">${esc(row.product)}</th>${comparison.players.map((player) => renderComparisonCell(row.cells[player.key], konturCell, row.product, player, row)).join('')}</tr>`;
+  }).join('')}</tbody></table></div><div class="analysis-note comparison-analysis"><p>${esc(group.analysis)}</p></div></section>`).join('');
+  const matrix = `${legend}${groups}`;
+  layout(`<section class="comparison-hero"><p class="eyebrow">СРАВНЕНИЕ КОНКУРЕНТОВ</p><h1>${esc(comparison.title)}</h1><p class="lead">${esc(comparison.lead)}</p></section>${section('ЦЕНЫ', 'Цены и состав предложения', matrix, 'comparison-section')}${renderCapabilitiesComparison()}${renderCompactMethodology(comparison.methodology)}`, 'comparison');
+}
 
 function renderMarket() {
   activeFinancialMetric = 'revenue';
@@ -965,6 +1048,7 @@ function render(resetScroll = false) {
   if (competitorEventArchivesEnabled && route === 'kontur/events') renderCompetitorEventsArchive(kontur);
   else if (competitorEventArchivesEnabled && /^competitor\/[^/]+\/events$/.test(route) && competitors[slug]) renderCompetitorEventsArchive(competitors[slug]);
   else if (route === 'kontur') renderKontur();
+  else if (route === 'comparison') renderComparison();
   else if (route === 'market-signals') renderMarketSignalsArchive();
   else if (route.startsWith('competitor/') && competitors[slug]) renderCompetitor(competitors[slug]);
   else renderMarket();
